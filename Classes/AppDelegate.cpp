@@ -23,6 +23,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(640,960);
+<<<<<<< HEAD
     auto resourceSize = Size(640,960);
 <<<<<<< HEAD
 
@@ -36,6 +37,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 =======
 >>>>>>> origin/master
+=======
+    auto resourceSize = Size(649,960);
+>>>>>>> parent of bca886d... 1
     Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
     
