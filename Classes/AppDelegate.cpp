@@ -24,6 +24,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(640,960);
     auto resourceSize = Size(640,960);
+<<<<<<< HEAD
 
 	//以下2行代码是windows下的
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -33,6 +34,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
 
 
+=======
+>>>>>>> origin/master
     Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
     
