@@ -31,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//以下2行代码是windows下的
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
-	glview->setFrameZoomFactor(0.75f);
+	glview->setFrameZoomFactor(0.7f);
 
 #endif
 
