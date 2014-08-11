@@ -26,7 +26,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto resourceSize = Size(649,960);
 
 
-	//ÒÔÏÂ2ÐÐ´úÂëÊÇwindowsÏÂµÄ
+	//
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
 	glview->setFrameZoomFactor(0.7f);
