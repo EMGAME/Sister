@@ -24,6 +24,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(640,960);
 <<<<<<< HEAD
+<<<<<<< HEAD
     auto resourceSize = Size(640,960);
 <<<<<<< HEAD
 
@@ -37,6 +38,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 =======
 >>>>>>> origin/master
+=======
+    auto resourceSize = Size(649,960);
+>>>>>>> parent of bca886d... 1
 =======
     auto resourceSize = Size(649,960);
 >>>>>>> parent of bca886d... 1
