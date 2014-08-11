@@ -23,7 +23,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(640,960);
-    auto resourceSize = Size(649,960);
+    auto resourceSize = Size(640,960);
+
+	//以下2行代码是windows下的
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	glview->setFrameSize(designSize.width, designSize.height);
+	glview->setFrameZoomFactor(0.75f);
+
+#endif
+
+
     Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
     
