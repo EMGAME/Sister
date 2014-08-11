@@ -20,6 +20,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
+	/* 设置Win32屏幕大小为480X800, */
+	glview->setFrameSize(480, 700);
+
+	/* 简单的屏幕适配，按比例拉伸，可能有黑边 */
+	glview->setDesignResolutionSize(480,700, ResolutionPolicy::SHOW_ALL);
+
     // turn on display FPS
     director->setDisplayStats(true);
 
