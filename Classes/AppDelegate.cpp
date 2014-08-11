@@ -6,6 +6,7 @@ USING_NS_CC;
 AppDelegate::AppDelegate() {
 
 }
+//中文注释测试，大家好好哈哈哈哈哈哈哈哈哈哈哈哈哈，努力工作
 
 AppDelegate::~AppDelegate() 
 {
