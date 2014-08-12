@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
-
+#include "StartScene.h"
+#include "ScrollViewScene.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -24,7 +24,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(640,960);
-    auto resourceSize = Size(649,960);
+    auto resourceSize = Size(768,1136);
 
 
 	//
@@ -35,7 +35,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
 
     Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
-    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
+    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
     
     // turn on display FPS
     director->setDisplayStats(true);
@@ -44,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto scene = ScrollViewScene::create();
 
     // run
     director->runWithScene(scene);
