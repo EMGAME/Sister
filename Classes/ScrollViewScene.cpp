@@ -97,13 +97,13 @@ bool ScrollViewScene::init()
         
         //下面的星星
         Sprite* sprite1 =Sprite::createWithSpriteFrameName("sel_page_indicator_off.png");
-        sprite1->setPosition(Point(size.width*0.5-150,size.height*0.5-200));
+        sprite1->setPosition(Point(size.width*0.5-100,100));
         addChild(sprite1,2);
         Sprite* sprite2 =Sprite::createWithSpriteFrameName("sel_page_indicator_off.png");
-        sprite2->setPosition(Point(size.width*0.5-100,size.height*0.5-200));
+        sprite2->setPosition(Point(size.width*0.5-50,100));
         addChild(sprite2,2);
         Sprite* sprite3 =Sprite::createWithSpriteFrameName("sel_page_indicator_off.png");
-        sprite3->setPosition(Point(size.width*0.5-50,size.height*0.5-200));
+        sprite3->setPosition(Point(size.width*0.5,100));
         addChild(sprite3,2);
         
         //这个地方留着修改
@@ -121,7 +121,7 @@ bool ScrollViewScene::init()
 //        addChild(sprite7);
         
         Sprite* sprite =Sprite::createWithSpriteFrameName("sel_page_indicator_on.png");
-        sprite->setPosition(Point(size.width*0.5-150,size.height*0.5-200));
+        sprite->setPosition(Point(size.width*0.5-100,100));
         sprite->setTag(888);
         addChild(sprite,2);
        
@@ -131,7 +131,7 @@ bool ScrollViewScene::init()
                                                 Sprite::createWithSpriteFrameName("common_btn_back.png"),
                                                 CC_CALLBACK_1(ScrollViewScene::backBtnCallback, this));
         
-        backBtn->setPosition(Point(80,winSize.height-80));
+        backBtn->setPosition(Point(80,winSize.height-120));
         
         auto menu = Menu::create(backBtn, NULL);
         menu->setPosition(Point::ZERO);

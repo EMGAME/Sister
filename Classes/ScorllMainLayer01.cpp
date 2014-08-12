@@ -32,24 +32,35 @@ bool ScorllMainLayer01::init()
         auto closeItem01 = MenuItemSprite::create(Sprite::createWithSpriteFrameName("thumb_level1.png"),
                                              Sprite::createWithSpriteFrameName("thumb_level1.png"),
                                              CC_CALLBACK_1(ScorllMainLayer01::menuCloseCallback01, this));
-        closeItem01->setPosition(Point(size.width*0.5-150,size.height*0.5+200));
+        closeItem01->setPosition(Point(size.width*0.5-120,size.height*0.5+200));
         
         auto closeItem02 = MenuItemSprite::create(Sprite::createWithSpriteFrameName("thumb_level2.png"),
                                                   Sprite::createWithSpriteFrameName("thumb_level2.png"),
                                                   CC_CALLBACK_1(ScorllMainLayer01::menuCloseCallback02, this));
-        closeItem02->setPosition(Point(size.width*0.5+150,size.height*0.5+200));
+        closeItem02->setPosition(Point(size.width*0.5+120,size.height*0.5+200));
         
         auto closeItem03 = MenuItemSprite::create(Sprite::createWithSpriteFrameName("thumb_level3.png"),
                                                   Sprite::createWithSpriteFrameName("thumb_level3.png"),
                                                   CC_CALLBACK_1(ScorllMainLayer01::menuCloseCallback03, this));
-        closeItem03->setPosition(Point(size.width*0.5-150,size.height*0.5));
+        closeItem03->setPosition(Point(size.width*0.5-120,size.height*0.5));
         
         auto closeItem04 = MenuItemSprite::create(Sprite::createWithSpriteFrameName("thumb_level4.png"),
-                                                  Sprite::createWithSpriteFrameName("thumb_level5.png"),
+                                                  Sprite::createWithSpriteFrameName("thumb_level4.png"),
                                                   CC_CALLBACK_1(ScorllMainLayer01::menuCloseCallback04, this));
-        closeItem04->setPosition(Point(size.width*0.5+150,size.height*0.5));
+        closeItem04->setPosition(Point(size.width*0.5+120,size.height*0.5));
         
-        auto menu = Menu::create(closeItem01,closeItem02,closeItem03,closeItem04, NULL);
+        auto closeItem05 = MenuItemSprite::create(Sprite::createWithSpriteFrameName("thumb_level5.png"),
+                                                  Sprite::createWithSpriteFrameName("thumb_level5.png"),
+                                                  CC_CALLBACK_1(ScorllMainLayer01::menuCloseCallback05, this));
+        closeItem05->setPosition(Point(size.width*0.5-120,size.height*0.5-200));
+        
+        auto closeItem06 = MenuItemSprite::create(Sprite::createWithSpriteFrameName("thumb_level6.png"),
+                                                  Sprite::createWithSpriteFrameName("thumb_level6.png"),
+                                                  CC_CALLBACK_1(ScorllMainLayer01::menuCloseCallback06, this));
+        closeItem06->setPosition(Point(size.width*0.5+120,size.height*0.5-200));
+
+        
+        auto menu = Menu::create(closeItem01,closeItem02,closeItem03,closeItem04,closeItem05,closeItem06,NULL);
         menu->setPosition(Point::ZERO);
         this->addChild(menu, 1);
         
