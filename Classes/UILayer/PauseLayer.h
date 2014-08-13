@@ -7,15 +7,15 @@ public:
 	virtual bool init();
 	CREATE_FUNC(PauseLayer);
 
-	//ÔİÍ£ÓÎÏ·
+	//æš‚åœæ¸¸æˆ
 	void pauseGame(Ref* pSender);
-	//·µ»ØÓÎÏ·
+	//è¿”å›æ¸¸æˆ
 	void returnToGame(Ref* pSender);
-	//ÖØÖÃ¹Ø¿¨
+	//é‡ç½®å…³å¡
 	void resetGame(Ref* pSender);
-	//·µ»ØÖ÷Ò³Ãæ
+	//è¿”å›ä¸»é¡µé¢
 	void returnToHome(Ref* pSender);
-	//ÉèÖÃ¾²Òô
+	//è®¾ç½®é™éŸ³
 	void muteSound(Ref* pSender);
 
 	PauseLayer(void);

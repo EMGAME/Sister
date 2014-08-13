@@ -6,30 +6,30 @@
 bool PauseLayer::init()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	//¼ÓÔØplist
+	//åŠ è½½plist
 	auto cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("ui_pause.plist", "ui_pause.png");
 	cache->addSpriteFramesWithFile("ui_common.plist", "ui_common.png");
-	//ÔÝÍ£½çÃæ
+	//æš‚åœç•Œé¢
 	auto pauseBg = Sprite::createWithSpriteFrameName("pause_bg.png");
 	pauseBg->setPosition(Point::ZERO);
-	//¹Ø±Õ°´Å¥
+	//å…³é—­æŒ‰é’®
 	auto btnReturnToGame = MenuItemImage::create(); 
 	btnReturnToGame->setNormalSpriteFrame(cache->getSpriteFrameByName("common_btn_close.png"));
 	//btnPause->setSelectedSpriteFrame(cache->getSpriteFrameByName("common_btn_pause.png"));
 	btnReturnToGame->setCallback(CC_CALLBACK_1(PauseLayer::returnToGame, this));
 	btnReturnToGame->setPosition(Point(180, 160));
-	//ÖØÖÃ°´Å¥
+	//é‡ç½®æŒ‰é’®
 	auto btnResetGame = MenuItemImage::create();
 	btnResetGame->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_replay.png"));
 	btnResetGame->setCallback(CC_CALLBACK_1(PauseLayer::resetGame, this));
 	btnResetGame->setPosition(Point(0, 100));
-	//Ö÷½çÃæ°´Å¥
+	//ä¸»ç•Œé¢æŒ‰é’®
 	auto btnReturnToHome = MenuItemImage::create();
 	btnReturnToHome->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_return.png"));
 	btnReturnToHome->setCallback(CC_CALLBACK_1(PauseLayer::returnToHome, this));
 	btnReturnToHome->setPosition(Point::ZERO);
-	//¾²Òô°´Å¥
+	//é™éŸ³æŒ‰é’®
 	auto btnMuteSounds = MenuItemImage::create();
 	btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_on.png"));
 	btnMuteSounds->setCallback(CC_CALLBACK_1(PauseLayer::muteSound, this));
@@ -50,26 +50,26 @@ bool PauseLayer::init()
 
 void PauseLayer::pauseGame(Ref* pSender)
 {
-	//»ñµÃ´°Ìå´óÐ¡
+	//èŽ·å¾—çª—ä½“å¤§å°
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	//½ØÍ¼
+	//æˆªå›¾
 	RenderTexture* renderTexture = RenderTexture::create(visibleSize.width, visibleSize.height);  
 	renderTexture->retain();  
 	Scene *runningScene = CCDirector::getInstance()->getRunningScene();
 	renderTexture->begin();  
 	runningScene->visit();  
 	renderTexture->end();  
-	//ÏÂÃæÕâ¾äÓÃÀ´²âÊÔ½ØÍ¼ÊÇ·ñ³É¹¦£¬¾­²âÊÔ³É¹¦
+	//ä¸‹é¢è¿™å¥ç”¨æ¥æµ‹è¯•æˆªå›¾æ˜¯å¦æˆåŠŸï¼Œç»æµ‹è¯•æˆåŠŸ
 	//renderTexture->saveToFile("123.png", Image::Format::PNG);
 
-	//½«½Øµ½µÄÍ¼×ö±³¾°
+	//å°†æˆªåˆ°çš„å›¾åšèƒŒæ™¯
 	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());  
 	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));  
-	_spr->setFlippedY(true);  //·­×ª  
-	_spr->setColor(Color3B::GRAY);  //ÑÕÉ«£¨±ä»Ò°µ£© 
+	_spr->setFlippedY(true);  //ç¿»è½¬  
+	_spr->setColor(Color3B::GRAY);  //é¢œè‰²ï¼ˆå˜ç°æš—ï¼‰ 
 	this->addChild(_spr, 90, BGTAG);  
 	
-	//½ûÖ¹Ò³Ãæ²Ëµ¥
+	//ç¦æ­¢é¡µé¢èœå•
 	uiLayer = (Layer*)pSender;
 	auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
 	uiLayerMenu->setEnabled(false);
@@ -81,7 +81,7 @@ void PauseLayer::pauseGame(Ref* pSender)
 
 void PauseLayer::returnToGame(Ref* pSender)
 {
-	//»ñµÃ´°Ìå´óÐ¡
+	//èŽ·å¾—çª—ä½“å¤§å°
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height + 200));
@@ -89,7 +89,7 @@ void PauseLayer::returnToGame(Ref* pSender)
 	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
 	this->getChildByTag(BGTAG)->removeFromParent();
 	
-	//¼¤»îÒ³Ãæ²Ëµ¥
+	//æ¿€æ´»é¡µé¢èœå•
 	if(uiLayer)
 	{
 		auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);

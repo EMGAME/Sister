@@ -13,7 +13,7 @@ public:
 	void btnCallBack(Ref* pSender);
 	void btnHelpCallBack(Ref* pSender);
 
-	//暂停游戏界面
+	//鏆傚仠娓告垙鐣岄潰
 	PauseLayer* pauseLayer;
 
 	UILayer(void);

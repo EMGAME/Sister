@@ -7,14 +7,14 @@ bool GameScene07::init()
 		return false;
 	}
 
-	//获取屏幕大小
+	//鑾峰彇灞忓箷澶у皬
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto bg = Sprite::create("l11_bg.jpg");
 	bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(bg);
 
-	//加入UILayer
+	//鍔犲叆UILayer
 	auto uiLayer = UILayer::create();
 	this->addChild(uiLayer);
 
