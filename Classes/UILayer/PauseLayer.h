@@ -1,6 +1,9 @@
 #pragma once
 #include "cocos2d.h"
+#include "../BaseScene.h"
+#include "SimpleAudioEngine.h"
 USING_NS_CC;
+using namespace CocosDenshion;
 class PauseLayer : public Layer
 {
 public:
@@ -22,5 +25,7 @@ public:
 	~PauseLayer(void);
 private:
 	Layer* uiLayer;
+	bool soundFlag;	//false开音乐，true关音乐
+	MenuItemImage* btnMuteSounds;
 };
 

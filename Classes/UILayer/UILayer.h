@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "PauseLayer.h"
+#include "ShareLayer.h"
 USING_NS_CC;
 class UILayer : public Layer
 {
@@ -15,6 +16,8 @@ public:
 
 	//暂停游戏界面
 	PauseLayer* pauseLayer;
+	//分享界面
+	ShareLayer* shareLayer;
 
 	UILayer(void);
 	~UILayer(void);

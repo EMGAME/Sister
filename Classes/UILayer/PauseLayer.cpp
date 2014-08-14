@@ -30,8 +30,15 @@ bool PauseLayer::init()
 	btnReturnToHome->setCallback(CC_CALLBACK_1(PauseLayer::returnToHome, this));
 	btnReturnToHome->setPosition(Point::ZERO);
 	//静音按钮
-	auto btnMuteSounds = MenuItemImage::create();
-	btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_on.png"));
+	btnMuteSounds = MenuItemImage::create();
+	if (soundFlag)
+	{
+		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_off.png"));
+	} 
+	else
+	{
+		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_on.png"));
+	}
 	btnMuteSounds->setCallback(CC_CALLBACK_1(PauseLayer::muteSound, this));
 	btnMuteSounds->setPosition(Point(0, -100));
 
@@ -99,9 +106,10 @@ void PauseLayer::returnToGame(Ref* pSender)
 
 void PauseLayer::resetGame(Ref* pSender)
 {
-	Scene* runningScene = Director::getInstance()->getRunningScene();
-	Scene* scene = runningScene->create();
-
+	auto director = Director::getInstance();
+	Scene* runningScene = director->getRunningScene();
+	BaseScene* scene = (BaseScene*)runningScene;
+	scene->restart();
 }
 
 void PauseLayer::returnToHome(Ref* pSender)
@@ -111,12 +119,29 @@ void PauseLayer::returnToHome(Ref* pSender)
 
 void PauseLayer::muteSound(Ref* pSender)
 {
-
+	auto audioEngine = SimpleAudioEngine::getInstance();
+	auto cache = SpriteFrameCache::getInstance();
+	auto userDefault = UserDefault::getInstance();
+	if (soundFlag)	//true表示音乐已经关闭
+	{
+		audioEngine->playBackgroundMusic("game_playing.mp3");
+		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_on.png"));
+		soundFlag = false;
+		userDefault->setBoolForKey("soundFlag", false);
+	}
+	else
+	{
+		audioEngine->stopBackgroundMusic();
+		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_off.png"));
+		soundFlag = true;
+		userDefault->setBoolForKey("soundFlag", true);
+	}
 }
 
 PauseLayer::PauseLayer(void)
 {
 	uiLayer = NULL;
+	soundFlag = UserDefault::getInstance()->getBoolForKey("soundFlag");
 }
 
 

@@ -39,6 +39,8 @@ bool UILayer::init()
 	//初始化各种Layer
 	pauseLayer = PauseLayer::create();
 	this->addChild(pauseLayer);
+	shareLayer = ShareLayer::create();
+	this->addChild(shareLayer);
 
 	return true;
 }
@@ -60,7 +62,7 @@ void UILayer::btnCallBack(Ref* pSender)
 
 void UILayer::btnHelpCallBack(Ref* pSender)
 {
-	MessageBox("helpCallBack", "helpCallBack");
+	shareLayer->shareGame(this);
 }
 
 UILayer::UILayer(void)
