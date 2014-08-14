@@ -6,6 +6,7 @@
 //
 //
 
+#include "../GoldManager.h"
 #include "ScrollView.h"
 #include "ScrollViewScene.h"
 
@@ -33,6 +34,9 @@ bool ScrollView::init()
         
         bRet = true;
     } while (0);
+//    GoldMgr = GoldManager::getInstance();
+//    log("刚刚加载的时候金币为：%d",GoldMgr->readGold());
+
     
     setTouchEnabled(true);
 	//设置为单点响应
@@ -113,6 +117,9 @@ void ScrollView::onTouchMoved(Touch *pTouch, Event  *pEvent){
 }
 void ScrollView::onTouchEnded(Touch *pTouch, Event  *pEvent){
     m_TouchUpPoint = CCDirector::getInstance()->convertToGL(pTouch->getLocationInView());
+
+//    GoldMgr->clickReduceGold();
+//    log("当前剩余金币量%d",GoldMgr->readGold());
     // 计算按下和抬起的偏移量
     float offset = (m_TouchUpPoint.x - m_TouchDownPoint.x) * (m_TouchUpPoint.x - m_TouchDownPoint.x) + (m_TouchUpPoint.y - m_TouchDownPoint.y) * (m_TouchUpPoint.y - m_TouchDownPoint.y);
     
@@ -126,6 +133,8 @@ void ScrollView::onTouchEnded(Touch *pTouch, Event  *pEvent){
         int offset = getPositionX() - m_CurPage * (-WINDOW_WIDTH);
         //if (offset > WINDOW_WIDTH / 2) {
         if (offset > 50) {
+//            GoldMgr->subGold(30);
+//            log("上一页金币为：%d",GoldMgr->readGold());
             // 上一页
             if (m_CurPage > 0) {
                 --m_CurPage;
@@ -135,6 +144,8 @@ void ScrollView::onTouchEnded(Touch *pTouch, Event  *pEvent){
         }
         //else if (offset < -WINDOW_WIDTH / 2) {
         else if (offset < -50) {
+//            GoldMgr->addGold(20);
+//            log("下一页金币为：%d",GoldMgr->readGold());
             // 下一页
             if (m_CurPage < (m_Page - 1)) {
                 ++m_CurPage;

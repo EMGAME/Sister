@@ -10,6 +10,7 @@
 #define __Sister__ScrollVIew__
 
 #include "cocos2d.h"
+#include "../GoldManager.h"
 
 USING_NS_CC;
 
@@ -57,6 +58,8 @@ public:
     //virtual void onEnter();
     //virtual void onExit();
     
+    //gold检测
+ //   GoldManager* GoldMgr;
     // 触摸事件相关
     bool onTouchBegan(Touch *pTouch, Event  *pEvent);
     void onTouchMoved(Touch *pTouch, Event  *pEvent);

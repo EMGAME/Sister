@@ -13,7 +13,7 @@
 #include "ScorllMainLayer04.h"
 #include "ScorllMainLayer05.h"
 #include "ScorllMainLayer06.h"
-#include "StartScene.h"
+#include "../StartScene.h"
 
 //using namespace CocosDenshion;
 //声明静态变量
@@ -31,9 +31,7 @@ ScrollViewScene *ScrollViewScene::sharedSC(){
 
 ScrollViewScene::ScrollViewScene()
 {
-    
 }
-
 
 bool ScrollViewScene::init()
 {
@@ -78,6 +76,7 @@ bool ScrollViewScene::init()
         }
         
         Size size = CCDirector::getInstance()->getWinSize();
+        Size visibleSize = Director::getInstance()->getVisibleSize();
        
         //初始化信息
         SpriteFrameCache *cache = SpriteFrameCache::getInstance();
@@ -123,7 +122,8 @@ bool ScrollViewScene::init()
                                                 Sprite::createWithSpriteFrameName("common_btn_back.png"),
                                                 CC_CALLBACK_1(ScrollViewScene::backBtnCallback, this));
         
-        backBtn->setPosition(Point(80,winSize.height-120));
+        backBtn->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+        backBtn->setPosition(Point(60,visibleSize.height-20));
         
         auto menu = Menu::create(backBtn, NULL);
         menu->setPosition(Point::ZERO);
