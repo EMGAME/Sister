@@ -10,7 +10,6 @@
 static GoldManager* s_sharedGoldManager = nullptr;
 GoldManager::GoldManager(){
     setGoldNum(0);
-    log("%d",getGoldNum());
 }
 
 GoldManager* GoldManager::getInstance(){
@@ -26,18 +25,15 @@ void GoldManager::purge(){
 }
 
 bool GoldManager::init(){
-    if (!Layer::init()) {
-        return false;
-    }
+    bool pRet = false;
+    do{
     
     setGoldNum(readGold());
-    
-    return true;
+        pRet = true;
+    }while (0);
+    return pRet;
 }
 
-void GoldManager::test(){
-    log("这是一个测试");
-}
 
 void GoldManager::restMgr(){
     setGoldNum(0);
@@ -66,10 +62,6 @@ void GoldManager::saveGold(){
 int GoldManager::readGold(){
     return CCUserDefault::getInstance()->getIntegerForKey("Gold", 0);
 
-}
-
-void GoldManager::clickReduceGold(){
-    subGold(1);
 }
 
 void GoldManager::initWithNumber(int number){

@@ -12,10 +12,9 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class GoldManager:public Layer{
+class GoldManager:public Node{
 public:
     static GoldManager* getInstance();
-    void test();
     virtual bool init();
     void purge();
 
@@ -25,10 +24,6 @@ public:
     void subGold(int number);
     void saveGold();
     int readGold();
-    
-    //请在ccTouchEnded里面调用这个函数
-    //@brief 每次点击减少一个金币
-    void clickReduceGold();
     
     CC_SYNTHESIZE(int, m_GoldNum, GoldNum);
     CREATE_FUNC(GoldManager);

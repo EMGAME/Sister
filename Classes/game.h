@@ -41,5 +41,8 @@
 #include "level_29/GameScene29.h"
 #include "level_30/GameScene30.h"
 
+//包含该有的Manager
+#include "UILayer/GoldManager.h"
+
 
 #endif

@@ -10,7 +10,7 @@
 #define __Sister__ScrollVIew__
 
 #include "cocos2d.h"
-#include "../GoldManager.h"
+#include "../UILayer/GoldManager.h"
 
 USING_NS_CC;
 

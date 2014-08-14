@@ -6,7 +6,7 @@
 //
 //
 
-#include "../GoldManager.h"
+#include "../UILayer/GoldManager.h"
 #include "ScrollView.h"
 #include "ScrollViewScene.h"
 
