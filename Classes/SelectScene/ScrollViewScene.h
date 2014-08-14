@@ -22,7 +22,7 @@ public:
     CREATE_FUNC(ScrollViewScene);
     
     void backBtnCallback(cocos2d::Ref* pSender);
-    
+
     static ScrollViewScene *sharedSC();
 };
 

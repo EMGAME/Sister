@@ -57,7 +57,6 @@ void GoldManager::subGold(int number){
     }else{
         return;
     }
-
 }
 
 void GoldManager::saveGold(){

@@ -31,6 +31,7 @@ ScrollViewScene *ScrollViewScene::sharedSC(){
 
 ScrollViewScene::ScrollViewScene()
 {
+    
 }
 
 bool ScrollViewScene::init()
