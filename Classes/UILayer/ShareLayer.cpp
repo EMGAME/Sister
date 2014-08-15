@@ -11,7 +11,7 @@ bool ShareLayer::init()
 void ShareLayer::shareGame(Ref* pSender)
 {
 	//获得窗体大小
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getWinSize();
 
 	//截图
 	RenderTexture* renderTexture = RenderTexture::create(visibleSize.width, visibleSize.height);  

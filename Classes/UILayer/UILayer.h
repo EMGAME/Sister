@@ -13,7 +13,7 @@ public:
 	void btnTipCallBack(Ref* pSender);
 	void btnCallBack(Ref* pSender);
 	void btnHelpCallBack(Ref* pSender);
-
+    
 	//暂停游戏界面
 	PauseLayer* pauseLayer;
 	//分享界面

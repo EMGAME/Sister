@@ -1,11 +1,7 @@
 #include "AppDelegate.h"
-<<<<<<< HEAD
 #include "StartScene.h"
-=======
-#include "HelloWorldScene.h"
 #include "GameScene07.h"
 
->>>>>>> UILayer
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -25,14 +21,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLView::create("My Game");
         director->setOpenGLView(glview);
     }
-
     
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(640,960);
     auto resourceSize = Size(768,1136);
 
-
-	//
+  
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
 	glview->setFrameZoomFactor(0.7f);
@@ -49,11 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-<<<<<<< HEAD
     auto scene = StartScene::createScene();
-=======
-    auto scene = GameScene07::scene();
->>>>>>> UILayer
 
     // run
     director->runWithScene(scene);

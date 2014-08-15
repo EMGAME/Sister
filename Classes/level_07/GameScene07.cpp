@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //
 //  GameScene07.cpp
 //  Sister
@@ -7,8 +7,6 @@
 //
 //
 
-#include "GameScene07.h"
-=======
 #include "GameScene07.h"
 
 bool GameScene07::init()
@@ -20,9 +18,10 @@ bool GameScene07::init()
 
 	//获取屏幕大小
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-
+    Size winSize = Director::getInstance()->getWinSize();
+    
 	auto bg = Sprite::create("l11_bg.jpg");
-	bg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	bg->setPosition(winSize.width / 2, winSize.height / 2);
 	this->addChild(bg);
 
 	//加入UILayer
@@ -48,4 +47,4 @@ GameScene07::GameScene07(void)
 GameScene07::~GameScene07(void)
 {
 }
->>>>>>> UILayer
+

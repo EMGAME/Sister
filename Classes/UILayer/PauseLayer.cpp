@@ -5,7 +5,7 @@
 
 bool PauseLayer::init()
 {
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getWinSize();
 	//加载plist
 	auto cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("ui_pause.plist", "ui_pause.png");
@@ -58,7 +58,7 @@ bool PauseLayer::init()
 void PauseLayer::pauseGame(Ref* pSender)
 {
 	//获得窗体大小
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getWinSize();
 	//截图
 	RenderTexture* renderTexture = RenderTexture::create(visibleSize.width, visibleSize.height);  
 	renderTexture->retain();  
