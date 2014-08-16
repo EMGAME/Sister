@@ -1,21 +1,22 @@
 //
-//  ShopGiftLayer.h
+//  ShopTipLayer.h
 //  Sister
 //
 //  Created by 风飞逸 on 14-8-16.
 //
 //
 
-#ifndef __Sister__ShopGiftLayer__
-#define __Sister__ShopGiftLayer__
+#ifndef __Sister__ShopTipLayer__
+#define __Sister__ShopTipLayer__
+
 
 #include "cocos2d.h"
 USING_NS_CC;
 
-class shopGiftLayer:public cocos2d::Layer{
+class shopTipLayer:public cocos2d::Layer{
 public:
-    shopGiftLayer();
-    ~shopGiftLayer();
+    shopTipLayer();
+    ~shopTipLayer();
     
     virtual bool init();
     
@@ -26,14 +27,14 @@ public:
     void buyCallFunc02();
     void buyCallFunc03();
     
-    CREATE_FUNC(shopGiftLayer);
+    CREATE_FUNC(shopTipLayer);
     cocos2d::Menu* m_ShopLayer;
 protected:
-    MenuItem* giftBtn1;
+    MenuItem* TipBtn1;
     MenuItem* buyItem01;
     MenuItem* buyItem02;
     MenuItem* buyItem03;
     
 };
 
-#endif /* defined(__Sister__ShopGiftLayer__) */
+#endif /* defined(__Sister__ShopTipLayer__) */

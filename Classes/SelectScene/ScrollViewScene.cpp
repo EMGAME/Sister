@@ -22,6 +22,13 @@ static ScrollView *scrollView;
 
 static ScrollViewScene *sc;
 
+Scene* ScrollViewScene::createScene(){
+    auto scene = Scene::create();
+    auto layer = ScrollViewScene::create();
+    scene->addChild(layer);
+    return scene;
+}
+
 ScrollViewScene *ScrollViewScene::sharedSC(){
     if(sc != NULL){
         return sc;

@@ -11,6 +11,8 @@
 
 #include "cocos2d.h"
 #include "ShopGiftLayer.h"
+#include "ShopPowerLayer.h"
+#include "ShopTipLayer.h"
 using namespace cocos2d;
 
 //用来判断第首次进入时所在的的标签页
@@ -24,22 +26,6 @@ class ShopLayer:public cocos2d::Layer{
 public:
     
     virtual bool init(SHOP_TYPE TYPE);
-    
-    Node* n_GoldLayer;
-    Node* n_PowerLayer;
-    Node* n_TipLayer;
-    Node* allLayer;
-    
-    void SwitchToGoldLayerCallFunc();
-    void SwitchToTipLayerCallFunc();
-    void SwitchToPowerLayerCallFunc();
-    
-    void CreatePowerLayer();
-    void CreateTipLayer();
-    
-    shopGiftLayer* m_GoldShopLayer;
-    
-    
     static ShopLayer* create(SHOP_TYPE create_ShopType)
     {
         ShopLayer *pRet = new ShopLayer();
@@ -56,6 +42,24 @@ public:
             return NULL;
         }
     }
+    
+    void changeToGiftCallFunc();
+    void changeToPowerCallFunc();
+    void changeTpTipCallFunc();
+    
+    void popLayer(Ref* pSender);
+    void pushLayer();
+    
+    Layer* uiLayer;
+    
+    Node* controllNode;
+    
+    
+    
+    
+    shopGiftLayer* m_shopGiftLayer;
+    shopTipLayer* m_shopTipLayer;
+    shopPowerLayer* m_shopPowerLayer;
 protected:
     ShopLayer();
     ~ShopLayer();

@@ -1,21 +1,22 @@
 //
-//  ShopGiftLayer.h
+//  ShopPowerLayer.h
 //  Sister
 //
 //  Created by 风飞逸 on 14-8-16.
 //
 //
 
-#ifndef __Sister__ShopGiftLayer__
-#define __Sister__ShopGiftLayer__
+#ifndef __Sister__ShopPowerLayer__
+#define __Sister__ShopPowerLayer__
 
-#include "cocos2d.h"
+#include"cocos2d.h"
 USING_NS_CC;
 
-class shopGiftLayer:public cocos2d::Layer{
+
+class shopPowerLayer:public cocos2d::Layer{
 public:
-    shopGiftLayer();
-    ~shopGiftLayer();
+    shopPowerLayer();
+    ~shopPowerLayer();
     
     virtual bool init();
     
@@ -26,7 +27,7 @@ public:
     void buyCallFunc02();
     void buyCallFunc03();
     
-    CREATE_FUNC(shopGiftLayer);
+    CREATE_FUNC(shopPowerLayer);
     cocos2d::Menu* m_ShopLayer;
 protected:
     MenuItem* giftBtn1;
@@ -36,4 +37,4 @@ protected:
     
 };
 
-#endif /* defined(__Sister__ShopGiftLayer__) */
+#endif /* defined(__Sister__ShopPowerLayer__) */

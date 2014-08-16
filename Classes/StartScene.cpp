@@ -39,5 +39,5 @@ bool StartScene::init(){
 
 void StartScene::startGame(){
 
-    CCDirector::getInstance()->replaceScene(CCTransitionFade::create(0.5, ScrollViewScene::create()));
+    CCDirector::getInstance()->replaceScene(CCTransitionFade::create(0.5, ScrollViewScene::createScene()));
 }

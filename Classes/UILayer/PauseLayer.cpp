@@ -1,4 +1,6 @@
+
 #include "PauseLayer.h"
+#include "../SelectScene/ScrollViewScene.h"
 #define BGTAG 10
 #define NODETAG 20
 #define MENUTAG 30
@@ -114,7 +116,7 @@ void PauseLayer::resetGame(Ref* pSender)
 
 void PauseLayer::returnToHome(Ref* pSender)
 {
-
+    CCDirector::getInstance()->replaceScene(ScrollViewScene::createScene());
 }
 
 void PauseLayer::muteSound(Ref* pSender)

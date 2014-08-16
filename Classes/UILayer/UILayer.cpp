@@ -65,18 +65,17 @@ void UILayer::btnPauseCallBack(Ref* pSender)
 
 void UILayer::btnTipCallBack(Ref* pSender)
 {
-    pauseLayer->pauseGame(this);
-	MessageBox("tipCallBack", "tipCallBack");
+    tipLayer->popLayer(this);
 }
 
 void UILayer::btnCallBack(Ref* pSender)
 {
-	MessageBox("CallBack", "CallBack");
+    powerLayer->popLayer(this);
 }
 
 void UILayer::btnHelpCallBack(Ref* pSender)
 {
-	shareLayer->shareGame(this);
+	//shareLayer->shareGame(this);
 }
 
 UILayer::UILayer(void)
