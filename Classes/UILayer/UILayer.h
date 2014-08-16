@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "PauseLayer.h"
 #include "ShareLayer.h"
+#include "ShopLayer.h"
 USING_NS_CC;
 class UILayer : public Layer
 {
@@ -18,6 +19,9 @@ public:
 	PauseLayer* pauseLayer;
 	//分享界面
 	ShareLayer* shareLayer;
+    
+    ShopLayer* tipLayer;
+    ShopLayer* powerLayer;
 
 	UILayer(void);
 	~UILayer(void);

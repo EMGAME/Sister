@@ -50,6 +50,10 @@ bool UILayer::init()
 	this->addChild(pauseLayer);
 	shareLayer = ShareLayer::create();
 	this->addChild(shareLayer);
+    tipLayer = ShopLayer::create(SHOP_TYPE_TIP);
+    this->addChild(tipLayer);
+    powerLayer = ShopLayer::create(SHOP_TYPE_POWER);
+    this->addChild(powerLayer);
 
 	return true;
 }
@@ -61,6 +65,7 @@ void UILayer::btnPauseCallBack(Ref* pSender)
 
 void UILayer::btnTipCallBack(Ref* pSender)
 {
+    pauseLayer->pauseGame(this);
 	MessageBox("tipCallBack", "tipCallBack");
 }
 

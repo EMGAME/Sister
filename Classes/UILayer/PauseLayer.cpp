@@ -48,7 +48,7 @@ bool PauseLayer::init()
 	auto node = Node::create();
 	node->addChild(pauseBg);
 	node->addChild(menu);
-	node->setPosition(Point(visibleSize.width / 2, visibleSize.height + 200));
+	node->setPosition(Point(visibleSize.width / 2, visibleSize.height + 400));
 
 	this->addChild(node, 100, NODETAG);
 	
@@ -91,7 +91,7 @@ void PauseLayer::returnToGame(Ref* pSender)
 	//获得窗体大小
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height + 200));
+	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height + 400));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
 	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
 	this->getChildByTag(BGTAG)->removeFromParent();
