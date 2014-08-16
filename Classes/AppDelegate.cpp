@@ -1,11 +1,13 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "StartScene.h"
+#include "GameScene07.h"
 
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
 
 }
+//中文注释测试，大家好好哈哈哈哈哈哈哈哈哈哈哈哈哈，努力工作
 
 AppDelegate::~AppDelegate() 
 {
@@ -19,14 +21,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLView::create("My Game");
         director->setOpenGLView(glview);
     }
-
     
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(640,960);
-    auto resourceSize = Size(649,960);
+    auto resourceSize = Size(768,1136);
 
-
-	//ÒÔÏÂ2ÐÐ´úÂëÊÇwindowsÏÂµÄ
+  
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
 	glview->setFrameZoomFactor(0.7f);
@@ -34,7 +34,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
 
     Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
-    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
+    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
     
     // turn on display FPS
     director->setDisplayStats(true);
@@ -43,7 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto scene = StartScene::createScene();
 
     // run
     director->runWithScene(scene);
