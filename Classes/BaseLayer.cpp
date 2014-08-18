@@ -1,4 +1,4 @@
-#include "BaseScene.h"
+#include "BaseLayer.h"
 
 void BaseLayer::setTips(std::string tips[3])
 {

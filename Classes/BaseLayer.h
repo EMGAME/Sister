@@ -16,13 +16,4 @@ public:
     virtual void restart(){};
 };
 
-//class BaseScene : public Scene
-//{
-//public:
-//    CREATE_FUNC(BaseScene);
-//    void restart();
-//private:
-//    BaseLayer* baseLayer;
-//};
-
 

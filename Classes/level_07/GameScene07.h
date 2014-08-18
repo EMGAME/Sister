@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "../UILayer/UILayer.h"
-#include "BaseScene.h"
+#include "BaseLayer.h"
 USING_NS_CC;
 class GameScene07 : public BaseLayer
 {
