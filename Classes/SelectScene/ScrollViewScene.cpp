@@ -48,7 +48,7 @@ bool ScrollViewScene::init()
     bool bRet = false;
     
     do {
-        CC_BREAK_IF(!CCScene::init());
+        CC_BREAK_IF(!Scene::init());
         auto winSize = Director::getInstance()->getWinSize();
         scrollView = ScrollView::create();
         
@@ -84,6 +84,8 @@ bool ScrollViewScene::init()
         }
         
         Size size = CCDirector::getInstance()->getWinSize();
+        Point Origin = Director::getInstance()->getVisibleOrigin();
+        
         Size visibleSize = Director::getInstance()->getVisibleSize();
        
         //初始化信息
@@ -131,13 +133,28 @@ bool ScrollViewScene::init()
                                                 CC_CALLBACK_1(ScrollViewScene::backBtnCallback, this));
         
         backBtn->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-        backBtn->setPosition(Point(60,visibleSize.height-20));
+        backBtn->setPosition(Origin+Point(20, visibleSize.height-20));
         
-        auto menu = Menu::create(backBtn, NULL);
+        auto giftBtn = MenuItemSprite::create(Sprite::createWithSpriteFrameName("common_btn_libao.png"),
+                                              Sprite::createWithSpriteFrameName("common_btn_libao.png"),
+                                              CC_CALLBACK_1(ScrollViewScene::gitfBtnCallback, this));
+        giftBtn->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
+        giftBtn->setPosition(Origin+Point(visibleSize.width-20,visibleSize.height-20));
+        
+        auto menu = Menu::create(backBtn,giftBtn,NULL);
         menu->setPosition(Point::ZERO);
         this->addChild(menu, 1);
         
+        
+
         this->addChild(scrollView);
+        
+        
+        m_shopLayer = ShopLayer::create(SHOP_TYPE_WITHOUTTIP);
+        m_shopLayer->setPosition(Point::ZERO);
+        this->addChild(m_shopLayer);
+        
+        
         bRet = true;
     } while (0);
     
@@ -147,3 +164,8 @@ bool ScrollViewScene::init()
 void ScrollViewScene::backBtnCallback(cocos2d::Ref* pSender){
     CCDirector::getInstance()->replaceScene(CCTransitionFade::create(0.5, StartScene::createScene()));
 }
+
+void ScrollViewScene::gitfBtnCallback(cocos2d::Ref *pSender){
+    m_shopLayer->popLayer(this);
+}
+

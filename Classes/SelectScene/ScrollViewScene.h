@@ -10,6 +10,7 @@
 #define __Sister__ScrollViewScene__
 
 #include "cocos2d.h"
+#include"../UILayer/ShopLayer.h"
 
 USING_NS_CC;
 
@@ -22,9 +23,12 @@ public:
     CREATE_FUNC(ScrollViewScene);
     
     void backBtnCallback(cocos2d::Ref* pSender);
+    void gitfBtnCallback(cocos2d::Ref* pSender);
+    ShopLayer* m_shopLayer;
     
     static Scene* createScene();
     static ScrollViewScene *sharedSC();
-};
+    
+ };
 
 #endif /* defined(__Sister__ScrollViewScene__) */

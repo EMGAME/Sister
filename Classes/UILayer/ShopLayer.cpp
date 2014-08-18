@@ -107,6 +107,9 @@ bool ShopLayer::init(SHOP_TYPE TYPE){
             case SHOP_TYPE_TIP:
             m_shopTipLayer->setVisible(true);
             break;
+        case SHOP_TYPE_WITHOUTTIP:
+            m_shopGiftLayer->setVisible(true);
+            tipBtn2->setVisible(false);
     }
     
     
@@ -153,10 +156,10 @@ void ShopLayer::popLayer(Ref* pSender){
 	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗）
 	this->addChild(_spr, 0, BGTAG);
 	
-	//禁止页面菜单
-	uiLayer = (Layer*)pSender;
-	auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-	uiLayerMenu->setEnabled(false);
+//	//禁止页面菜单
+//	uiLayer = (Layer*)pSender;
+//	auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
+//	uiLayerMenu->setEnabled(false);
     
     auto moveTo = MoveTo::create(0.5f, Point::ZERO);
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
@@ -166,12 +169,12 @@ void ShopLayer::popLayer(Ref* pSender){
 void ShopLayer::pushLayer(){
     this->getChildByTag(BGTAG)->removeFromParent();
 	
-	//激活页面菜单
-	if(uiLayer)
-	{
-		auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-		uiLayerMenu->setEnabled(true);
-	}
+//	//激活页面菜单
+//	if(uiLayer)
+//	{
+//		auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
+//		uiLayerMenu->setEnabled(true);
+//	}
     Size visibleSize = Director::getInstance()->getWinSize();
     
 	auto moveTo = MoveTo::create(0.5f,Point(visibleSize.width/2,

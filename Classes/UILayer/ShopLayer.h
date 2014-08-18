@@ -20,6 +20,7 @@ enum SHOP_TYPE{
     SHOP_TYPE_TIP,//提示时进入
     SHOP_TYPE_POWER,//体力时进入
     SHOP_TYPE_GOLD,//购买金币时进入
+    SHOP_TYPE_WITHOUTTIP,
 };
 
 class ShopLayer:public cocos2d::Layer{
