@@ -146,8 +146,6 @@ bool ScrollViewScene::init()
         menu->setPosition(Point::ZERO);
         this->addChild(menu, 1);
         
-        
-
         this->addChild(scrollView);
         
         
