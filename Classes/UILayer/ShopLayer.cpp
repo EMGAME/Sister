@@ -169,6 +169,7 @@ void ShopLayer::popLayer(Ref* pSender){
 void ShopLayer::pushLayer(){
     this->getChildByTag(BGTAG)->removeFromParent();
 	
+
 //	//激活页面菜单
 //	if(uiLayer)
 //	{

@@ -23,6 +23,7 @@ public:
     CREATE_FUNC(ScrollViewScene);
     
     void backBtnCallback(cocos2d::Ref* pSender);
+
     void gitfBtnCallback(cocos2d::Ref* pSender);
     ShopLayer* m_shopLayer;
     

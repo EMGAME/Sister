@@ -11,13 +11,16 @@
 
 #include "cocos2d.h"
 #include "../UILayer/UILayer.h"
+#include "BaseLayer.h"
 USING_NS_CC;
-class GameScene07 : public Layer
+class GameScene07 : public BaseLayer
 {
 public:
 	virtual bool init();
 	static Scene* scene();
 	CREATE_FUNC(GameScene07);
+    
+    virtual void restart();
     
 	GameScene07(void);
 	~GameScene07(void);

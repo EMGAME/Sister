@@ -48,6 +48,7 @@ bool ScrollViewScene::init()
     bool bRet = false;
     
     do {
+
         CC_BREAK_IF(!Scene::init());
         auto winSize = Director::getInstance()->getWinSize();
         scrollView = ScrollView::create();
@@ -85,7 +86,6 @@ bool ScrollViewScene::init()
         
         Size size = CCDirector::getInstance()->getWinSize();
         Point Origin = Director::getInstance()->getVisibleOrigin();
-        
         Size visibleSize = Director::getInstance()->getVisibleSize();
        
         //初始化信息
@@ -133,6 +133,7 @@ bool ScrollViewScene::init()
                                                 CC_CALLBACK_1(ScrollViewScene::backBtnCallback, this));
         
         backBtn->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
+
         backBtn->setPosition(Origin+Point(20, visibleSize.height-20));
         
         auto giftBtn = MenuItemSprite::create(Sprite::createWithSpriteFrameName("common_btn_libao.png"),
