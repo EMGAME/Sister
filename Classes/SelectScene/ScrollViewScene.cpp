@@ -48,11 +48,8 @@ bool ScrollViewScene::init()
     bool bRet = false;
     
     do {
-<<<<<<< HEAD
-        CC_BREAK_IF(!CCScene::init());
-=======
+
         CC_BREAK_IF(!Scene::init());
->>>>>>> master
         auto winSize = Director::getInstance()->getWinSize();
         scrollView = ScrollView::create();
         
@@ -88,11 +85,7 @@ bool ScrollViewScene::init()
         }
         
         Size size = CCDirector::getInstance()->getWinSize();
-<<<<<<< HEAD
-=======
         Point Origin = Director::getInstance()->getVisibleOrigin();
-        
->>>>>>> master
         Size visibleSize = Director::getInstance()->getVisibleSize();
        
         //初始化信息
@@ -140,15 +133,7 @@ bool ScrollViewScene::init()
                                                 CC_CALLBACK_1(ScrollViewScene::backBtnCallback, this));
         
         backBtn->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-<<<<<<< HEAD
-        backBtn->setPosition(Point(60,visibleSize.height-20));
-        
-        auto menu = Menu::create(backBtn, NULL);
-        menu->setPosition(Point::ZERO);
-        this->addChild(menu, 1);
-        
-        this->addChild(scrollView);
-=======
+
         backBtn->setPosition(Origin+Point(20, visibleSize.height-20));
         
         auto giftBtn = MenuItemSprite::create(Sprite::createWithSpriteFrameName("common_btn_libao.png"),
@@ -171,7 +156,6 @@ bool ScrollViewScene::init()
         this->addChild(m_shopLayer);
         
         
->>>>>>> master
         bRet = true;
     } while (0);
     
@@ -180,13 +164,9 @@ bool ScrollViewScene::init()
 
 void ScrollViewScene::backBtnCallback(cocos2d::Ref* pSender){
     CCDirector::getInstance()->replaceScene(CCTransitionFade::create(0.5, StartScene::createScene()));
-<<<<<<< HEAD
-}
-=======
 }
 
 void ScrollViewScene::gitfBtnCallback(cocos2d::Ref *pSender){
     m_shopLayer->popLayer(this);
 }
 
->>>>>>> master
