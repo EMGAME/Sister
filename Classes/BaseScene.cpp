@@ -1,6 +1,6 @@
 #include "BaseScene.h"
 
-void BaseScene::setTips(std::string tips[3])
+void BaseLayer::setTips(std::string tips[3])
 {
 	for(unsigned int i = 0; i < this->tips->length(); i++)
 	{
@@ -8,17 +8,17 @@ void BaseScene::setTips(std::string tips[3])
 	}
 }
 
-std::string BaseScene::getTips(int index)
+std::string BaseLayer::getTips(int index)
 {
 	return tips[index];
 }
 
-void BaseScene::restart()
-{
+//void BaseScene::restart()
+//{
+//    log("BaseSceneStart");
+//}
 
-}
-
-BaseScene::BaseScene(void)
+BaseLayer::BaseLayer(void)
 {
 	for (unsigned int i = 0; i < tips->length(); i++)
 	{
@@ -26,7 +26,11 @@ BaseScene::BaseScene(void)
 	}
 }
 
-
-BaseScene::~BaseScene(void)
+BaseLayer::~BaseLayer(void)
 {
 }
+
+//void BaseScene::restart()
+//{
+    //baseLayer->restart();
+//}

@@ -110,8 +110,9 @@ void PauseLayer::resetGame(Ref* pSender)
 {
 	auto director = Director::getInstance();
 	Scene* runningScene = director->getRunningScene();
-	BaseScene* scene = (BaseScene*)runningScene;
-	scene->restart();
+    auto layer = runningScene->getChildByTag(100);
+	BaseLayer* baseLayer = (BaseLayer*)layer;
+    baseLayer->restart();
 }
 
 void PauseLayer::returnToHome(Ref* pSender)

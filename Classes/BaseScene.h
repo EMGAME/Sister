@@ -1,17 +1,28 @@
 #pragma once
 #include "cocos2d.h"
 USING_NS_CC;
-class BaseScene : public Scene
+class BaseLayer : public Layer
 {
 public:
 	void setTips(std::string tips[3]);
 	std::string getTips(int index);
 
-	void restart();
-
-	BaseScene(void);
-	~BaseScene(void);
-private:
+    CREATE_FUNC(BaseLayer);
+    
+	BaseLayer(void);
+	~BaseLayer(void);
 	std::string tips[3];
+    
+    virtual void restart(){};
 };
+
+//class BaseScene : public Scene
+//{
+//public:
+//    CREATE_FUNC(BaseScene);
+//    void restart();
+//private:
+//    BaseLayer* baseLayer;
+//};
+
 
