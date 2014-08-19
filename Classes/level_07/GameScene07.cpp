@@ -33,6 +33,9 @@ bool GameScene07::init()
 	//加入UILayer
 	auto uiLayer = UILayer::create();
 	this->addChild(uiLayer);
+    
+    Director::getInstance()->resume();
+
 
 	return true;
 }
@@ -57,5 +60,6 @@ GameScene07::~GameScene07(void)
 
 void GameScene07::restart(){
     Director::getInstance()->replaceScene(GameScene07::scene());
+    Director::getInstance()->resume();
     log("GameScene07Restart");
 }

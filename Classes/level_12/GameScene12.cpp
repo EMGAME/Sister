@@ -126,7 +126,9 @@ bool GameScene12::init(){
     auto m_uiLayer = UILayer::create();
     m_uiLayer->setPosition(Point::ZERO);
     addChild(m_uiLayer,100);
-	
+
+    Director::getInstance()->resume();
+
 	return true;
 }
 
@@ -299,5 +301,6 @@ void GameScene12::del(float dt){
 
 void GameScene12::restart(){
     Director::getInstance()->replaceScene(GameScene12::createScene());
+    Director::getInstance()->resume();
     log("GameScene11Restart");
 }
