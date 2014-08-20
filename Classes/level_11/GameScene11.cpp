@@ -19,7 +19,7 @@ bool GameScene11::init(){
 		return false;
 	}
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getWinSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 
 	//º”‘ÿ±≥æ∞

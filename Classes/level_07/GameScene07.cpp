@@ -24,9 +24,9 @@ bool GameScene07::init()
 	bg->setPosition(winSize.width / 2, winSize.height / 2);
 	this->addChild(bg);
 
-    auto moveacti = MoveBy::create(2.0f, Point(400, 400));
-    bg->runAction(moveacti);
-    
+//    auto moveacti = MoveBy::create(2.0f, Point(400, 400));
+//    bg->runAction(moveacti);
+//    
     
     
     
@@ -35,7 +35,6 @@ bool GameScene07::init()
 	this->addChild(uiLayer);
     
     Director::getInstance()->resume();
-
 
 	return true;
 }
