@@ -59,6 +59,7 @@ bool PauseLayer::init()
 
 void PauseLayer::pauseGame(Ref* pSender)
 {
+    
 	//获得窗体大小
 	Size visibleSize = Director::getInstance()->getWinSize();
 	//截图
@@ -86,6 +87,9 @@ void PauseLayer::pauseGame(Ref* pSender)
 	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height / 2));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
 	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
+    
+    Director::getInstance()->pause();
+
 }
 
 void PauseLayer::returnToGame(Ref* pSender)
