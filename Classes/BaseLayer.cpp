@@ -13,10 +13,6 @@ std::string BaseLayer::getTips(int index)
 	return tips[index];
 }
 
-//void BaseScene::restart()
-//{
-//    log("BaseSceneStart");
-//}
 
 BaseLayer::BaseLayer(void)
 {
@@ -30,7 +26,3 @@ BaseLayer::~BaseLayer(void)
 {
 }
 
-//void BaseScene::restart()
-//{
-    //baseLayer->restart();
-//}

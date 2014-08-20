@@ -6,6 +6,7 @@
 //
 //
 
+#include "../BaseLayer.h"
 #include "ShopTipLayer.h"
 USING_NS_CC;
 
@@ -74,11 +75,32 @@ void shopTipLayer::hideLayerCallFunc(){
 }
 
 void shopTipLayer::buyCallFunc01(){
-    log("call01");
+	auto director = Director::getInstance();
+	Scene* runningScene = director->getRunningScene();
+    director->resume();
+    auto layer = runningScene->getChildByTag(100);
+	BaseLayer* baseLayer = (BaseLayer*)layer;
+    buyItem01->setString(baseLayer->getTips(0));
+    buyItem01->setEnabled(false);
+    director->pause();
 }
 void shopTipLayer::buyCallFunc02(){
-    
+    auto director = Director::getInstance();
+	Scene* runningScene = director->getRunningScene();
+    director->resume();
+    auto layer = runningScene->getChildByTag(100);
+	BaseLayer* baseLayer = (BaseLayer*)layer;
+    buyItem02->setString(baseLayer->getTips(1));
+    buyItem02->setEnabled(false);
+    director->pause();
 }
 void shopTipLayer::buyCallFunc03(){
-    
+    auto director = Director::getInstance();
+	Scene* runningScene = director->getRunningScene();
+    director->resume();
+    auto layer = runningScene->getChildByTag(100);
+	BaseLayer* baseLayer = (BaseLayer*)layer;
+    buyItem02->setString(baseLayer->getTips(2));
+    buyItem02->setEnabled(false);
+    director->pause();
 }

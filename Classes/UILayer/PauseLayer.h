@@ -20,6 +20,7 @@ public:
 	void returnToHome(Ref* pSender);
 	//设置静音
 	void muteSound(Ref* pSender);
+    void pauseCallFunc();
 
 	PauseLayer(void);
 	~PauseLayer(void);
@@ -27,5 +28,6 @@ private:
 	Layer* uiLayer;
 	bool soundFlag;	//false开音乐，true关音乐
 	MenuItemImage* btnMuteSounds;
+    
 };
 

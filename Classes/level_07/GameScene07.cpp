@@ -24,15 +24,17 @@ bool GameScene07::init()
 	bg->setPosition(winSize.width / 2, winSize.height / 2);
 	this->addChild(bg);
 
-    auto moveacti = MoveBy::create(2.0f, Point(400, 400));
-    bg->runAction(moveacti);
-    
+//    auto moveacti = MoveBy::create(2.0f, Point(400, 400));
+//    bg->runAction(moveacti);
+//    
     
     
     
 	//加入UILayer
 	auto uiLayer = UILayer::create();
 	this->addChild(uiLayer);
+    
+    Director::getInstance()->resume();
 
 	return true;
 }
@@ -57,5 +59,6 @@ GameScene07::~GameScene07(void)
 
 void GameScene07::restart(){
     Director::getInstance()->replaceScene(GameScene07::scene());
+    Director::getInstance()->resume();
     log("GameScene07Restart");
 }

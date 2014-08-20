@@ -155,15 +155,14 @@ void ShopLayer::popLayer(Ref* pSender){
 	_spr->setFlippedY(true);  //翻转
 	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗）
 	this->addChild(_spr, 0, BGTAG);
-	
-//	//禁止页面菜单
-//	uiLayer = (Layer*)pSender;
-//	auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-//	uiLayerMenu->setEnabled(false);
     
     auto moveTo = MoveTo::create(0.5f, Point::ZERO);
+
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
-    controllNode->runAction(easeBackInOut);
+    auto pasueAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(ShopLayer::pauseCallFunc, this)), NULL);
+    controllNode->runAction(pasueAction);
+ 
+    
 }
 
 void ShopLayer::pushLayer(){
@@ -182,4 +181,11 @@ void ShopLayer::pushLayer(){
                                         visibleSize.height+100));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
     controllNode->runAction(easeBackInOut);
+    
+    Director::getInstance()->resume();
+
+}
+
+void ShopLayer::pauseCallFunc(){
+    Director::getInstance()->pause();
 }

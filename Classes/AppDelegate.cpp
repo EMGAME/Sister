@@ -22,7 +22,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     
     auto screenSize = glview->getFrameSize();
-    auto designSize = Size(640,960);
+    auto designSize = Size(768,1136);
     auto resourceSize = Size(768,1136);
 
   
@@ -32,7 +32,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 #endif
 
-    Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
+    //Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
     
     // turn on display FPS

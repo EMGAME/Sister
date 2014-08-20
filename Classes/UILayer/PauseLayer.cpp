@@ -86,10 +86,17 @@ void PauseLayer::pauseGame(Ref* pSender)
 
 	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height / 2));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
+<<<<<<< HEAD
 	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
     
     Director::getInstance()->pause();
 
+=======
+	//this->getChildByTag(NODETAG)->runAction(easeBackInOut);
+    auto pasueAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(PauseLayer::pauseCallFunc, this)), NULL);
+    this->getChildByTag(NODETAG)->runAction(pasueAction);
+    
+>>>>>>> FETCH_HEAD
 }
 
 void PauseLayer::returnToGame(Ref* pSender)
@@ -108,6 +115,8 @@ void PauseLayer::returnToGame(Ref* pSender)
 		auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
 		uiLayerMenu->setEnabled(true);
 	}
+    
+    Director::getInstance()->resume();
 }
 
 void PauseLayer::resetGame(Ref* pSender)
@@ -121,7 +130,10 @@ void PauseLayer::resetGame(Ref* pSender)
 
 void PauseLayer::returnToHome(Ref* pSender)
 {
+   // CC_SAFE_RELEASE(Director::getInstance()->getRunningScene());
+    Director::getInstance()->resume();
     CCDirector::getInstance()->replaceScene(ScrollViewScene::createScene());
+
 }
 
 void PauseLayer::muteSound(Ref* pSender)
@@ -145,6 +157,9 @@ void PauseLayer::muteSound(Ref* pSender)
 	}
 }
 
+void PauseLayer::pauseCallFunc(){
+    Director::getInstance()->pause();
+}
 PauseLayer::PauseLayer(void)
 {
 	uiLayer = NULL;

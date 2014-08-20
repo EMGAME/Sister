@@ -31,9 +31,9 @@ public:
     cocos2d::Menu* m_ShopLayer;
 protected:
     MenuItem* TipBtn1;
-    MenuItem* buyItem01;
-    MenuItem* buyItem02;
-    MenuItem* buyItem03;
+    MenuItemLabel* buyItem01;
+    MenuItemLabel* buyItem02;
+    MenuItemLabel* buyItem03;
     
 };
 

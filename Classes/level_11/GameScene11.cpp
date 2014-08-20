@@ -19,7 +19,7 @@ bool GameScene11::init(){
 		return false;
 	}
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getWinSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 
 	//¼ÓÔØ±³¾°
@@ -80,6 +80,9 @@ bool GameScene11::init(){
     m_uiLayer->setPosition(Point::ZERO);
     this->addChild(m_uiLayer,100);
     
+    Director::getInstance()->resume();
+
+    
 	//²âÊÔÈİÆ÷vector
 	/*Vector<Sprite*> sp_vec;
 	sp_vec.pushBack(face);
@@ -112,5 +115,6 @@ void GameScene11::face(){
 
 void GameScene11::restart(){
     Director::getInstance()->replaceScene(GameScene11::createScene());
+    Director::getInstance()->resume();
     log("GameScene11Restart");
 }

@@ -51,6 +51,8 @@ public:
     void popLayer(Ref* pSender);
     void pushLayer();
     
+    void pauseCallFunc();
+    
     Layer* uiLayer;
     
     Node* controllNode;
