@@ -5,8 +5,11 @@
 #define NODETAG 20
 #define MENUTAG 30
 
-bool PauseLayer::init()
+bool PauseLayer::init(Ref* pSender)
 {
+    //保存uiLayer的引用
+    uiLayer = (Layer*)pSender;
+    
 	Size visibleSize = Director::getInstance()->getWinSize();
 	//加载plist
 	auto cache = SpriteFrameCache::getInstance();
@@ -53,50 +56,43 @@ bool PauseLayer::init()
 	node->setPosition(Point(visibleSize.width / 2, visibleSize.height + 400));
 
 	this->addChild(node, 100, NODETAG);
+    
+    //获得窗体大小
+	Size winSize = Director::getInstance()->getWinSize();
+	//截图
+	RenderTexture* renderTexture = RenderTexture::create(visibleSize.width, visibleSize.height);
+	renderTexture->retain();
+	Scene *runningScene = CCDirector::getInstance()->getRunningScene();
+	renderTexture->begin();
+	runningScene->visit();
+	renderTexture->end();
+	//下面这句用来测试截图是否成功，经测试成功
+	//renderTexture->saveToFile("123.png", Image::Format::PNG);
+    
+	//将截到的图做背景
+	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());
+	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
+	_spr->setFlippedY(true);  //翻转
+	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗）
+	this->addChild(_spr, 90, BGTAG);
+    
+    auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height / 2));
+    auto easeBackInOut = EaseBackInOut::create(moveTo);
+    
+	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
+    
 	
 	return true;
 }
 
 void PauseLayer::pauseGame(Ref* pSender)
 {
+    auto scene = Scene::create();
+    auto layer = PauseLayer::create(pSender);
+    scene->addChild(layer);
     
-	//获得窗体大小
-	Size visibleSize = Director::getInstance()->getWinSize();
-	//截图
-	RenderTexture* renderTexture = RenderTexture::create(visibleSize.width, visibleSize.height);  
-	renderTexture->retain();  
-	Scene *runningScene = CCDirector::getInstance()->getRunningScene();
-	renderTexture->begin();  
-	runningScene->visit();  
-	renderTexture->end();  
-	//下面这句用来测试截图是否成功，经测试成功
-	//renderTexture->saveToFile("123.png", Image::Format::PNG);
-
-	//将截到的图做背景
-	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());  
-	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));  
-	_spr->setFlippedY(true);  //翻转  
-	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗） 
-	this->addChild(_spr, 90, BGTAG);  
-	
-	//禁止页面菜单
-	uiLayer = (Layer*)pSender;
-	auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-	uiLayerMenu->setEnabled(false);
-
-	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height / 2));
-	auto easeBackInOut = EaseBackInOut::create(moveTo);
-<<<<<<< HEAD
-	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
-    
-    Director::getInstance()->pause();
-
-=======
-	//this->getChildByTag(NODETAG)->runAction(easeBackInOut);
-    auto pasueAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(PauseLayer::pauseCallFunc, this)), NULL);
-    this->getChildByTag(NODETAG)->runAction(pasueAction);
-    
->>>>>>> FETCH_HEAD
+    auto director = Director::getInstance();
+    director->pushScene(scene);
 }
 
 void PauseLayer::returnToGame(Ref* pSender)
@@ -106,25 +102,15 @@ void PauseLayer::returnToGame(Ref* pSender)
 
 	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height + 400));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
-	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
-	this->getChildByTag(BGTAG)->removeFromParent();
-	
-	//激活页面菜单
-	if(uiLayer)
-	{
-		auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-		uiLayerMenu->setEnabled(true);
-	}
-    
-    Director::getInstance()->resume();
+    auto returnToGameAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(PauseLayer::returnToGameCallFunc, this)), NULL);
+	this->getChildByTag(NODETAG)->runAction(returnToGameAction);
 }
 
 void PauseLayer::resetGame(Ref* pSender)
 {
-	auto director = Director::getInstance();
-	Scene* runningScene = director->getRunningScene();
-    auto layer = runningScene->getChildByTag(100);
-	BaseLayer* baseLayer = (BaseLayer*)layer;
+    auto gameLayerNode = uiLayer->getParent();
+    log("uilayer's tag:%d", uiLayer->getTag());
+	BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
     baseLayer->restart();
 }
 
@@ -157,9 +143,26 @@ void PauseLayer::muteSound(Ref* pSender)
 	}
 }
 
-void PauseLayer::pauseCallFunc(){
-    Director::getInstance()->pause();
+void PauseLayer::returnToGameCallFunc(){
+    Director::getInstance()->popScene();
 }
+
+PauseLayer* PauseLayer::create(Ref* pSender)
+{
+    PauseLayer *pRet = new PauseLayer();
+    if (pRet && pRet->init(pSender))
+    {
+        pRet->autorelease();
+        return pRet;
+    }
+    else
+    {
+        delete pRet;
+        pRet = NULL;
+        return NULL;
+    }
+}
+
 PauseLayer::PauseLayer(void)
 {
 	uiLayer = NULL;
