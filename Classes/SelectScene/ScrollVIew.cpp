@@ -42,13 +42,17 @@ bool ScrollView::init()
 	//设置为单点响应
 	setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
     
+    
     auto myListener = EventListenerTouchOneByOne::create();
     myListener->onTouchBegan = CC_CALLBACK_2(ScrollView::onTouchBegan, this);
     myListener->onTouchMoved = CC_CALLBACK_2(ScrollView::onTouchMoved, this);
     myListener->onTouchEnded = CC_CALLBACK_2(ScrollView::onTouchEnded, this);
     myListener->onTouchCancelled = CC_CALLBACK_2(ScrollView::onTouchCancelled, this);
-    
-    
+//    myListener->setSwallowTouches(false);
+//   
+//    //_eventDispatcher->addEventListenerWithSceneGraphPriority(myListener, this);
+//    _eventDispatcher->addEventListenerWithFixedPriority(myListener, -1);
+
     return bRet;
 }
 
@@ -66,16 +70,16 @@ bool ScrollView::init()
 
 void ScrollView::goToPage()
 {
-    MoveTo *moveTo = MoveTo::create(0.2f, Point::Point(-m_CurPage * WINDOW_WIDTH, 0));
+    MoveTo *moveTo = MoveTo::create(0.2f, Point(-m_CurPage * WINDOW_WIDTH, 0));
     
     this->runAction(moveTo);
 }
 
-void ScrollView::addPage(cocos2d::Layer *pPageLayer)
+void ScrollView::addPage(Layer *pPageLayer)
 {
     if (pPageLayer) {
         // 设置成一页大小
-        pPageLayer->setContentSize(Size::Size(WINDOW_WIDTH, WINDOW_HEIGHT));
+        pPageLayer->setContentSize(Size(WINDOW_WIDTH, WINDOW_HEIGHT));
         pPageLayer->setPosition(Point(WINDOW_WIDTH * m_Page, 0));
         this->addChild(pPageLayer);
         // 添加到页
@@ -111,7 +115,7 @@ bool ScrollView::onTouchBegan(Touch *pTouch, Event  *pEvent){
 void ScrollView::onTouchMoved(Touch *pTouch, Event  *pEvent){
     // 移动
     Point touchPoint = CCDirector::getInstance()->convertToGL(pTouch->getLocationInView());
-    Point posPoint = Point::Point(getPositionX() + touchPoint.x - m_TouchCurPoint.x, getPositionY());
+    Point posPoint = Point(getPositionX() + touchPoint.x - m_TouchCurPoint.x, getPositionY());
     setPosition(posPoint);
     m_TouchCurPoint = touchPoint;
 }
