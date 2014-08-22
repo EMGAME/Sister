@@ -1,7 +1,7 @@
 #include "AppDelegate.h"
 #include "StartScene.h"
-#include "GameScene07.h"
-
+#include "level_09.h"
+#include "GameScene10.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -23,18 +23,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     
     auto screenSize = glview->getFrameSize();
-    auto designSize = Size(640,960);
+    auto designSize = Size(768,1136);
     auto resourceSize = Size(768,1136);
 
   
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
-	glview->setFrameZoomFactor(0.7f);
+	glview->setFrameZoomFactor(0.6f);
 
 #endif
 
-    Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
-    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
+   /* Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);*/
+   glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
     
     // turn on display FPS
     director->setDisplayStats(true);
@@ -43,7 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = StartScene::createScene();
+	auto scene =StartScene::createScene();
 
     // run
     director->runWithScene(scene);
