@@ -26,12 +26,12 @@ enum SHOP_TYPE{
 class ShopLayer:public cocos2d::Layer{
 public:
     
-    virtual bool init(SHOP_TYPE TYPE);
-    static ShopLayer* create(SHOP_TYPE create_ShopType)
+    virtual bool init(Ref* pSender, SHOP_TYPE TYPE);
+    static ShopLayer* create(Ref* pSender, SHOP_TYPE create_ShopType)
     {
         ShopLayer *pRet = new ShopLayer();
         
-        if (pRet && pRet->init(create_ShopType))
+        if (pRet && pRet->init(pSender, create_ShopType))
         {
             pRet->autorelease();
             return pRet;
@@ -48,8 +48,10 @@ public:
     void changeToPowerCallFunc();
     void changeTpTipCallFunc();
     
-    void popLayer(Ref* pSender);
+    void popLayer(Ref* pSender, SHOP_TYPE TYPE);
     void pushLayer();
+    
+    void popLayerCallFunc();
     
     Layer* uiLayer;
     

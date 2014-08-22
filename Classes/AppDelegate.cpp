@@ -1,7 +1,11 @@
 #include "AppDelegate.h"
 #include "StartScene.h"
+<<<<<<< HEAD
 #include "level_09.h"
 #include "GameScene10.h"
+=======
+
+>>>>>>> origin/master
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -33,8 +37,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 #endif
 
+<<<<<<< HEAD
    /* Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);*/
    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
+=======
+    //Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
+    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
+>>>>>>> origin/master
     
     // turn on display FPS
     director->setDisplayStats(true);

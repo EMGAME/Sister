@@ -146,14 +146,10 @@ bool ScrollViewScene::init()
         menu->setPosition(Point::ZERO);
         this->addChild(menu, 1);
         
-        
-
         this->addChild(scrollView);
         
         
-        m_shopLayer = ShopLayer::create(SHOP_TYPE_WITHOUTTIP);
-        m_shopLayer->setPosition(Point::ZERO);
-        this->addChild(m_shopLayer);
+        
         
         
         bRet = true;
@@ -167,6 +163,6 @@ void ScrollViewScene::backBtnCallback(cocos2d::Ref* pSender){
 }
 
 void ScrollViewScene::gitfBtnCallback(cocos2d::Ref *pSender){
-    m_shopLayer->popLayer(this);
+    m_shopLayer->popLayer(this, SHOP_TYPE_WITHOUTTIP);
 }
 

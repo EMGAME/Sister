@@ -27,12 +27,11 @@ bool GameScene07::init()
     auto moveacti = MoveBy::create(2.0f, Point(400, 400));
     bg->runAction(moveacti);
     
-    
-    
-    
 	//加入UILayer
 	auto uiLayer = UILayer::create();
 	this->addChild(uiLayer);
+    
+    Director::getInstance()->resume();
 
 	return true;
 }
@@ -41,8 +40,7 @@ Scene* GameScene07::scene()
 {
 	auto scene = Scene::create();
 	auto layer = GameScene07::create();
-	scene->addChild(layer, 0, 100);
-    scene->setTag(999);
+	scene->addChild(layer);
 	return scene;
 }
 
@@ -57,5 +55,6 @@ GameScene07::~GameScene07(void)
 
 void GameScene07::restart(){
     Director::getInstance()->replaceScene(GameScene07::scene());
+    Director::getInstance()->resume();
     log("GameScene07Restart");
 }

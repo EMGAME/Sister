@@ -18,7 +18,7 @@ ShopLayer::ShopLayer(){
 }
 ShopLayer::~ShopLayer(){}
 
-bool ShopLayer::init(SHOP_TYPE TYPE){
+bool ShopLayer::init(Ref* pSender, SHOP_TYPE TYPE){
     if (!Layer::init()) {
         return false;
     }
@@ -114,6 +114,30 @@ bool ShopLayer::init(SHOP_TYPE TYPE){
     
     
     controllNode->setPosition(Origin+Point(visibleSize.width/2,visibleSize.height+100));
+    
+	//截图
+	RenderTexture* renderTexture = RenderTexture::create(winSize.width, winSize.height);
+	renderTexture->retain();
+	Scene *runningScene = CCDirector::getInstance()->getRunningScene();
+	renderTexture->begin();
+	runningScene->visit();
+	renderTexture->end();
+	//下面这句用来测试截图是否成功，经测试成功
+	//renderTexture->saveToFile("123.png", Image::Format::PNG);
+    
+	//将截到的图做背景
+	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());
+	_spr->setPosition(Point(winSize.width / 2, winSize.height / 2));
+	_spr->setFlippedY(true);  //翻转
+	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗）
+	this->addChild(_spr, 0, BGTAG);
+    
+    auto moveTo = MoveTo::create(0.5f, Point::ZERO);
+    
+	auto easeBackInOut = EaseBackInOut::create(moveTo);
+    //auto pasueAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(ShopLayer::pauseCallFunc, this)), NULL);
+    controllNode->runAction(easeBackInOut);
+    
     return true;
 }
 
@@ -135,51 +159,23 @@ void ShopLayer::changeTpTipCallFunc(){
     m_shopTipLayer->setVisible(true);
 }
 
-void ShopLayer::popLayer(Ref* pSender){
-    
-    //获得窗体大小
-	Size visibleSize = Director::getInstance()->getWinSize();
-	//截图
-	RenderTexture* renderTexture = RenderTexture::create(visibleSize.width, visibleSize.height);
-	renderTexture->retain();
-	Scene *runningScene = CCDirector::getInstance()->getRunningScene();
-	renderTexture->begin();
-	runningScene->visit();
-	renderTexture->end();
-	//下面这句用来测试截图是否成功，经测试成功
-	//renderTexture->saveToFile("123.png", Image::Format::PNG);
-    
-	//将截到的图做背景
-	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());
-	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
-	_spr->setFlippedY(true);  //翻转
-	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗）
-	this->addChild(_spr, 0, BGTAG);
-	
-//	//禁止页面菜单
-//	uiLayer = (Layer*)pSender;
-//	auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-//	uiLayerMenu->setEnabled(false);
-    
-    auto moveTo = MoveTo::create(0.5f, Point::ZERO);
-	auto easeBackInOut = EaseBackInOut::create(moveTo);
-    controllNode->runAction(easeBackInOut);
+void ShopLayer::popLayer(Ref* pSender, SHOP_TYPE TYPE){
+    auto scene = Scene::create();
+    auto tipLayer = ShopLayer::create(this, TYPE);
+    scene->addChild(tipLayer);
+    Director::getInstance()->pushScene(scene);
 }
 
 void ShopLayer::pushLayer(){
-    this->getChildByTag(BGTAG)->removeFromParent();
-	
-
-//	//激活页面菜单
-//	if(uiLayer)
-//	{
-//		auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-//		uiLayerMenu->setEnabled(true);
-//	}
     Size visibleSize = Director::getInstance()->getWinSize();
     
 	auto moveTo = MoveTo::create(0.5f,Point(visibleSize.width/2,
                                         visibleSize.height+100));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
-    controllNode->runAction(easeBackInOut);
+    auto popLayerAction = Sequence::create(easeBackInOut, CallFunc::create(CC_CALLBACK_0(ShopLayer::popLayerCallFunc, this)), NULL);
+    controllNode->runAction(popLayerAction);
+}
+
+void ShopLayer::popLayerCallFunc(){
+    Director::getInstance()->popScene();
 }
