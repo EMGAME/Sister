@@ -1,19 +1,18 @@
 #include "HelloWorldScene.h"
 
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
 {
-    // 'scene' is an autorelease object
     auto scene = Scene::create();
     
-    // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
 
-    // add layer as a child to scene
     scene->addChild(layer);
 
-    // return the scene
+	//layer->bglayer = backgroundLayer;
+
     return scene;
 }
 
@@ -63,15 +62,32 @@ bool HelloWorld::init()
     // add the label as a child to this layer
     this->addChild(label, 1);
 
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-    sprite->setRotation(90);
-    // position the sprite on the center of the screen
-    sprite->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
+	//²âÊÔµã»÷ÊÂ¼þ
+	auto pic = Sprite::create("BlueBall.png");
+	pic->setPosition(visibleSize.width * 0.8f , visibleSize.height * 0.5f);
+	//pic->setVisible(true);
+	this->addChild(pic, 3, 10);
+
+	auto button = MenuItemImage::create("play_nor.png",
+		                                  "play_pre.png",
+										  CC_CALLBACK_0(HelloWorld::show,this) );
+	button->setPosition(visibleSize.width *0.3f,visibleSize.height * 0.5f);
     
+	auto button1 = Menu::create(button, NULL);
+	button1->setPosition(Point::ZERO);
+	this->addChild(button1, 2);
+
+	
+
+	auto aaa = Sprite::create("l12_bg.png");
+	aaa->setAnchorPoint(Point(0,0));
+	aaa->setPosition(Point::ZERO);
+	this->addChild(aaa);
+
+	//±³¾°²ã
+	//auto backgroundLayer = Bglayer::create();
+	//this->addChild(backgroundLayer,0);
     return true;
 }
 
@@ -84,3 +100,13 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     exit(0);
 #endif
 }
+
+void HelloWorld::show(){
+
+	this->getChildByTag(10)->setVisible(false);
+
+}
+
+
+
+

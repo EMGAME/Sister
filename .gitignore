@@ -4,4 +4,5 @@
 /proj.linux/
 /proj.win32/
 /Resources/
+/.metadata/
 .DS_Store
