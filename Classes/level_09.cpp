@@ -7,9 +7,10 @@ USING_NS_CC;
 
 
 static bool rubbishISHave=true;
+MoveTo*  moveTo_5;
 int HaveUFO=0;
 int MoveCar=0;
-int MoveUFO=0;
+int havePlane=0;
 
 Scene* Level09::createScene()  
 {  
@@ -41,6 +42,12 @@ bool Level09::init()
 	car->setPosition(Point(0,size.height*0.55));
 	car->setTag(111);
 	this->addChild(car,3);
+
+	//plane
+	auto plane= Sprite::create("level09/plane.png");
+    plane->setTag(130);
+	plane->setVisible(false);
+	this->addChild(plane,3);
 
 	//tree
 	auto tree = Sprite::create("level09/tree.png");
@@ -75,9 +82,9 @@ bool Level09::init()
     UFO->setPosition(Point(size.width*0.90,size.height*0.85));
     auto UFO1 = Menu::create(UFO, NULL);  
 	UFO1->setPosition(Point::ZERO);  
-	//UFO1->setVisible(false);
+	UFO1->setVisible(false);
 	UFO1->setTag(121);
-	MoveCar=0;
+	
     this->addChild(UFO1, 4);  
 	
 	//saozhou button
@@ -118,9 +125,10 @@ bool Level09::init()
  _eventDispatcher->addEventListenerWithSceneGraphPriority(listener2,tree);
  
  //move car
- car->runAction(MoveTo::create(20.0f,Point(size.width*0.75,size.height*0.40)));
+ moveTo_5=MoveTo::create(15.0f,Point(size.width*0.75,size.height*0.40));
+ car->runAction(moveTo_5);
 rubbish->runAction(JumpBy::create(1.0f,Point(30,0),100,3)); 
-MoveCar=1;
+
 //touch car
 //auto listener3 = EventListenerTouchOneByOne::create();//创建一个触摸监听
 // listener3->onTouchBegan=CC_CALLBACK_2(Level09::onTouchBeganCar,this);
@@ -143,15 +151,15 @@ void Level09::onEnter() {
 void  Level09::onAcceleration(Acceleration* acc, Event* unused) {
 	
 	 auto size = Director::getInstance()->getWinSize();  
-	 if(MoveCar==1){
+	
 	 float nowGX = (acc->x)*9.81f;
      float nowGY = (acc->y)*9.81f;
  if((nowGX<-10.0||nowGX>10.0)&&(nowGY<-10.0||nowGY>10.0))
  {
      this->getChildByTag(121)->setVisible(true);
+	 this->getChildByTag(111)->stopAction(moveTo_5);
 	 HaveUFO=1;
-	
-}
+
 	}
 	}
 
@@ -168,14 +176,29 @@ void Level09::showRubbish2(){
 }
 
 void Level09::moveUFO(){
-	auto size = Director::getInstance()->getWinSize();  
+	auto size = Director::getInstance()->getWinSize(); 
+	
+
 	if(HaveUFO==1){
-	 this->getChildByTag(121)->runAction(MoveTo::create(3.0f,Point(-size.width*0.1,-size.height*0.1)));
-	 MoveUFO=1;
+		
+	 MoveCar=1;
 	}
-	if(MoveUFO==1){
-		this->getChildByTag(111)->runAction(Spawn::create(MoveTo::create(3.0f,Point(size.width*0.2,size.height*0.2)),ScaleTo::create(3.0f,0.1),NULL));
+	if(MoveCar==1){
+		this->getChildByTag(111)->runAction(MoveBy::create(1.0f,Point(0,240)));
+		this->getChildByTag(111)->stopAllActions();
+		this->getChildByTag(111)->setVisible(false);
+	    havePlane=1;
+    }
+	if(havePlane==1){
+		carPoint=this->getChildByTag(111)->getPosition();
+		this->getChildByTag(130)->setVisible(true);
+		this->getChildByTag(130)->setPosition(Point(carPoint.x,carPoint.y));
+	    this->getChildByTag(130)->runAction(MoveBy::create(1.5f,Point(700,0)));
+		this->getChildByTag(119)->setVisible(true);
+	     this->getChildByTag(119)->setRotation(180);
+		this->getChildByTag(119)->runAction(RotateTo::create(1.0f,0));
 	}
+    
 }
 
 

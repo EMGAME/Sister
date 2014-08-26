@@ -208,7 +208,7 @@ bool GameScene10::init()
 
  //¼ÓÈëUILayer
 	auto uiLayer = UILayer::create();
-	this->addChild(uiLayer);
+	this->addChild(uiLayer,100);
 
 	Director::getInstance()->resume();
 }

@@ -27,17 +27,21 @@ public:
 	/*bool onTouchBeganCar(Touch *touch, Event* event);
 	void onTouchMovedCar(Touch *touch, Event* event);*/
 
-	virtual void restart();
-
 	virtual void onEnter();
 	virtual void onExit();
 	virtual void onAcceleration(Acceleration *acc, Event *unused_event);
+	
+	virtual void restart();
+
+	
 
     Point location1;
     Point location2;
 
 	Point saozhouPos;
 	Point location4;
+
+	Point carPoint;
 };  
 
 #endif  __level_09_SCENE_H__  
