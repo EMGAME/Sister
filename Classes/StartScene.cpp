@@ -8,7 +8,7 @@
 
 #include "StartScene.h"
 #include "SelectScene/ScrollViewScene.h"
-
+#include "UILayer/SuccessLayer.h"
 USING_NS_CC;
 
 Scene* StartScene::createScene(){

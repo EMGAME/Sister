@@ -79,10 +79,10 @@ void ScorllMainlayer02::menuCloseCallback02(cocos2d::Ref* pSender){
     
 }
 void ScorllMainlayer02::menuCloseCallback03(cocos2d::Ref* pSender){
-    Director::getInstance()->replaceScene(Level09::createScene()); 
+   // Director::getInstance()->replaceScene(Level09::createScene());
 }
 void ScorllMainlayer02::menuCloseCallback04(cocos2d::Ref* pSender){
-	Director::getInstance()->replaceScene(GameScene10::createScene()); 
+	//Director::getInstance()->replaceScene(GameScene10::createScene());
 }
 
 void ScorllMainlayer02::menuCloseCallback05(cocos2d::Ref* pSender){

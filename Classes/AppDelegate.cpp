@@ -31,6 +31,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 #endif
 
+<<<<<<< HEAD
+=======
+
+    //Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
+>>>>>>> origin/master
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
     
     // turn on display FPS

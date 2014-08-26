@@ -21,6 +21,9 @@ public:
 	CREATE_FUNC(GameScene07);
     
     virtual void restart();
+    void testCallBack();
+    
+    UILayer* uiLayer;
     
 	GameScene07(void);
 	~GameScene07(void);
