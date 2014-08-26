@@ -70,26 +70,7 @@ bool PauseLayer::init(Ref* pSender)
 	//renderTexture->saveToFile("123.png", Image::Format::PNG);
     
 	//将截到的图做背景
-<<<<<<< HEAD
-	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());  
-	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));  
-	_spr->setFlippedY(true);  //翻转  
-	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗） 
-	this->addChild(_spr, 90, BGTAG);  
-	
-	//禁止页面菜单
-	uiLayer = (Layer*)pSender;
-	auto uiLayerMenu = (Menu*)uiLayer->getChildByTag(MENUTAG);
-	uiLayerMenu->setEnabled(false);
 
-	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height / 2));
-	auto easeBackInOut = EaseBackInOut::create(moveTo);
-
-	//this->getChildByTag(NODETAG)->runAction(easeBackInOut);
-    auto pasueAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(PauseLayer::pauseCallFunc, this)), NULL);
-    this->getChildByTag(NODETAG)->runAction(pasueAction);
-    
-=======
 	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());
 	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	_spr->setFlippedY(true);  //翻转
@@ -113,7 +94,6 @@ void PauseLayer::pauseGame(Ref* pSender)
     
     auto director = Director::getInstance();
     director->pushScene(scene);
->>>>>>> FETCH_HEAD
 }
 
 void PauseLayer::returnToGame(Ref* pSender)
