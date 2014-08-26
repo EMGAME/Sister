@@ -29,19 +29,23 @@ bool shopGiftLayer::init(){
     giftBtn1->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
     giftBtn1->setPosition(Origin+Point(visibleSize.width-508,visibleSize.height/2+100));
     
+<<<<<<< HEAD
     buyItem01 = MenuItemLabel::create(LabelTTF::create("0.1day", "", 40),
                                           CC_CALLBACK_0(shopGiftLayer::buyCallFunc01,this));
+=======
+    buyItem01 = MenuItemLabel::create(LabelTTF::create("0.1yuan", "", 40),CC_CALLBACK_0(shopGiftLayer::buyCallFunc01,this));
+>>>>>>> origin/master
     buyItem01->setColor(Color3B(0, 0, 0));
     buyItem01->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     buyItem01->setPosition(Origin+Point(visibleSize.width - 450,visibleSize.height/2+100));
     
-    buyItem02= MenuItemLabel::create(LabelTTF::create("6元 = 400金币", "", 40),
+    buyItem02= MenuItemLabel::create(LabelTTF::create("6yuan = 400gold", "", 40),
                                           CC_CALLBACK_0(shopGiftLayer::buyCallFunc02,this));
     buyItem02->setColor(Color3B(0, 0, 0));
     buyItem02->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);
     buyItem02->setPosition(Origin+Point(visibleSize.width - 450,visibleSize.height/2 ));
     
-    buyItem03 = MenuItemLabel::create(LabelTTF::create("12元 = 1000金币", "", 40),
+    buyItem03 = MenuItemLabel::create(LabelTTF::create("12yuan= 1000gold", "", 40),
                                           CC_CALLBACK_0(shopGiftLayer::buyCallFunc03,this));
     buyItem03->setColor(Color3B(0, 0, 0));
     buyItem03->setAnchorPoint(Point::ANCHOR_MIDDLE_LEFT);

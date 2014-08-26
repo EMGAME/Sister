@@ -24,11 +24,11 @@ public:
     static Scene* createScene();
     
     // 触摸事件相关
-    bool onTouchBegan(Touch *pTouch, Event  *pEvent);
-    void onTouchMoved(Touch *pTouch, Event  *pEvent);
-    void onTouchEnded(Touch *pTouch, Event  *pEvent);
-
-    void ListenerTouchBegan();
+//    bool onTouchBegan(Touch *pTouch, Event  *pEvent);
+//    void onTouchMoved(Touch *pTouch, Event  *pEvent);
+//    void onTouchEnded(Touch *pTouch, Event  *pEvent);
+//
+//    void ListenerTouchBegan();
     
     CREATE_FUNC(GameScene01);
 };

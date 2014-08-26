@@ -53,23 +53,28 @@ bool GameScene01::init(){
     auto listener1 = EventListenerTouchOneByOne::create();
     listener1->setSwallowTouches(true);
     
-    listener1->onTouchBegan = CC_CALLBACK_2(GameScene01::onTouchBegan, this);
-    listener1->onTouchMoved = CC_CALLBACK_2(GameScene01::onTouchMoved, this);
-    listener1->onTouchEnded = CC_CALLBACK_2(GameScene01::onTouchEnded, this);
+    listener1->onTouchBegan = [](Touch *pTouch,Event *pEvent){
+        auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
+        Point locationInNode = target->convertToNodeSpace(pTouch->getLocation());
+        Rect pRect = target->getBoundingBox();
+        
+        if (pRect.containsPoint(locationInNode)) {
+            return true;
+        }
+        
+        return false;
+    };
+    
+    listener1->onTouchMoved = [](Touch *pTouch,Event *pEvent){
+        auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
+        target->setPosition(target->getPosition()+pTouch->getDelta());
+    };
+    
+    listener1->onTouchEnded = [](Touch* pTouch,Event* pEvent){
+        
+    };
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, m_zhuantou);
-    
-
-
-    
-//    auto listener2 = EventListenerTouchOneByOne::create();
-//    listener2->setSwallowTouches(true);
-//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener2, m_jinggai);
-//    
-//    auto listener3 = EventListenerTouchOneByOne::create();
-//    listener3->setSwallowTouches(true);
-//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener3, m_ludeng);
-    
     
     return true;
 }
@@ -79,18 +84,5 @@ void GameScene01::restart(){
     Director::getInstance()->resume();
 }
 
-bool GameScene01::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
-    return true;
-}
 
-void GameScene01::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
-}
-
-void GameScene01::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
-
-}
-
-void GameScene01::ListenerTouchBegan(){
-    log("ListenerTouchBegan");
-}
 

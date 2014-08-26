@@ -2,8 +2,8 @@
 #define GameScene12_h
 
 #include "cocos2d.h"
-#include "level_12/Bglayer.h"
-#include "level_12/Girl.h"
+#include "Bglayer.h"
+#include "Girl.h"
 
 
 class GameScene12 : public cocos2d::Layer{

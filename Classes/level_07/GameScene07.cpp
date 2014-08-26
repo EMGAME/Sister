@@ -28,12 +28,18 @@ bool GameScene07::init()
     bg->runAction(moveacti);
     
 	//加入UILayer
-	auto uiLayer = UILayer::create();
-	this->addChild(uiLayer);
+    uiLayer = UILayer::create();
+	this->addChild(uiLayer,100);
     
     Director::getInstance()->resume();
 
-	return true;
+    auto test = MenuItemImage::create("boy.png", "boy.png", CC_CALLBACK_0(GameScene07::testCallBack, this));
+    test->setPosition(Point(winSize.width/2, winSize.height/2));
+    auto testMenu = Menu::create(test, NULL);
+    testMenu->setPosition(Point::ZERO);
+    this->addChild(testMenu);
+    
+    return true;
 }
 
 Scene* GameScene07::scene()
@@ -56,5 +62,9 @@ GameScene07::~GameScene07(void)
 void GameScene07::restart(){
     Director::getInstance()->replaceScene(GameScene07::scene());
     Director::getInstance()->resume();
-    log("GameScene07Restart");
+}
+
+void GameScene07::testCallBack(){
+    uiLayer->Success("guoguan",3);
+
 }

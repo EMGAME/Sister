@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
 #include "StartScene.h"
-
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -28,11 +27,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
   
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
+<<<<<<< HEAD
 	glview->setFrameZoomFactor(0.5f);
+=======
+	glview->setFrameZoomFactor(0.6f);
+>>>>>>> origin/master
 
 #endif
 
-    //Director::getInstance()->setContentScaleFactor(resourceSize.height/designSize.height);
+
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
     
     // turn on display FPS
@@ -42,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = StartScene::createScene();
+	auto scene =StartScene::createScene();
 
     // run
     director->runWithScene(scene);

@@ -70,6 +70,7 @@ bool PauseLayer::init(Ref* pSender)
 	//renderTexture->saveToFile("123.png", Image::Format::PNG);
     
 	//将截到的图做背景
+
 	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());
 	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	_spr->setFlippedY(true);  //翻转
