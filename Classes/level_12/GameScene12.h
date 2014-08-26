@@ -2,12 +2,11 @@
 #define GameScene12_h
 
 #include "cocos2d.h"
-#include "Bglayer.h"
-#include "Girl.h"
-#include "../BaseLayer.h"
+#include "level_12/Bglayer.h"
+#include "level_12/Girl.h"
 
 
-class GameScene12 : public BaseLayer{
+class GameScene12 : public cocos2d::Layer{
 public:
 	static cocos2d::Scene* createScene();
 
@@ -18,8 +17,6 @@ public:
 	bool onTouchBegan(Touch *touch, Event *unused_event);
 	//void onTouchesMoved(const std::vector<Touch*>& touches, Event *unused_event);
 	void onTouchEnded(Touch *touch, Event *unused_event);
-
-    virtual void restart();
 
 
 	Point location1;
@@ -34,27 +31,29 @@ public:
 	int numOfM1;
 	int numOfM2;
 	int numOfM3;
-	int allstop;
+	int otherlife;
 	int state;
 	int abc;
+
+	//增加一个数组来保存怪物
+	cocos2d::Vector<cocos2d::Sprite*> M_Vetor;
 private:
 
 	//装备手链
 	void carry();
-
-	//刷新菜刀
-	void refresh(float dt);
-	//删除菜刀
-	void del(float dt);
-
-	void reset(float dt);
+    // 背景滚动
 	void logic(float dt);
+
+	//随机加载一个
+	void loadM(float dt);
+
+	void Mhide();
+	//void createM(int a);
 
 
 	Bglayer* bglayer;
 	Girl* girl_nor;
 
-	void Movedown();
 };
 
 #endif

@@ -17,10 +17,10 @@ public:
 	void logic(float dt);
 private:
    Sprite* bg1;
-   Sprite* bg2;
-
-   
-
+   Sprite* tree1;
+   Sprite* tree2;
+   Sprite* tree3;
+ 
 };
 
 #endif

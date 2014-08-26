@@ -24,11 +24,8 @@ bool GameScene07::init()
 	bg->setPosition(winSize.width / 2, winSize.height / 2);
 	this->addChild(bg);
 
-//    auto moveacti = MoveBy::create(2.0f, Point(400, 400));
-//    bg->runAction(moveacti);
-//    
-    
-    
+    auto moveacti = MoveBy::create(2.0f, Point(400, 400));
+    bg->runAction(moveacti);
     
 	//加入UILayer
 	auto uiLayer = UILayer::create();
@@ -43,8 +40,7 @@ Scene* GameScene07::scene()
 {
 	auto scene = Scene::create();
 	auto layer = GameScene07::create();
-	scene->addChild(layer, 0, 100);
-    scene->setTag(999);
+	scene->addChild(layer);
 	return scene;
 }
 

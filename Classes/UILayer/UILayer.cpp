@@ -1,3 +1,27 @@
+//                   _oo0oo_
+//                  o8888888o
+//                  88" . "88
+//                  (| -_- |)
+//                  0\  =  /0
+//                ___/`---'\___
+//              .' \\|     |-- '.
+//             / \\|||  :  |||-- \
+//            / _||||| -:- |||||- \
+//           |   | \\\  -  --/ |   |
+//           | \_|  ''\---/''  |_/ |
+//           \  .-\__  '-'  ___/-. /
+//         ___'. .'  /--.--\  `. .'___
+//      ."" '<  `.___\_<|>_/___.' >' "".
+//     | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//     \  \ `_.   \_ __\ /__ _/   .-` /  /
+// =====`-.____`.___ \_____/___.-`___.-'=====
+//                   `=---='
+//
+//
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//           佛祖保佑   永无BUG   永不修改
+
 #include "UILayer.h"
 #define MENUTAG 30
 
@@ -46,31 +70,31 @@ bool UILayer::init()
 	this->addChild(menu, 10, MENUTAG);
 
 	//初始化各种Layer
-	pauseLayer = PauseLayer::create();
-	this->addChild(pauseLayer);
+	//pauseLayer = PauseLayer::create();
+	//this->addChild(pauseLayer);
 	shareLayer = ShareLayer::create();
 	this->addChild(shareLayer);
-    tipLayer = ShopLayer::create(SHOP_TYPE_TIP);
-    this->addChild(tipLayer);
-    powerLayer = ShopLayer::create(SHOP_TYPE_POWER);
-    this->addChild(powerLayer);
+    //tipLayer = ShopLayer::create(SHOP_TYPE_TIP);
+    //this->addChild(tipLayer);
+    //powerLayer = ShopLayer::create(SHOP_TYPE_POWER);
+    //this->addChild(powerLayer);
 
 	return true;
 }
 
 void UILayer::btnPauseCallBack(Ref* pSender)
 {
-	pauseLayer->pauseGame(this);
+    PauseLayer::pauseGame(this);
 }
 
 void UILayer::btnTipCallBack(Ref* pSender)
 {
-    tipLayer->popLayer(this);
+    tipLayer->popLayer(this, SHOP_TYPE_TIP);
 }
 
 void UILayer::btnCallBack(Ref* pSender)
 {
-    powerLayer->popLayer(this);
+    powerLayer->popLayer(this, SHOP_TYPE_POWER);
 }
 
 void UILayer::btnHelpCallBack(Ref* pSender)

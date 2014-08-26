@@ -7,11 +7,11 @@ using namespace CocosDenshion;
 class PauseLayer : public Layer
 {
 public:
-	virtual bool init();
-	CREATE_FUNC(PauseLayer);
+	virtual bool init(Ref* pSender);
+	static PauseLayer* create(Ref* pSender);
 
 	//暂停游戏
-	void pauseGame(Ref* pSender);
+	static void pauseGame(Ref* pSender);
 	//返回游戏
 	void returnToGame(Ref* pSender);
 	//重置关卡
@@ -20,7 +20,7 @@ public:
 	void returnToHome(Ref* pSender);
 	//设置静音
 	void muteSound(Ref* pSender);
-    void pauseCallFunc();
+    void returnToGameCallFunc();
 
 	PauseLayer(void);
 	~PauseLayer(void);
