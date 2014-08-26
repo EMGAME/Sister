@@ -28,7 +28,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
   
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
-	glview->setFrameZoomFactor(0.7f);
+	glview->setFrameZoomFactor(0.5f);
 
 #endif
 

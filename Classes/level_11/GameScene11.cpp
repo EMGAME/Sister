@@ -1,5 +1,6 @@
 #include "GameScene11.h"
 #include "CCVector.h"
+#include "../UILayer/UILayer.h"
 USING_NS_CC;
 
 
@@ -140,6 +141,14 @@ bool GameScene11::init(){
 	listener->onTouchEnded = CC_CALLBACK_2(GameScene11::onTouchEnded,this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	//UI
+	auto uiLayer = UILayer::create();
+	uiLayer->setTag(1);
+	this->addChild(uiLayer);
+
+	Director::getInstance()->resume();
+
 	return true;
 }
 
@@ -206,4 +215,10 @@ void GameScene11::onTouchEnded(Touch *touch, Event *unused_event){
 		}
 	}
 
+}
+
+void GameScene11::restart(){
+	Director::getInstance()->replaceScene(GameScene11::createScene());
+	Director::getInstance()->resume();
+	log("11111111111111111");
 }
