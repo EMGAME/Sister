@@ -8,7 +8,7 @@
 
 #include "StartScene.h"
 #include "SelectScene/ScrollViewScene.h"
-
+#include "UILayer/SuccessLayer.h"
 USING_NS_CC;
 
 Scene* StartScene::createScene(){
@@ -34,6 +34,11 @@ bool StartScene::init(){
     auto startMenu = Menu::create(startGameBtn, NULL);
     startMenu->setPosition(Point::ZERO);
     this->addChild(startMenu);
+    
+    auto m_failureLayer = SuccessLayer::create();
+    m_failureLayer->setPosition(Point::ZERO);
+    
+    this->addChild(m_failureLayer,4);
     return true;
 }
 

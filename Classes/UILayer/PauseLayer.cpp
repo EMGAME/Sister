@@ -86,17 +86,11 @@ void PauseLayer::pauseGame(Ref* pSender)
 
 	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height / 2));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
-<<<<<<< HEAD
-	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
-    
-    Director::getInstance()->pause();
 
-=======
 	//this->getChildByTag(NODETAG)->runAction(easeBackInOut);
     auto pasueAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(PauseLayer::pauseCallFunc, this)), NULL);
     this->getChildByTag(NODETAG)->runAction(pasueAction);
     
->>>>>>> FETCH_HEAD
 }
 
 void PauseLayer::returnToGame(Ref* pSender)

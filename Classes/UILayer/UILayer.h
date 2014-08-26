@@ -14,6 +14,9 @@ public:
 	void btnTipCallBack(Ref* pSender);
 	void btnCallBack(Ref* pSender);
 	void btnHelpCallBack(Ref* pSender);
+    void popSuccessLayer();
+    void Fail();
+    void Success();
     
 	//暂停游戏界面
 	PauseLayer* pauseLayer;
