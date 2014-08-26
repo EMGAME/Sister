@@ -102,6 +102,18 @@ void UILayer::btnHelpCallBack(Ref* pSender)
 	//shareLayer->shareGame(this);
 }
 
+void UILayer::Lose(std::string loseTip){
+    m_failureLayer->pushLayer(this, loseTip);
+
+}
+
+void UILayer::Success(std::string passTip,int starNum){
+    
+    m_successLayer->pushLayer(this,starNum,passTip);
+
+    
+}
+
 UILayer::UILayer(void)
 {
 }

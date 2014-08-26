@@ -33,11 +33,6 @@ bool StartScene::init(){
     auto startMenu = Menu::create(startGameBtn, NULL);
     startMenu->setPosition(Point::ZERO);
     this->addChild(startMenu);
-    
-    auto m_failureLayer = SuccessLayer::create();
-    m_failureLayer->setPosition(Point::ZERO);
-    
-    this->addChild(m_failureLayer,4);
     return true;
 }
 
