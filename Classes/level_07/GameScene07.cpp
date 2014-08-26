@@ -65,6 +65,6 @@ void GameScene07::restart(){
 }
 
 void GameScene07::testCallBack(){
-    uiLayer->Success("恭喜你通关了",3);
+    uiLayer->Success("guoguan",3);
 
 }
