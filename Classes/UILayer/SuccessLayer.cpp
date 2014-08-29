@@ -81,8 +81,10 @@ bool SuccessLayer::init(Ref* pSender,std::string passTip){
     arrow->setPosition(Point(winSize.width/2-75,winSize.height/2-150));
     controllNode->addChild(arrow,4);
     
+    //添加提示
     auto m_string = LabelTTF::create(passTip, "", 25,Size(400,200));
     m_string->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+    m_string->setColor(Color3B(0, 0, 0));
     m_string ->setPosition(Point(winSize.width/2, winSize.height/2-200));
     controllNode->addChild(m_string,4);
     
