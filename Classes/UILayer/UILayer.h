@@ -3,9 +3,13 @@
 #include "PauseLayer.h"
 #include "ShareLayer.h"
 #include "ShopLayer.h"
+<<<<<<< HEAD
 #include "FailureLayer.h"
 #include "SuccessLayer.h"
 
+=======
+#include "ItemLayer.h"
+>>>>>>> gamescene07
 USING_NS_CC;
 class UILayer : public Layer
 {

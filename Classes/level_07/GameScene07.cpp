@@ -68,3 +68,4 @@ void GameScene07::testCallBack(){
     uiLayer->Success("guoguan",3);
 
 }
+
