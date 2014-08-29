@@ -3,6 +3,7 @@
 #include "PauseLayer.h"
 #include "ShareLayer.h"
 #include "ShopLayer.h"
+#include "ItemLayer.h"
 USING_NS_CC;
 class UILayer : public Layer
 {

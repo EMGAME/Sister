@@ -8,6 +8,7 @@
 
 #include "StartScene.h"
 #include "SelectScene/ScrollViewScene.h"
+#include "UILayer/ItemLayer.h"
 
 USING_NS_CC;
 
@@ -34,6 +35,11 @@ bool StartScene::init(){
     auto startMenu = Menu::create(startGameBtn, NULL);
     startMenu->setPosition(Point::ZERO);
     this->addChild(startMenu);
+    
+    //初始化xml
+    ItemLayer* itemLayer = new ItemLayer();
+    itemLayer->initItemXML();
+    
     return true;
 }
 

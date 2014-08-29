@@ -68,6 +68,10 @@ bool UILayer::init()
 	auto menu = Menu::create(btnPause, btnTip, btn, btnHelp, NULL);
 	menu->setPosition(Point::ZERO);
 	this->addChild(menu, 10, MENUTAG);
+    
+    //加入ItemLayer
+    auto itemLayer = ItemLayer::create();
+    this->addChild(itemLayer);
 
 	//初始化各种Layer
 	//pauseLayer = PauseLayer::create();
