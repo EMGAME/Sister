@@ -2,7 +2,7 @@
 #define __level_09_SCENE_H__  
 #include "BaseLayer.h"
 #include "cocos2d.h"  
-#include "UILayer/UILayer.h"
+#include "../UILayer/UILayer.h"
 
 USING_NS_CC;  
 
@@ -15,8 +15,10 @@ public:
 	void showRubbish2();
 	void showSaoZhou();
 	void moveUFO();
-	
+	void finishPlane();
+	void finishSaozou();
 	void menuCloseCallback(cocos2d::Ref* pSender);  
+	
 	CREATE_FUNC(Level09);  
 	
 	bool onTouchBeganTree(Touch *touch, Event* event);
@@ -33,7 +35,7 @@ public:
 	
 	virtual void restart();
 
-	
+	UILayer* uiLayer;
 
     Point location1;
     Point location2;

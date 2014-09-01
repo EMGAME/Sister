@@ -8,7 +8,7 @@
 
 #include "ScorllMainlayer03.h"
 #include "SimpleAudioEngine.h"
-
+#include "game.h"
 using namespace CocosDenshion;
 
 ScorllMainlayer03::ScorllMainlayer03()
@@ -73,7 +73,7 @@ bool ScorllMainlayer03::init()
 
 
 void ScorllMainlayer03::menuCloseCallback01(cocos2d::Ref* pSender){
-    log("SS");
+    Director::getInstance()->replaceScene(GameScene13::createScene());
 }
 void ScorllMainlayer03::menuCloseCallback02(cocos2d::Ref* pSender){
     
