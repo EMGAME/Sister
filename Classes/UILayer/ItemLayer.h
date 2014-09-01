@@ -29,6 +29,7 @@ public:
     
 private:
     Vector<Sprite*> m_AllEnableItems;
+    Node* enableItem;
 };
 
 #endif /* defined(__Sister__ItemLayer__) */

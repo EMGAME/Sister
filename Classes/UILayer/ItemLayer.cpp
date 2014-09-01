@@ -16,7 +16,9 @@ bool ItemLayer::init()
     
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui_common.plist");
     auto menuItemSprite = MenuItemSprite::create(Sprite::createWithSpriteFrameName("common_btn_home.png"), Sprite::createWithSpriteFrameName("common_btn_home.png"), CC_CALLBACK_0(ItemLayer::menuCallBack, this));
-    menuItemSprite->setPosition(origin + Point(visibleSize.width - 60, 50));
+    
+    menuItemSprite->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
+    menuItemSprite->setPosition(origin + Point(visibleSize.width - 15, 25));
     auto menu = Menu::create(menuItemSprite, NULL);
     menu->setPosition(Point::ZERO);
     
@@ -122,15 +124,32 @@ void ItemLayer::menuCallBack()
 
 void ItemLayer::showItems()
 {
+    enableItem = Node::create();
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
-    int x = 50, y = 50;
+    int x = visibleSize.width-100, y = 25;
+    float delayTime = 0;
+    
     for(auto itemSprite : m_AllEnableItems)
     {
-        itemSprite->setPosition(origin + Point(x, y));
-        x += 100;
-        this->addChild(itemSprite);
+        itemSprite->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
+        itemSprite->setPosition(origin + Point(visibleSize.width - 15, 25));
+        
+        auto itemAction = MoveTo::create(0.4f, origin+Point(x, y));
+        
+        auto actionDelay = DelayTime::create(delayTime);
+        auto ease = EaseBackInOut::create(itemAction);
+        
+        auto sequence = Sequence::create(actionDelay,ease, NULL);
+        
+        itemSprite->runAction(sequence);
+        
+        x -= 100;
+        delayTime += 0.1;
+        
+        enableItem->addChild(itemSprite);
     }
+    this->addChild(enableItem);
 }
 
 void ItemLayer::addToItems(Node* pSender, int id)
