@@ -9,6 +9,18 @@
 #ifndef __Sister__GameScene02__
 #define __Sister__GameScene02__
 
-#include <iostream>
+#include "cocos2d.h"
+#include "../BaseLayer.h"
+USING_NS_CC;
 
+class GameScene02:public BaseLayer{
+public:
+    GameScene02();
+    ~GameScene02();
+    
+    static Scene* createScene();
+    virtual bool init();
+    
+    CREATE_FUNC(GameScene02);
+};
 #endif /* defined(__Sister__GameScene02__) */

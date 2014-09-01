@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 #include "BaseLayer.h"
+#include "../UILayer/UILayer.h"
 
 USING_NS_CC;
 
@@ -23,13 +24,21 @@ public:
     virtual void restart();
     static Scene* createScene();
     
-    // 触摸事件相关
-//    bool onTouchBegan(Touch *pTouch, Event  *pEvent);
-//    void onTouchMoved(Touch *pTouch, Event  *pEvent);
-//    void onTouchEnded(Touch *pTouch, Event  *pEvent);
-//
-//    void ListenerTouchBegan();
+    void update(float delta);
+    void initTipLayer();
+
+    void onTouchEnded(Touch* pTouch,Event* pEvent);
+    void onTouchMoved(Touch* pTouch,Event* pEvent);
+    void sayThanksCallBack();
+    void sayNoCallBack();
     
+    Sprite* m_sister;
+    Sprite* m_zhuantou;
+    Sprite* m_jinggai;
+    Sprite* m_ludeng;
+    UILayer* m_ui;
+    
+    Layer* TipLayer;
     CREATE_FUNC(GameScene01);
 };
 
