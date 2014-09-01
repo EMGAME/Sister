@@ -26,12 +26,8 @@ bool StartScene::init(){
     
     auto winSize = Director::getInstance()->getWinSize();
     
-<<<<<<< HEAD
-    auto startGameBtn = MenuItemLabel::create(Label::create("StartGame", "", 40),
-                                              CC_CALLBACK_0(StartScene::startGame, this));
-=======
+
     MenuItemLabel* startGameBtn = MenuItemLabel::create(Label::create("StartGame", "", 40),CC_CALLBACK_0(StartScene::startGame, this));
->>>>>>> origin/master
     
     startGameBtn->setPosition(Point(winSize.width/2,winSize.height/2 - 200));
     

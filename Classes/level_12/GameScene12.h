@@ -4,9 +4,12 @@
 #include "cocos2d.h"
 #include "Bglayer.h"
 #include "Girl.h"
+#include "BaseLayer.h"
+#include "../UILayer/UILayer.h"
 
+USING_NS_CC;
 
-class GameScene12 : public cocos2d::Layer{
+class GameScene12 : public BaseLayer{
 public:
 	static cocos2d::Scene* createScene();
 
@@ -36,21 +39,22 @@ public:
 	int abc;
 
 	//增加一个数组来保存怪物
-	cocos2d::Vector<cocos2d::Sprite*> M_Vetor;
+	//cocos2d::Vector<cocos2d::Sprite*> M_Vetor;
+
+
+	UILayer* uiLayer;
+	virtual void restart();
+	
 private:
 
 	//装备手链
 	void carry();
-    // 背景滚动
-	void logic(float dt);
-
+    
 	//随机加载一个
 	void loadM(float dt);
 
 	void Mhide();
-	//void createM(int a);
-
-
+	
 	Bglayer* bglayer;
 	Girl* girl_nor;
 

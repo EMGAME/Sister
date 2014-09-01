@@ -1,6 +1,5 @@
 #include "GameScene11.h"
 #include "CCVector.h"
-#include "../UILayer/UILayer.h"
 USING_NS_CC;
 
 
@@ -73,7 +72,7 @@ bool GameScene11::init(){
 
 	//¾Æ±­
 	auto glass = MenuItemImage::create("level11/glass2.png",
-		"level11/glass3.png",
+		"level11/glass4.png",
 		CC_CALLBACK_0(GameScene11::glass,this));
 	glass->setPosition(visibleSize.width * 0.5,visibleSize.height * 0.6);
 
@@ -143,7 +142,7 @@ bool GameScene11::init(){
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//UI
-	auto uiLayer = UILayer::create();
+	uiLayer = UILayer::create();
 	uiLayer->setTag(1);
 	this->addChild(uiLayer);
 
@@ -154,12 +153,14 @@ bool GameScene11::init(){
 
 void GameScene11::clown(){
 
-	MessageBox("Beautiful girl said 'oh! that is not funny,keep away from me' ","fail");
+	//MessageBox("Beautiful girl said 'oh! that is not funny,keep away from me' ","fail");
+	uiLayer->Lose("Beautiful girl said 'oh! that is not funny,keep away from me'");
 }
 
 void GameScene11::flower(){
 
-	MessageBox("Beautiful girl said 'he he!'","fail");
+	//MessageBox("Beautiful girl said 'he he!'","fail");
+	uiLayer->Lose("Beautiful girl said 'he he!'");
 }
 
 void GameScene11::glass(){
@@ -211,7 +212,8 @@ void GameScene11::onTouchEnded(Touch *touch, Event *unused_event){
 		{
 			log("222222222222222222");
 			face2->setVisible(true);
-			MessageBox("girl is laugh","success");
+			//MessageBox("girl is laugh","success");
+			uiLayer->Success("guoguan",3);
 		}
 	}
 
