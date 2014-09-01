@@ -31,6 +31,7 @@ void ItemLayer::initItemXML()
     //要储存XML文件的路径
     std::string filePath = FileUtils::getInstance()->getWritablePath() + "sisterItem.xml";
     //log("filePath:%s", filePath.c_str());
+    
     //xml文档
     XMLDocument *pDoc = new XMLDocument();
     if (NULL==pDoc) {
@@ -39,6 +40,7 @@ void ItemLayer::initItemXML()
     
     //判断文件是否存在，存在则跳出
     pDoc->LoadFile(filePath.c_str());
+    
     //得到跟节点
     XMLElement *rootEle = pDoc->RootElement();
     if (rootEle) {
@@ -51,10 +53,12 @@ void ItemLayer::initItemXML()
         return;
     }
     pDoc->LinkEndChild(pDel);
+    
     //根节点sisterItems
     XMLElement *sisterItemsElement = pDoc->NewElement("sisterItems");
     sisterItemsElement->SetAttribute("version", "1.0");//给节点设置属性
     pDoc->LinkEndChild(sisterItemsElement);
+    
     //节点item
     XMLElement *itemElement = pDoc->NewElement("item");
     itemElement->SetAttribute("id", 01);
@@ -122,6 +126,8 @@ void ItemLayer::menuCallBack()
 
 void ItemLayer::showItems()
 {
+    itemNode = Node::create();
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
     int x = 50, y = 50;
@@ -129,8 +135,10 @@ void ItemLayer::showItems()
     {
         itemSprite->setPosition(origin + Point(x, y));
         x += 100;
-        this->addChild(itemSprite);
+        itemNode->addChild(itemSprite);
     }
+    itemNode->setAnchorPoint(Point::ZERO);
+    this->addChild(itemNode);
 }
 
 void ItemLayer::addToItems(Node* pSender, int id)
