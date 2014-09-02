@@ -22,6 +22,8 @@ bool ItemLayer::init()
     auto menu = Menu::create(menuItemSprite, NULL);
     menu->setPosition(Point::ZERO);
     
+    isShowed = false;
+    
     this->addChild(menu);
     
     return true;
@@ -107,6 +109,8 @@ void ItemLayer::menuCallBack()
     //跟节点的第一个子节点item
     XMLElement *itemEle = rootEle->FirstChildElement();
     m_AllEnableItems.clear();
+    
+    
     do{
         bool enable = false;
         itemEle->QueryBoolAttribute("enable", &enable);
@@ -117,7 +121,16 @@ void ItemLayer::menuCallBack()
         }
         itemEle = itemEle->NextSiblingElement();
     }while (itemEle);
-    showItems();
+    
+    
+    
+    if (isShowed == false) {
+        showItems();
+    }else{
+        hideItems();
+    }
+    
+    
     //保存xml
     pDoc->SaveFile(filePath.c_str());
 }
@@ -146,11 +159,41 @@ void ItemLayer::showItems()
         
         x -= 100;
         delayTime += 0.1;
-        
+    
         enableItem->addChild(itemSprite);
     }
     this->addChild(enableItem);
+    isShowed = true;
 }
+
+void ItemLayer::hideItems(){
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Point origin = Director::getInstance()->getVisibleOrigin();
+
+    float delayTime = 0;
+    
+    for(auto itemSprite : m_AllEnableItems)
+    {
+        itemSprite->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
+        
+        auto itemAction = MoveTo::create(0.4f, origin + Point(visibleSize.width - 15, 25));
+        
+        auto actionDelay = DelayTime::create(delayTime);
+        auto ease = EaseBackInOut::create(itemAction);
+        
+        auto sequence = Sequence::create(actionDelay,ease,CallFunc::create([&](){enableItem->removeChild(itemSprite);}),
+                                         NULL);
+        
+        itemSprite->runAction(sequence);
+        delayTime += 0.1;
+        
+        enableItem->removeChild(itemSprite);
+    }
+    this->removeChild(enableItem);
+    isShowed = false;
+}
+
+
 
 void ItemLayer::addToItems(Node* pSender, int id)
 {

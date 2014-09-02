@@ -22,14 +22,18 @@ public:
     virtual bool init();
     void initItemXML();
     void menuCallBack();
+    
     void showItems();
+    void hideItems();
     
     void addToItems(Node* pSender, int id);
     void addToItemsCallBack(Node* pSender);
     
 private:
     Vector<Sprite*> m_AllEnableItems;
+    Vector<Sprite*> m_ShowedItems;
     Node* enableItem;
+    bool isShowed;
 };
 
 #endif /* defined(__Sister__ItemLayer__) */

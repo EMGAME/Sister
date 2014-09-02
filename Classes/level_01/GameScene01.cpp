@@ -111,6 +111,7 @@ void GameScene01::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
 void GameScene01::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
     if (m_sister->getBoundingBox().containsPoint(m_zhuantou->getPosition())) {
         TipLayer->runAction(MoveTo::create(0.2f,Director::getInstance()->getVisibleOrigin()+Point::ZERO));
+        m_sister->setVisible(false);
     }
 }
 
