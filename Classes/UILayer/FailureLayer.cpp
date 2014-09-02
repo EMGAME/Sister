@@ -84,6 +84,7 @@ bool FailureLayer::init(Ref* pSender,std::string loseTip){
     
     auto m_string = LabelTTF::create(loseTip, "", 25,Size(400,200));
     m_string->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+    m_string->setColor(Color3B(0, 0, 0));
     m_string ->setPosition(Point(winSize.width/2, winSize.height/2-200));
     controllNode->addChild(m_string,4);
     

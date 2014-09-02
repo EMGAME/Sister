@@ -1,6 +1,5 @@
 #include "GameScene12.h"
 
-
 USING_NS_CC;
 
 Scene* GameScene12::createScene(){
@@ -13,7 +12,7 @@ Scene* GameScene12::createScene(){
 	auto layer = GameScene12::create();
 
 	scene->addChild(layer);
-    
+
 	layer->bglayer = backgroundLayer;
 
 	return scene;
@@ -33,10 +32,7 @@ bool GameScene12::init(){
 	this->addChild(girl_nor,3,5);
 
 	movenum = 0;
-	numOfM1 = 0;
-	numOfM2 = 0;
-	numOfM3 = 0;
-	otherlife = 1;
+	otherlife = 0;
 	abc = 0;
     state = 0;
 
@@ -56,6 +52,7 @@ bool GameScene12::init(){
 	button1->setPosition(Point::ZERO);
 	this->addChild(button1, 2);
 
+
 	//触摸监听
 	auto listener = EventListenerTouchOneByOne::create();
 
@@ -70,42 +67,48 @@ bool GameScene12::init(){
 	//创建这三个怪物并且放入到数组中
 	//菜刀
 	m1 = Sprite::create("level12/m1.png");
-	m1->setPosition(Point(visibleSize.width * 0.5f , visibleSize.height * 0.85f));
+	m1->setPosition(Point(visibleSize.width * 0.6f , visibleSize.height * 0.63f));
 	this->addChild(m1);
+	/*m1->setScale(0.7,0.7);
+	auto move1 = MoveBy::create(1.0f, Point(-190 ,-190));
+	auto sm1 = Spawn::create(move1,RotateTo::create(1.0f,1080),NULL);
+	m1->runAction(sm1);*/
 	m1->setVisible(false);
-	M_Vetor.pushBack(m1);
 
     //谩骂
 	m2 = Sprite::create("level12/m2.png");
-	m2->setPosition(Point(visibleSize.width * 0.5f , visibleSize.height * 0.7f));
+	m2->setPosition(Point(visibleSize.width * 0.52f , visibleSize.height * 0.62f));
 	this->addChild(m2);
+	/*m2->setScale(0.1,0.1);
+	auto move2 = MoveBy::create(1.0f, Point(20 ,-130));
+	auto sm2 = Spawn::create(move2,ScaleTo::create(1.0f,1.2f,1.2f),NULL);
+	m2->runAction(sm2);*/
 	m2->setVisible(false);
-	M_Vetor.pushBack(m2);
 
 	//子弹
 	m3 = Sprite::create("level12/m3.png");
-	m3->setPosition(Point(visibleSize.width * 0.5f , visibleSize.height * 0.5f));
+	m3->setPosition(Point(visibleSize.width * 0.42f , visibleSize.height * 0.62f));
 	this->addChild(m3);
+	//auto move3 = MoveBy::create(1.0f, Point(180, -150));
+	//m3->runAction(move3);
 	m3->setVisible(false);
-	M_Vetor.pushBack(m3);
 
 
-	//this->schedule(schedule_selector(GameScene12::loadM),2.0,9,5);
+	this->schedule(schedule_selector(GameScene12::loadM),2.0,9,5);
 
+	uiLayer = UILayer::create();
+	this->addChild(uiLayer);
 
 	return true;
 }
 
 void GameScene12::carry(){
+
 	hand->setVisible(true);
 	abc = 1;
 
 }
 
-//void GameScene12::logic(float dt){
-//	bglayer->logic(dt);
-//}
- 
 bool GameScene12::onTouchBegan(Touch *touch, Event *unused_event){
 
 	location1 = touch->getLocation();
@@ -132,14 +135,14 @@ void GameScene12::onTouchEnded(Touch *touch, Event *unused_event){
 	if (location1.x>location2.x>0 && location1.x-location2.x>location1.y-location2.y)
 	{
 		girl_nor->moveLeft();
-		movenum = 2;
+		movenum = 3;
 	}
 
 	//右移
 	if (location2.x>location1.x>0 && location2.x-location1.x>location2.y-location1.y && location2.x-location1.x>location1.y-location2.y )
 	{
 		girl_nor->moveRight();
-		movenum = 3;
+		movenum = 2;
 	}
 	
 }
@@ -148,87 +151,43 @@ void GameScene12::loadM(float dt){
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	/*for (Sprite *m : M_Vetor)
-	{*/
-		int temp = CCRANDOM_0_1()*100;
+    int temp = CCRANDOM_0_1()*100;
 
-		//log("%d",temp);
-
-		/*if (m->getNumberOfRunningActions() == 0) 
-		{
-		this->createM(temp%3);
-		log("%d",temp%3);
-		}*/
-
-		if (temp%3 == 0 && numOfM1 < 3){
+	if (temp%3 == 0 ){
 			m1->setVisible(true);
+			m1->setScale(0.7,0.7);
 			state = 1;
-			auto move1 = MoveBy::create(1.0f, Point(0, -350));
-			auto Pm1 = Place::create(Point(visibleSize.width * 0.5f , visibleSize.height * 0.85f));
-			auto Sm1 = Sequence::create(move1,Pm1,CallFunc::create(CC_CALLBACK_0(GameScene12::Mhide,this)),NULL);
+			auto move1 = MoveBy::create(1.0f, Point(-190 ,-190));
+			auto sm1 = Spawn::create(move1,RotateTo::create(1.0f,1080),NULL);
+			auto Pm1 = Place::create(Point(visibleSize.width * 0.6f , visibleSize.height * 0.63f));
+			auto Sm1 = Sequence::create(sm1,Pm1,CallFunc::create(CC_CALLBACK_0(GameScene12::Mhide,this)),NULL);
 			m1->runAction(Sm1);
-			numOfM1++;
-			log("m1+%d",numOfM1);
 		}
 
-		if (temp%3 == 1 && numOfM2 < 3){
+	if (temp%3 == 1){
+		    m2->setScale(0.1,0.1);
 			m2->setVisible(true);
 			state = 2 ;
-			auto move2 = MoveBy::create(1.0f, Point(0, -300));
-			auto Pm2 = Place::create(Point(visibleSize.width * 0.5f , visibleSize.height * 0.7f));
-			auto Sm2 = Sequence::create(move2,Pm2,CallFunc::create(CC_CALLBACK_0(GameScene12::Mhide,this)),NULL);
-			m2->runAction(Sm2);
-			numOfM2++;
-			log("m2+%d",numOfM2);	
+			auto move2 = MoveBy::create(1.0f, Point(20 ,-130));
+			auto sm2 = Spawn::create(move2,ScaleTo::create(1.0f,1.2f,1.2f),NULL);
+			auto Pm2 = Place::create(Point(visibleSize.width * 0.52f , visibleSize.height * 0.62f));
+			auto Sm2 = Sequence::create(sm2,Pm2,CallFunc::create(CC_CALLBACK_0(GameScene12::Mhide,this)),NULL);
+			m2->runAction(Sm2);	
 		}
 
-		if (temp%3 == 2 && numOfM3 < 3){
+	if (temp%3 == 2){
 			m3->setVisible(true);
 			state = 3 ;
-			auto move3 = MoveBy::create(1.0f, Point(90, -90));
-			auto Pm3 = Place::create(Point(visibleSize.width * 0.5f , visibleSize.height * 0.5f));
+			auto move3 = MoveBy::create(1.0f, Point(180, -150));
+			auto Pm3 = Place::create(Point(visibleSize.width * 0.42f , visibleSize.height * 0.62f));
 			auto Sm3 = Sequence::create(move3,Pm3,CallFunc::create(CC_CALLBACK_0(GameScene12::Mhide,this)),NULL);
 			m3->runAction(Sm3);
-			numOfM3++;
-			log("m3+%d",numOfM3);
 		}
 
-	/*}*/
 }
-
-//void GameScene12::createM(int a){
-//
-//	Size visibleSize = Director::getInstance()->getVisibleSize();
-//
-//	if (a == 0){
-//		//m1->runAction( MoveBy::create(1.0f, Point(0, -350)));
-//		auto move1 = MoveBy::create(1.0f, Point(0, -350));
-//		auto Pm1 = Place::create(Point(visibleSize.width * 0.5f , visibleSize.height * 0.85f));
-//		auto Sm1 = Sequence::create(move1,Pm1,move1->clone(),Pm1->clone(),move1->clone(),NULL);
-//		m1->runAction(Sm1);
-//	}
-//
-//	if (a == 1){
-//		m2->runAction(MoveBy::create(1.0f, Point(0, -300)));
-//	}
-//	if (a == 2){
-//		m3->runAction(MoveBy::create(1.0f, Point(90, -90)));
-//	}
-//}
 
 void GameScene12::Mhide(){
 
-	/*if (a == 1){
-	m1->setVisible(false);
-	}
-	if (a == 2){
-	m2->setVisible(false);
-	}
-	if (a == 3){
-	m3->setVisible(false);
-
-	}*/
-	//log("123");
 	m1->setVisible(false);
 	m2->setVisible(false);
 	m3->setVisible(false);
@@ -237,11 +196,14 @@ void GameScene12::Mhide(){
 		if (abc == 1){
 			if (movenum == 2 ){
 				log("you are safe");
+				otherlife++;
 			}else{
-                MessageBox("you are dead","dead");
+                //MessageBox("you are dead","dead");
+				uiLayer->Lose("Girl1 is dead");
 			}
 		}else{
-			MessageBox("girl is safe,but you are dead","dead");
+			//MessageBox("girl is safe,but you are dead","dead");
+			uiLayer->Lose("girl1 is safe,but you are dead");
 		}
 	}
 
@@ -249,11 +211,14 @@ void GameScene12::Mhide(){
 		if (abc == 1){
 			if (movenum == 1 ){
 				log("you are safe");
+				otherlife++;
 			}else{
-				MessageBox("you are dead","dead");
+				//MessageBox("you are dead","dead");
+				uiLayer->Lose("Girl2 is dead");
 			}
 		}else{
-			MessageBox("girl is safe,but you are dead","dead");
+			//MessageBox("girl is safe,but you are dead","dead");
+			uiLayer->Lose("girl2 is safe,but you are dead");
 		}
 	}
 
@@ -261,16 +226,24 @@ void GameScene12::Mhide(){
 		if (abc == 1){
 			if (movenum == 3 ){
 				log("you are safe");
+				otherlife++;
 			}else{
-				MessageBox("you are dead","dead");
+				//MessageBox("you are dead","dead");
+				uiLayer->Lose("Girl3 is dead");
 			}
 		}else{
-			MessageBox("girl is safe,but you are dead","dead");
+			//MessageBox("girl is safe,but you are dead","dead");
+			uiLayer->Lose("girl3 is safe,but you are dead");
 		}
 	}
 
-	if (numOfM3 == 3 && numOfM1 == 3 && numOfM2 == 3)
+	if (otherlife > 3)
 	{
-		MessageBox("guoguanl ", "success");
+		uiLayer->Success("you and girl ",2);
 	}
+}
+
+void GameScene12::restart(){ 
+	Director::getInstance()->replaceScene(GameScene12::createScene());
+	Director::getInstance()->resume();
 }

@@ -2,9 +2,12 @@
 #define GameScene11_h
 
 #include "cocos2d.h"
+#include "BaseLayer.h"
+#include "../UILayer/UILayer.h"
+
 USING_NS_CC;
 
-class GameScene11 : public cocos2d::Layer{
+class GameScene11 : public BaseLayer{
 public:
 	static cocos2d::Scene* createScene();
 
@@ -32,6 +35,9 @@ public:
 	void hidden();
 
 	CC_SYNTHESIZE(int,permise,permise);
+	virtual void restart();
+
+	UILayer* uiLayer;
 
 private:
 	cocos2d::Sprite* handline;

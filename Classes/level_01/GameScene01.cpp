@@ -25,57 +25,67 @@ bool GameScene01::init(){
         return false;
     }
     auto winSize = Director::getInstance()->getWinSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
     
     auto bg = Sprite::create("level_01/l1bg.png");
     bg->setPosition(winSize.width/2,winSize.height/2);
     this->addChild(bg,1);
 
-    auto m_ui = UILayer::create();
+    m_ui = UILayer::create();
     m_ui->setPosition(Point::ZERO);
     this->addChild(m_ui,10);
     
+   
+    m_sister = Sprite::create("level_01/sister.png");
+    m_sister->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    m_sister->setPosition(Point(206, 175));
+    this->addChild(m_sister,1);
     
-    auto m_zhuantou = Sprite::create("level_01/zhuantou.png");
-    m_zhuantou->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
-    m_zhuantou->setPosition(Point(430,59));
-    this->addChild(m_zhuantou,0);
+    m_zhuantou = Sprite::create("level_01/zhuantou.png");
+    m_zhuantou->setAnchorPoint(Point::ANCHOR_MIDDLE_RIGHT);
+    m_zhuantou->setPosition(Point(544,130));
+    this->addChild(m_zhuantou,1);
     
-    auto m_jinggai = Sprite::create("level_01/jinggai.png");
+    m_jinggai = Sprite::create("level_01/jinggai.png");
     m_jinggai->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     m_jinggai->setPosition(Point(427,81));
     this->addChild(m_jinggai,2);
     
-    auto m_ludeng = Sprite::create("level_01/ludeng.png");
+    m_ludeng = Sprite::create("level_01/ludeng.png");
     m_ludeng->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     m_ludeng->setPosition(Point(640,81));
     this->addChild(m_ludeng,2);
     
+
     auto listener1 = EventListenerTouchOneByOne::create();
     listener1->setSwallowTouches(true);
     
     listener1->onTouchBegan = [](Touch *pTouch,Event *pEvent){
         auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
-        Point locationInNode = target->convertToNodeSpace(pTouch->getLocation());
+        Point locationInNode = pTouch->getLocation();
+        log("touchx=%f,touchY=%f,targetX=%f,targety=%f",locationInNode.x,locationInNode.y,target->getPositionX(),target->getPositionY());
         Rect pRect = target->getBoundingBox();
         
         if (pRect.containsPoint(locationInNode)) {
+            
             return true;
         }
         
         return false;
     };
     
-    listener1->onTouchMoved = [](Touch *pTouch,Event *pEvent){
-        auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
-        target->setPosition(target->getPosition()+pTouch->getDelta());
-    };
+    listener1->onTouchMoved = CC_CALLBACK_2(GameScene01::onTouchMoved, this);
+    listener1->onTouchEnded = CC_CALLBACK_2(GameScene01::onTouchEnded, this);
     
-    listener1->onTouchEnded = [](Touch* pTouch,Event* pEvent){
-        
-    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, m_jinggai);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener1->clone(), m_zhuantou);
     
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, m_zhuantou);
+//  创建Tip层
     
+    initTipLayer();
+    TipLayer->setPosition(origin+Point(0,-300));
+    this->addChild(TipLayer,10);
+    this->scheduleUpdate();
     return true;
 }
 
@@ -84,5 +94,63 @@ void GameScene01::restart(){
     Director::getInstance()->resume();
 }
 
+void GameScene01::update(float delta){
 
+}
 
+void GameScene01::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
+    target->setPosition(target->getPosition()+pTouch->getDelta());
+    if (m_sister->getBoundingBox().containsPoint(m_zhuantou->getPosition())) {
+        m_sister->runAction(TintTo::create(0, 200, 200, 200));
+    }else{
+        m_sister->runAction(TintTo::create(0, 255, 255, 255));
+    }
+}
+
+void GameScene01::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    if (m_sister->getBoundingBox().containsPoint(m_zhuantou->getPosition())) {
+        TipLayer->runAction(MoveTo::create(0.2f,Director::getInstance()->getVisibleOrigin()+Point::ZERO));
+    }
+}
+
+void GameScene01::initTipLayer(){
+    TipLayer = Layer::create();
+    
+    auto winSize = Director::getInstance()->getVisibleSize();
+    
+    auto m_big = Sprite::create("level_01/sister_big.png");
+    m_big->setAnchorPoint(Point::ZERO);
+    m_big->setPosition(Point::ZERO);
+    TipLayer->addChild(m_big);
+    
+    auto m_board = Sprite::create("level_01/tip.png");
+    m_board->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
+    m_board->setPosition(Point(winSize.width, 0));
+    TipLayer->addChild(m_board);
+    
+    auto thanks = MenuItemLabel::create(LabelTTF::create("谢谢", "", 20),
+                                        CC_CALLBACK_0(GameScene01::sayThanksCallBack, this));
+    thanks->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    thanks->setColor(Color3B(0, 0, 0));
+    thanks->setPosition(Point(winSize.width-270, 50));
+    
+    auto no = MenuItemLabel::create(LabelTTF::create("不，是你的砖头!!么么哒", "", 20),
+                                        CC_CALLBACK_0(GameScene01::sayNoCallBack, this));
+    no->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+    no->setColor(Color3B(0, 0, 0));
+    no->setPosition(Point(winSize.width-270, 20));
+    
+    auto t_n_menu = Menu::create(thanks,no, NULL);
+    t_n_menu->setPosition(Point::ZERO);
+    TipLayer->addChild(t_n_menu);
+    
+}
+
+void GameScene01::sayThanksCallBack(){
+    m_ui->Lose("女神一个板砖拍在了你的脑袋上。‘二货’");
+}
+
+void GameScene01::sayNoCallBack(){
+    m_ui->Success("哈哈哈哈哈，恭喜你屌丝童鞋，女神心思一动哦！！!么么哒", 3);
+}

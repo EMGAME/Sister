@@ -6,6 +6,7 @@
 #include "FailureLayer.h"
 #include "SuccessLayer.h"
 
+#include "ItemLayer.h"
 USING_NS_CC;
 class UILayer : public Layer
 {
