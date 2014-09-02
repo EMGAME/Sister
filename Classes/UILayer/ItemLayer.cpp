@@ -34,7 +34,7 @@ void ItemLayer::initItemXML()
     std::string filePath = FileUtils::getInstance()->getWritablePath() + "sisterItem.xml";
     //log("filePath:%s", filePath.c_str());
     //xml文档
-    XMLDocument *pDoc = new XMLDocument();
+    tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
     if (NULL==pDoc) {
         return;
     }
@@ -100,7 +100,7 @@ void ItemLayer::menuCallBack()
     std::string filePath = FileUtils::getInstance()->getWritablePath() + "sisterItem.xml";
     //log("path:%s", filePath.c_str());
     //xmlDoc
-    XMLDocument *pDoc = new XMLDocument();
+    tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
     pDoc->LoadFile(filePath.c_str());
     //得到跟节点
     XMLElement *rootEle = pDoc->RootElement();
@@ -164,7 +164,7 @@ void ItemLayer::addToItems(Node* pSender, int id)
     //xml文件路径
     std::string filePath = FileUtils::getInstance()->getWritablePath() + "sisterItem.xml";
     //xmlDoc
-    XMLDocument *pDoc = new XMLDocument();
+    tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
     pDoc->LoadFile(filePath.c_str());
     //得到跟节点
     XMLElement *rootEle = pDoc->RootElement();

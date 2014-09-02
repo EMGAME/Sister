@@ -28,14 +28,11 @@ bool StartScene::init(){
     
     auto winSize = Director::getInstance()->getWinSize();
     
-<<<<<<< HEAD
 
-    MenuItemLabel* startGameBtn = MenuItemLabel::create(Label::create("StartGame", "", 40),CC_CALLBACK_0(StartScene::startGame, this));
-=======
     auto startGameBtn = MenuItemLabel::create(Label::create("StartGame", "", 40),
                                               CC_CALLBACK_0(StartScene::startGame, this));
 
->>>>>>> origin/master
+
     
     startGameBtn->setPosition(Point(winSize.width/2,winSize.height/2 - 200));
     
@@ -43,7 +40,7 @@ bool StartScene::init(){
     startMenu->setPosition(Point::ZERO);
     this->addChild(startMenu);
     
-    //初始化xml
+    //xml
     ItemLayer* itemLayer = new ItemLayer();
     itemLayer->initItemXML();
     
