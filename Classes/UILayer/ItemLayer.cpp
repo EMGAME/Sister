@@ -108,6 +108,7 @@ void ItemLayer::menuCallBack()
     XMLElement *rootEle = pDoc->RootElement();
     //跟节点的第一个子节点item
     XMLElement *itemEle = rootEle->FirstChildElement();
+    
     m_AllEnableItems.clear();
     
     
@@ -140,8 +141,16 @@ void ItemLayer::showItems()
     enableItem = Node::create();
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
-    int x = visibleSize.width-100, y = 25;
+    int x = visibleSize.width-100, y = 25,tag = 1;
     float delayTime = 0;
+    
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = CC_CALLBACK_2(ItemLayer::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(ItemLayer::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(ItemLayer::onTouchEnded, this);
+    
     
     for(auto itemSprite : m_AllEnableItems)
     {
@@ -159,10 +168,13 @@ void ItemLayer::showItems()
         
         x -= 100;
         delayTime += 0.1;
+        tag += 1;
     
-        enableItem->addChild(itemSprite);
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener->clone(), itemSprite);
+        
+        enableItem->addChild(itemSprite,1,tag);
     }
-    this->addChild(enableItem);
+    this->addChild(enableItem,1,1);
     isShowed = true;
 }
 
@@ -229,4 +241,45 @@ void ItemLayer::addToItems(Node* pSender, int id)
 void ItemLayer::addToItemsCallBack(Node* pSender)
 {
     pSender->removeFromParent();
+}
+void ItemLayer::ItemInit(cocos2d::Rect pRect,ITEM_TYPE mTypes){
+    setmRect(pRect);
+    setcurType(mTypes);
+
+}
+bool ItemLayer::ItemIsContained(){
+    return getmRect().containsPoint(getcurSprite()->getPosition());
+}
+
+bool ItemLayer::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
+    Point locationInNode = pTouch->getLocation();
+    Rect pRect = target->getBoundingBox();
+    
+    if (pRect.containsPoint(locationInNode)) {
+        return true;
+    }
+    
+    return false;
+}
+void ItemLayer::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
+    target->setPosition(target->getPosition()+pTouch->getDelta());
+
+}
+void ItemLayer::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    switch (getcurType()) {
+        case ITEM_TYPE_FLOWER:
+            
+            break;
+        case ITEM_TYPE_WATCH:
+            
+            break;
+        case ITEM_TYPE_WINDOW:
+            
+            break;
+        case ITEM_TYPE_CA:
+            
+            break;
+    }
 }
