@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 #include "BaseLayer.h"
+#include "../UILayer/UILayer.h"
+
 USING_NS_CC;
 
 class GameScene11 : public BaseLayer{
@@ -34,6 +36,8 @@ public:
 
 	CC_SYNTHESIZE(int,permise,permise);
 	virtual void restart();
+
+	UILayer* uiLayer;
 
 private:
 	cocos2d::Sprite* handline;

@@ -18,50 +18,76 @@ bool Bglayer::init(){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	//背景图片
-	bg1 = Sprite::create("level12/l12_bg.png");
+	/*bg1 = Sprite::create("level12/l12_bg.png");
 	bg1->setAnchorPoint(Point(0,0));
 	bg1->setPosition(Point::ZERO);
-	this->addChild(bg1,2);
+	this->addChild(bg1,2);*/
 
-	auto bg2 = Sprite::create("level12/l12_bg2.png");
+	auto bg2 = Sprite::create("level12/tree.png");
 	bg2->setAnchorPoint(Point(0,0));
 	bg2->setPosition(Point::ZERO);
 	this->addChild(bg2,1);
 
-	tree1 = Sprite::create("level12/tree.png");
-	tree1->setPosition(Point(visibleSize.width * 0.3f , visibleSize.height * 0.75f));
-	tree1->setScale(0.5f,0.5f);
-	tree1->runAction(Spawn::create(MoveBy::create(2.0f,Point(-120,-70)),ScaleBy::create(2.0f,2.5f),NULL));
-	this->addChild(tree1,1);
+	
+	// 帧动画测试
+	//auto spriteFrameCache = SpriteFrameCache::sharedSpriteFrameCache();    
+	//spriteFrameCache->addSpriteFramesWithFile("level12/bgscroll0.plist");  //将动画图片的plist放入缓存中  
+	// 
+
+ //    SpriteFrame* frame = NULL;  
+	// Vector<SpriteFrame*> frameArray;
+	//  
+	// for(int i=0;i<6;i++)  
+	//	{  
+	//		    frame = spriteFrameCache->spriteFrameByName(CCString::createWithFormat("level12/bg%d.png",i)
+	//				->getCString());  
+	//		    frameArray.pushBack(frame);  
+	//		}  
+	//  
+	//auto animation = Animation::createWithSpriteFrames(frameArray,0.2f);  
+	//auto animate = Animate::create(animation);//创建一个动画  aa
+	//  
+	//auto heard_sp = Sprite::create("level12/bg1.png");  
+	//heard_sp->setPosition(Point(visibleSize.width/2,visibleSize.height/2));  
+	//heard_sp->runAction(animate);//播放动画  
+	//this->addChild(heard_sp,1);  
+
+	//测试2 失败
+	//auto sprite =  (Sprite*)(this->getChildByTag(1000));      
+	// 
+	//	  //sprite->stopAllActions();  
+	//sprite->cleanup();  
+	//sprite->runAction(Place::create(Point(100.0f, g_ClientMidY)));
+
+
+	//auto animation = Animation::create();
+
+	//for (int i = 1;i<7;i++)
+	//{
+	//	char szName[100] = {0};
+	//	sprintf(szName,"bg%d.png",i);
+	//	animation->addSpriteFrameWithFile(szName);
+	//}
+
+	//animation->setDelayPerUnit(1.2f / 6.0f);
+	//animation->setRestoreOriginalFrame(true); 
+
+	//测试3
+    Animation* animation = Animation::create();
+	for (int i=1;i<7;i++)
+	{
+		char szName[100] = {0};
+		sprintf(szName,"level12/bg%d.png",i);
+		animation->addSpriteFrameWithFileName(szName);
+	}
+
+	animation->setDelayPerUnit(0.8f / 6.0f);
+	animation->setRestoreOriginalFrame(true);
+
+	Animate* action = CCAnimate::create(animation);
+    
+	bg2->runAction(RepeatForever::create(action));
+
 	return true;
 
 }
-
-//void Bglayer::logic(float dt){
-//	//int posY1 = bg1->getPositionY();	// 背景地图1的Y坐标
-//	//int posY2 = bg2->getPositionY();	// 背景地图2的Y坐标
-//
-//	int iSpeed = 3;	// 地图滚动速度
-//
-//
-//	/* 两张地图向上滚动（两张地图是相邻的，所以要一起滚动，否则会出现空隙） */
-//	/*posY1 -= iSpeed;
-//	posY2 -= iSpeed;*/
-//
-//	/* 屏幕高 */
-//	int iVisibleHeight = Director::getInstance()->getVisibleSize().height;
-//
-//	/* 当第1个地图完全离开屏幕时，让第2个地图完全出现在屏幕上，同时让第1个地图紧贴在第2个地图后面 */
-//	if (posY1 < -iVisibleHeight * 0.5f) {
-//	posY2 = iVisibleHeight * 0.5f;
-//	posY1 = iVisibleHeight * 1.5f;
-//	}
-//	/* 同理，当第2个地图完全离开屏幕时，让第1个地图完全出现在屏幕上，同时让第2个地图紧贴在第1个地图后面 */
-//	if (posY2 < iVisibleHeight * 0.5f) {
-//		posY1 = iVisibleHeight * 0.5f;
-//		posY2 = iVisibleHeight * 1.5f;
-//	}
-//
-//	//bg1->setPositionY(posY1);
-//	//bg2->setPositionY(posY2);
-//}
