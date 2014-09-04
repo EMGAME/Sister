@@ -11,6 +11,7 @@ MoveTo*  moveTo_5;
 int HaveUFO=0;
 int MoveCar=0;
 int havePlane=0;
+int movePlane=0;
 
 Scene* Level09::createScene()  
 {  
@@ -70,15 +71,15 @@ bool Level09::init()
 	this->addChild(rubbish2,2);
 
 	
-      //guoguan scene
-		auto guoguan = Sprite::create("level09/guoguan.png");
+      //no guoguan scene
+		auto guoguan = Sprite::create("level09/weiguoguan.png");
 	    guoguan->setPosition(Point(size.width/2,size.height/2));
 		guoguan->setTag(119);
 		guoguan->setVisible(false);
 		this->addChild(guoguan,4);
 
-	   //UFO
-		auto UFO = MenuItemImage::create("level09/basket.png","level09/basket.png",  CC_CALLBACK_0(Level09::moveUFO, this));  
+	   //click
+		auto UFO = MenuItemImage::create("level09/bianshen.png","level09/bianshen1.png",  CC_CALLBACK_0(Level09::moveUFO, this));  
     UFO->setPosition(Point(size.width*0.90,size.height*0.85));
     auto UFO1 = Menu::create(UFO, NULL);  
 	UFO1->setPosition(Point::ZERO);  
@@ -116,6 +117,7 @@ bool Level09::init()
 	menu->setPosition(Point::ZERO);  
 	this->addChild(menu, 3);  
 	
+
 	
 
 //touch tree for show saozhou
@@ -125,8 +127,8 @@ bool Level09::init()
  _eventDispatcher->addEventListenerWithSceneGraphPriority(listener2,tree);
  
  //move car
- moveTo_5=MoveTo::create(15.0f,Point(size.width*0.75,size.height*0.40));
- car->runAction(moveTo_5);
+ moveTo_5=MoveTo::create(10.0f,Point(size.width*0.75,size.height*0.40));
+ car->runAction(Sequence::create( moveTo_5,CallFunc::create(this,callfunc_selector(Level09::finishSaozou))));
 rubbish->runAction(JumpBy::create(1.0f,Point(30,0),100,3)); 
 
 //touch car
@@ -136,7 +138,7 @@ rubbish->runAction(JumpBy::create(1.0f,Point(30,0),100,3));
 // _eventDispatcher->addEventListenerWithSceneGraphPriority(listener3,car);
 
  //加入UILayer
-	auto uiLayer = UILayer::create();
+	uiLayer = UILayer::create();
 	this->addChild(uiLayer,100);
 
 return true;
@@ -193,12 +195,14 @@ void Level09::moveUFO(){
 		carPoint=this->getChildByTag(111)->getPosition();
 		this->getChildByTag(130)->setVisible(true);
 		this->getChildByTag(130)->setPosition(Point(carPoint.x,carPoint.y));
-	    this->getChildByTag(130)->runAction(MoveBy::create(1.5f,Point(700,0)));
-		this->getChildByTag(119)->setVisible(true);
-	     this->getChildByTag(119)->setRotation(180);
-		this->getChildByTag(119)->runAction(RotateTo::create(1.0f,0));
+	    this->getChildByTag(130)->runAction(Sequence::create(MoveBy::create(1.5f,Point(700,0)),CallFunc::create(this,callfunc_selector(Level09::finishPlane))));
+		
+	
 	}
-    
+}
+
+void  Level09::finishPlane(){
+	uiLayer->Success("guo guan",3);
 }
 
 
@@ -213,9 +217,10 @@ void Level09::showSaoZhou(){
     this->getChildByTag(114)->setVisible(false);
 	this->getChildByTag(119)->setVisible(true);
 	this->getChildByTag(119)->setRotation(180);
-    this->getChildByTag(119)->runAction(RotateTo::create(1.0f,0));
-
-
+    this->getChildByTag(119)->runAction(Sequence::create(RotateTo::create(1.0f,0),CallFunc::create(this,callfunc_selector(Level09::finishSaozou))));
+	}
+void Level09::finishSaozou(){
+	uiLayer->Lose("guo guan");
 }
 
 bool Level09::onTouchBeganTree(Touch *touch, Event* event){

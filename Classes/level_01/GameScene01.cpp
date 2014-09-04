@@ -111,6 +111,7 @@ void GameScene01::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
 void GameScene01::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
     if (m_sister->getBoundingBox().containsPoint(m_zhuantou->getPosition())) {
         TipLayer->runAction(MoveTo::create(0.2f,Director::getInstance()->getVisibleOrigin()+Point::ZERO));
+        m_sister->setVisible(false);
     }
 }
 
@@ -129,13 +130,13 @@ void GameScene01::initTipLayer(){
     m_board->setPosition(Point(winSize.width, 0));
     TipLayer->addChild(m_board);
     
-    auto thanks = MenuItemLabel::create(LabelTTF::create("谢谢", "", 20),
+    auto thanks = MenuItemLabel::create(LabelTTF::create("thank", "", 20),
                                         CC_CALLBACK_0(GameScene01::sayThanksCallBack, this));
     thanks->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     thanks->setColor(Color3B(0, 0, 0));
     thanks->setPosition(Point(winSize.width-270, 50));
     
-    auto no = MenuItemLabel::create(LabelTTF::create("不，是你的砖头!!么么哒", "", 20),
+    auto no = MenuItemLabel::create(LabelTTF::create("no", "", 20),
                                         CC_CALLBACK_0(GameScene01::sayNoCallBack, this));
     no->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     no->setColor(Color3B(0, 0, 0));
@@ -148,9 +149,9 @@ void GameScene01::initTipLayer(){
 }
 
 void GameScene01::sayThanksCallBack(){
-    m_ui->Lose("女神一个板砖拍在了你的脑袋上。‘二货’");
+    m_ui->Lose("er");
 }
 
 void GameScene01::sayNoCallBack(){
-    m_ui->Success("哈哈哈哈哈，恭喜你屌丝童鞋，女神心思一动哦！！!么么哒", 3);
+    m_ui->Success("haha", 3);
 }

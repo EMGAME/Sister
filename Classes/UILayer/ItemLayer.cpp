@@ -22,6 +22,8 @@ bool ItemLayer::init()
     auto menu = Menu::create(menuItemSprite, NULL);
     menu->setPosition(Point::ZERO);
     
+    isShowed = false;
+    
     this->addChild(menu);
     
     return true;
@@ -34,7 +36,7 @@ void ItemLayer::initItemXML()
     std::string filePath = FileUtils::getInstance()->getWritablePath() + "sisterItem.xml";
     //log("filePath:%s", filePath.c_str());
     //xml文档
-    XMLDocument *pDoc = new XMLDocument();
+    tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
     if (NULL==pDoc) {
         return;
     }
@@ -100,13 +102,16 @@ void ItemLayer::menuCallBack()
     std::string filePath = FileUtils::getInstance()->getWritablePath() + "sisterItem.xml";
     //log("path:%s", filePath.c_str());
     //xmlDoc
-    XMLDocument *pDoc = new XMLDocument();
+    tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
     pDoc->LoadFile(filePath.c_str());
     //得到跟节点
     XMLElement *rootEle = pDoc->RootElement();
     //跟节点的第一个子节点item
     XMLElement *itemEle = rootEle->FirstChildElement();
+    
     m_AllEnableItems.clear();
+    
+    
     do{
         bool enable = false;
         itemEle->QueryBoolAttribute("enable", &enable);
@@ -117,7 +122,16 @@ void ItemLayer::menuCallBack()
         }
         itemEle = itemEle->NextSiblingElement();
     }while (itemEle);
-    showItems();
+    
+    
+    
+    if (isShowed == false) {
+        showItems();
+    }else{
+        hideItems();
+    }
+    
+    
     //保存xml
     pDoc->SaveFile(filePath.c_str());
 }
@@ -127,8 +141,16 @@ void ItemLayer::showItems()
     enableItem = Node::create();
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
-    int x = visibleSize.width-100, y = 25;
+    int x = visibleSize.width-100, y = 25,tag = 1;
     float delayTime = 0;
+    
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = CC_CALLBACK_2(ItemLayer::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(ItemLayer::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(ItemLayer::onTouchEnded, this);
+    
     
     for(auto itemSprite : m_AllEnableItems)
     {
@@ -146,11 +168,44 @@ void ItemLayer::showItems()
         
         x -= 100;
         delayTime += 0.1;
+        tag += 1;
+    
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(listener->clone(), itemSprite);
         
-        enableItem->addChild(itemSprite);
+        enableItem->addChild(itemSprite,1,tag);
     }
-    this->addChild(enableItem);
+    this->addChild(enableItem,1,1);
+    isShowed = true;
 }
+
+void ItemLayer::hideItems(){
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Point origin = Director::getInstance()->getVisibleOrigin();
+
+    float delayTime = 0;
+    
+    for(auto itemSprite : m_AllEnableItems)
+    {
+        itemSprite->setAnchorPoint(Point::ANCHOR_BOTTOM_RIGHT);
+        
+        auto itemAction = MoveTo::create(0.4f, origin + Point(visibleSize.width - 15, 25));
+        
+        auto actionDelay = DelayTime::create(delayTime);
+        auto ease = EaseBackInOut::create(itemAction);
+        
+        auto sequence = Sequence::create(actionDelay,ease,CallFunc::create([&](){enableItem->removeChild(itemSprite);}),
+                                         NULL);
+        
+        itemSprite->runAction(sequence);
+        delayTime += 0.1;
+        
+        enableItem->removeChild(itemSprite);
+    }
+    this->removeChild(enableItem);
+    isShowed = false;
+}
+
+
 
 void ItemLayer::addToItems(Node* pSender, int id)
 {
@@ -164,7 +219,7 @@ void ItemLayer::addToItems(Node* pSender, int id)
     //xml文件路径
     std::string filePath = FileUtils::getInstance()->getWritablePath() + "sisterItem.xml";
     //xmlDoc
-    XMLDocument *pDoc = new XMLDocument();
+    tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
     pDoc->LoadFile(filePath.c_str());
     //得到跟节点
     XMLElement *rootEle = pDoc->RootElement();
@@ -186,4 +241,45 @@ void ItemLayer::addToItems(Node* pSender, int id)
 void ItemLayer::addToItemsCallBack(Node* pSender)
 {
     pSender->removeFromParent();
+}
+void ItemLayer::ItemInit(cocos2d::Rect pRect,ITEM_TYPE mTypes){
+    setmRect(pRect);
+    setcurType(mTypes);
+
+}
+bool ItemLayer::ItemIsContained(){
+    return getmRect().containsPoint(getcurSprite()->getPosition());
+}
+
+bool ItemLayer::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
+    Point locationInNode = pTouch->getLocation();
+    Rect pRect = target->getBoundingBox();
+    
+    if (pRect.containsPoint(locationInNode)) {
+        return true;
+    }
+    
+    return false;
+}
+void ItemLayer::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    auto target = static_cast<Sprite* >(pEvent->getCurrentTarget());
+    target->setPosition(target->getPosition()+pTouch->getDelta());
+
+}
+void ItemLayer::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
+    switch (getcurType()) {
+        case ITEM_TYPE_FLOWER:
+            
+            break;
+        case ITEM_TYPE_WATCH:
+            
+            break;
+        case ITEM_TYPE_WINDOW:
+            
+            break;
+        case ITEM_TYPE_CA:
+            
+            break;
+    }
 }
