@@ -52,6 +52,7 @@ private:
     Vector<Sprite*> m_AllEnableItems;
     Vector<Sprite*> m_ShowedItems;
     Node* enableItem;
+    Point startPosition;
     bool isShowed;
     
     CC_SYNTHESIZE(Rect, m_Rect, mRect);

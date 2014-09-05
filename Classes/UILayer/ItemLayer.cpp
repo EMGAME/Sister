@@ -24,6 +24,10 @@ bool ItemLayer::init()
     
     isShowed = false;
     
+    //测试模式
+    m_Rect = Rect(200, 200, 200, 200);
+    setcurType(ITEM_TYPE_WATCH);
+    
     this->addChild(menu);
     
     return true;
@@ -171,6 +175,7 @@ void ItemLayer::showItems()
         tag += 1;
     
         _eventDispatcher->addEventListenerWithSceneGraphPriority(listener->clone(), itemSprite);
+        startPosition = itemSprite->getPosition();
         
         enableItem->addChild(itemSprite,1,tag);
     }
@@ -268,18 +273,28 @@ void ItemLayer::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
 
 }
 void ItemLayer::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
-    switch (getcurType()) {
-        case ITEM_TYPE_FLOWER:
-            
-            break;
-        case ITEM_TYPE_WATCH:
-            
-            break;
-        case ITEM_TYPE_WINDOW:
-            
-            break;
-        case ITEM_TYPE_CA:
-            
-            break;
+    auto target = static_cast<Sprite*>(pEvent->getCurrentTarget());
+    if (m_Rect.containsPoint(pTouch->getLocation())) {
+        switch (getcurType()) {
+            case ITEM_TYPE_FLOWER:
+                
+                log("Flower");
+                break;
+            case ITEM_TYPE_WATCH:
+                log("Watch");
+                break;
+            case ITEM_TYPE_WINDOW:
+                
+                log("Window");
+                break;
+            case ITEM_TYPE_CA:
+                
+                log("Ca");
+                break;
+        }
+    }else {
+        
+        target->runAction(MoveTo::create(0.1f, startPosition));
     }
+    
 }
