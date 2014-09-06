@@ -28,10 +28,19 @@ public:
     
     bool bindSprite(Sprite* pSprite);
     static Item* create(ItemType pItemType);
+    Sprite* getSprite();
+    
+    void setEnableFalse();
+    void setEnableTrue();
     
     CC_SYNTHESIZE(ItemType, m_Type, curType);
     CC_SYNTHESIZE(Point, m_startPos, startPos);
     CC_SYNTHESIZE(int, m_restNum, restNum);
+    
+    bool onTouchBegan(Touch* pTouch,Event* pEvent);
+    void onTouchMoved(Touch* pTouch,Event* pEvent);
+    void onTouchEnded(Touch* pTouch,Event* pEvent);
+    
 };
 
 #endif /* defined(__Sister__Item__) */

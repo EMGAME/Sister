@@ -20,6 +20,9 @@ public:
     void purge();
     virtual bool init();
     
+    void addItem();
+    
+    Vector<Sprite*> _ItemVector;
     CREATE_FUNC(ItemManager);
 };
 
