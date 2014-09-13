@@ -1,3 +1,4 @@
+#include "GameScene10.h"
 #include "level_09.h"
 #include "CCEventDispatcher.h"
 #include "CCEventListenerTouch.h" 
@@ -79,7 +80,9 @@ bool Level09::init()
 		this->addChild(guoguan,4);
 
 	   //click
-		auto UFO = MenuItemImage::create("level09/bianshen.png","level09/bianshen1.png",  CC_CALLBACK_0(Level09::moveUFO, this));  
+		auto UFO = MenuItemImage::create("level09/bianshen.png","level09/bianshen1.png",
+                                         CC_CALLBACK_0(Level09::moveUFO, this));
+    
     UFO->setPosition(Point(size.width*0.90,size.height*0.85));
     auto UFO1 = Menu::create(UFO, NULL);  
 	UFO1->setPosition(Point::ZERO);  
@@ -89,7 +92,9 @@ bool Level09::init()
     this->addChild(UFO1, 4);  
 	
 	//saozhou button
-	auto saozhouItem = MenuItemImage::create("level09/saozhou.png","level09/saozhou.png",  CC_CALLBACK_0(Level09::showSaoZhou, this));  
+	auto saozhouItem = MenuItemImage::create("level09/saozhou.png","level09/saozhou.png",
+                                             CC_CALLBACK_0(Level09::showSaoZhou, this));
+    
     saozhouItem->setPosition(Point(size.width*0.39,size.height*0.12));
 
 	auto saozhouItem1 = Menu::create(saozhouItem, NULL);  
@@ -128,7 +133,7 @@ bool Level09::init()
  
  //move car
  moveTo_5=MoveTo::create(10.0f,Point(size.width*0.75,size.height*0.40));
- car->runAction(Sequence::create( moveTo_5,CallFunc::create(this,callfunc_selector(Level09::finishSaozou))));
+ car->runAction(Sequence::create( moveTo_5,CallFunc::create(this,callfunc_selector(Level09::finishSaozou)),NULL));
 rubbish->runAction(JumpBy::create(1.0f,Point(30,0),100,3)); 
 
 //touch car
@@ -195,7 +200,10 @@ void Level09::moveUFO(){
 		carPoint=this->getChildByTag(111)->getPosition();
 		this->getChildByTag(130)->setVisible(true);
 		this->getChildByTag(130)->setPosition(Point(carPoint.x,carPoint.y));
-	    this->getChildByTag(130)->runAction(Sequence::create(MoveBy::create(1.5f,Point(700,0)),CallFunc::create(this,callfunc_selector(Level09::finishPlane))));
+	    this->getChildByTag(130)->runAction(Sequence::create(
+                                                             MoveBy::create(1.5f,Point(700,0)),
+                                                             CallFunc::create(this,callfunc_selector(Level09::finishPlane))
+                                                             ,NULL));
 		
 	
 	}
@@ -217,7 +225,7 @@ void Level09::showSaoZhou(){
     this->getChildByTag(114)->setVisible(false);
 	this->getChildByTag(119)->setVisible(true);
 	this->getChildByTag(119)->setRotation(180);
-    this->getChildByTag(119)->runAction(Sequence::create(RotateTo::create(1.0f,0),CallFunc::create(this,callfunc_selector(Level09::finishSaozou))));
+    this->getChildByTag(119)->runAction(Sequence::create(RotateTo::create(1.0f,0),CallFunc::create(this,callfunc_selector(Level09::finishSaozou)),NULL));
 	}
 void Level09::finishSaozou(){
 	uiLayer->Lose("guo guan");
@@ -268,4 +276,8 @@ void Level09::onExit() {
 void Level09::restart(){
     Director::getInstance()->replaceScene(Level09::createScene());
   
+}
+
+void Level09::nextLevel(){
+    Director::getInstance()->replaceScene(GameScene10::createScene());
 }

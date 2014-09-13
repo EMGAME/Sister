@@ -14,6 +14,7 @@ public:
 	std::string tips[3];
     
     virtual void restart(){};
+    virtual void nextLevel(){};
 };
 
 

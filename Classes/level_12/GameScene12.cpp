@@ -247,3 +247,6 @@ void GameScene12::restart(){
 	Director::getInstance()->replaceScene(GameScene12::createScene());
 	Director::getInstance()->resume();
 }
+
+void GameScene12::nextLevel(){
+}

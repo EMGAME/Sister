@@ -73,24 +73,19 @@ bool ScorllMainlayer02::init()
 }
 
 void ScorllMainlayer02::menuCloseCallback01(cocos2d::Ref* pSender){
-    log("SS");
+    Director::getInstance()->replaceScene(GameScene10::createScene());
 }
 void ScorllMainlayer02::menuCloseCallback02(cocos2d::Ref* pSender){
-    
+    Director::getInstance()->replaceScene(GameScene11::createScene());
 }
 void ScorllMainlayer02::menuCloseCallback03(cocos2d::Ref* pSender){
-    Director::getInstance()->replaceScene(Level09::createScene());
+    Director::getInstance()->replaceScene(GameScene12::createScene());
 }
 void ScorllMainlayer02::menuCloseCallback04(cocos2d::Ref* pSender){
-	Director::getInstance()->replaceScene(GameScene10::createScene());
 }
 
 void ScorllMainlayer02::menuCloseCallback05(cocos2d::Ref* pSender){
-     Director::getInstance()->replaceScene(GameScene11::createScene());
 }
 void ScorllMainlayer02::menuCloseCallback06(cocos2d::Ref* pSender){
-
-	 Director::getInstance()->replaceScene(GameScene12::createScene());
-    
 
 }

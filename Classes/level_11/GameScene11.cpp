@@ -1,4 +1,5 @@
 #include "GameScene11.h"
+#include "GameScene12.h"
 #include "CCVector.h"
 USING_NS_CC;
 
@@ -223,4 +224,8 @@ void GameScene11::restart(){
 	Director::getInstance()->replaceScene(GameScene11::createScene());
 	Director::getInstance()->resume();
 	log("11111111111111111");
+}
+
+void GameScene11::nextLevel(){
+    Director::getInstance()->replaceScene(GameScene12::createScene());
 }

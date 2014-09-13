@@ -7,6 +7,8 @@
 //
 
 #include "GameScene01.h"
+#include "GameScene02.h"
+#include "GameScene04.h"
 #include "../UILayer/UILayer.h"
 USING_NS_CC;
 
@@ -89,9 +91,16 @@ bool GameScene01::init(){
     return true;
 }
 
+//加入restart()；
 void GameScene01::restart(){
     Director::getInstance()->replaceScene(GameScene01::createScene());
     Director::getInstance()->resume();
+}
+
+
+//加入nextLevel（）；
+void GameScene01::nextLevel(){
+    Director::getInstance()->replaceScene(GameScene04::createScene());
 }
 
 void GameScene01::update(float delta){

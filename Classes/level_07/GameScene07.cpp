@@ -69,3 +69,5 @@ void GameScene07::testCallBack(){
 
 }
 
+void GameScene07::nextLevel(){
+}

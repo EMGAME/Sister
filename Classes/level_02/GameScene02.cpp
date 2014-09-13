@@ -7,6 +7,8 @@
 //
 
 #include "GameScene02.h"
+#include "GameScene04.h"
+#include"../UILayer/UILayer.h"
 GameScene02::GameScene02(){}
 GameScene02::~GameScene02(){};
 
@@ -21,6 +23,15 @@ bool GameScene02::init(){
     if (!Layer::init()) {
         return false;
     }
+    auto uiLayer = UILayer::create();
+    uiLayer->setPosition(Point::ZERO);
+    this->addChild(uiLayer);
+    
+    uiLayer->Success("这一关啥都木有。。。", 3);
     
     return true;
+}
+
+void GameScene02::nextLevel(){
+    Director::getInstance()->replaceScene(GameScene04::createScene());
 }

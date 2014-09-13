@@ -38,7 +38,8 @@ public:
 	virtual void restart();
 
 	UILayer* uiLayer;
-
+    //下一关
+    virtual void nextLevel();
 private:
 	cocos2d::Sprite* handline;
 };

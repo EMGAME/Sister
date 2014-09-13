@@ -265,6 +265,7 @@ bool ItemLayer::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
         return true;
     }
     
+    
     return false;
 }
 void ItemLayer::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){

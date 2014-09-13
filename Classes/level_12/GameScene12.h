@@ -29,7 +29,7 @@ public:
 	Sprite* m2;
 	Sprite* m3;
 	Sprite* hand;
-	//num Ìí¼Ó±êÖ¾Î»
+	//num ÃƒÃŒÂºâ€Â±ÃÃ·Ã¦Å’Âª
 	int movenum;
 	int numOfM1;
 	int numOfM2;
@@ -38,19 +38,20 @@ public:
 	int state;
 	int abc;
 
-	//Ôö¼ÓÒ»¸öÊı×éÀ´±£´æ¹ÖÎï
+	//â€˜Ë†Âºâ€â€œÂªâˆË†Â Ëâ—ŠÃˆÂ¿Â¥Â±Â£Â¥ÃŠÏ€Ã·Å’Ã”
 	//cocos2d::Vector<cocos2d::Sprite*> M_Vetor;
 
 
 	UILayer* uiLayer;
 	virtual void restart();
-	
+    //ä¸‹ä¸€å…³
+    virtual void nextLevel();
 private:
-
-	//×°±¸ÊÖÁ´
+    
+	//â—ŠâˆÂ±âˆÂ Ã·Â¡Â¥
 	void carry();
     
-	//Ëæ»ú¼ÓÔØÒ»¸ö
+	//Ã€ÃŠÂªË™Âºâ€â€˜Ã¿â€œÂªâˆË†
 	void loadM(float dt);
 
 	void Mhide();

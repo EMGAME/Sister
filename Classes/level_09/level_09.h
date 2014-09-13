@@ -34,6 +34,7 @@ public:
 	virtual void onAcceleration(Acceleration *acc, Event *unused_event);
 	
 	virtual void restart();
+    virtual void nextLevel();
 
 	UILayer* uiLayer;
 

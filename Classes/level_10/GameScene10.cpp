@@ -1,3 +1,4 @@
+#include "GameScene11.h"
 #include "GameScene10.h"
 
 USING_NS_CC;  
@@ -14,7 +15,7 @@ Scene* GameScene10::createScene()
 	
 	auto scene = Scene::create();  
 	auto layer = GameScene10::create();  
-	scene->addChild(layer);  
+	scene->addChild(layer,1,100);  
 	return scene;  
 }  
 
@@ -25,6 +26,8 @@ bool GameScene10::init()
 		return false;
 	}
 		
+    log("create");
+    
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 	auto size = Director::getInstance()->getWinSize();  
@@ -226,8 +229,9 @@ bool GameScene10::init()
  //加入UILayer
     uiLayer = UILayer::create();
 	this->addChild(uiLayer,100);
-
-	Director::getInstance()->resume();
+    log("createadfadfasdfadsf");
+    
+    return true;
 }
 void GameScene10::menuCloseCallback(Ref* pSender)  
 {  
@@ -286,7 +290,7 @@ void GameScene10::onTouchMovedDraw(Touch *touch, Event* event){
     if(rect.containsPoint(beginPos))//判断触点是否在身上！  
     {  
         auto endPos = touch->getPreviousLocationInView();//获取触摸的前一个位置  
-        endPos = Director::sharedDirector()->convertToGL(endPos);//转换坐标  
+        endPos = Director::getInstance()->convertToGL(endPos);//转换坐标
   
         auto offset = Point(beginPos-endPos);//获取offset，2.14是用ccpSub，3.0后直接用 - 号就可以  
         auto nextPos = Point( keyPos + offset);  
@@ -325,6 +329,7 @@ void GameScene10::onTouchEndedDraw(Touch *touch, Event* event){
 };
 
 bool GameScene10::onTouchBeganBox(Touch *touch, Event* event){
+	
 	  return true;
 };
 
@@ -339,7 +344,7 @@ void  GameScene10::onTouchMovedBox(Touch *touch, Event* event){
     if(rect.containsPoint(beginPos))//判断触点是否在身上！  
     {  
         auto endPos = touch->getPreviousLocationInView();//获取触摸的前一个位置  
-        endPos = Director::sharedDirector()->convertToGL(endPos);//转换坐标  
+        endPos = Director::getInstance()->convertToGL(endPos);//转换坐标
   
         auto offset = Point(beginPos-endPos);//获取offset，2.14是用ccpSub，3.0后直接用 - 号就可以  
         auto nextPos = Point( key2Pos + offset);  
@@ -395,7 +400,7 @@ void GameScene10::onTouchMovedHole(Touch *touch, Event* event){
     if(rect.containsPoint(beginPos))//判断触点是否在身上！  
     {  
         auto endPos = touch->getPreviousLocationInView();//获取触摸的前一个位置  
-        endPos = Director::sharedDirector()->convertToGL(endPos);//转换坐标  
+        endPos = Director::getInstance()->convertToGL(endPos);//转换坐标
   
         auto offset = Point(beginPos-endPos);//获取offset，2.14是用ccpSub，3.0后直接用 - 号就可以  
         auto nextPos = Point( handPos + offset);  
@@ -423,7 +428,7 @@ void GameScene10::onTouchEndedHole(Touch *touch, Event* event){
 		this->getChildByTag(12)->setVisible(false);
 		this->getChildByTag(14)->setVisible(true);
 		this->getChildByTag(14)->setRotation(180);
-		this->getChildByTag(14)->runAction(Sequence::create(RotateTo::create(1.0f,0),CallFunc::create(this,callfunc_selector(GameScene10::success))));
+		this->getChildByTag(14)->runAction(Sequence::create(RotateTo::create(1.0f,0),CallFunc::create(this,callfunc_selector(GameScene10::success)),NULL));
 		HaveHand=0;
 	 }  else  {  
 		auto size = Director::getInstance()->getWinSize();  
@@ -478,4 +483,9 @@ void GameScene10::lose(){
 void GameScene10::restart(){
 	Director::getInstance()->replaceScene(GameScene10::createScene());
 	Director::getInstance()->resume();
+}
+
+void GameScene10::nextLevel(){
+    Director::getInstance()->replaceScene(GameScene11::createScene());
+    
 }

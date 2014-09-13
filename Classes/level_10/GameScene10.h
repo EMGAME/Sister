@@ -18,7 +18,7 @@ public:
 
 	UILayer* uiLayer;
 	  
-	//�жϾ����Ƿ���  
+	//≈–∂œæ´¡È «∑Òµ„ª˜  
  /*   bool isInSprite(Touch *theTouch,Sprite *sp);  */
 	
 	void showKey();
@@ -41,20 +41,22 @@ public:
 
     void menuCloseCallback(cocos2d::Ref* pSender);  
 	
-	//��ʼ��ʱ
+	//ø™ ºº∆ ±
 	void startTimer();
 
-	//������ʱ
+	//Ω· ¯º∆ ±
 	void stopTimer();
 
 	virtual void update(float dt);
 
 	void success();
     void lose();
-	virtual void restart();
+	virtual void restart();	
+	CREATE_FUNC(GameScene10);
+    
+    //下一关
+    virtual void nextLevel();
 	
-	CREATE_FUNC(GameScene10);  
-	
- };  
+};
 
-#endif  _GameScene10_SCENE_H__  
+#endif  _GameScene10_SCENE_H__

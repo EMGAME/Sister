@@ -21,10 +21,15 @@ public:
     ~GameScene01();
     
     virtual bool init();
+    //重新开始游戏功能
     virtual void restart();
+    //下一关
+    virtual void nextLevel();
+    
     static Scene* createScene();
     
     void update(float delta);
+    
     void initTipLayer();
 
     void onTouchEnded(Touch* pTouch,Event* pEvent);

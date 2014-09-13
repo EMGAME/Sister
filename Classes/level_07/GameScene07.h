@@ -27,6 +27,9 @@ public:
     
 	GameScene07(void);
 	~GameScene07(void);
+    
+    //下一关
+    virtual void nextLevel();
 };
 
 #endif /* defined(__Sister__GameScene07__) */

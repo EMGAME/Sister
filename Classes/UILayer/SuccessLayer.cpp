@@ -141,7 +141,9 @@ void SuccessLayer::setString(std::string m_string){
 }
 
 void SuccessLayer::nextCallback(){
-//这个留空，为防止乱掉所有项目做完后再添加
+    auto gameLayerNode = uiLayer->getParent();
+	BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
+    baseLayer->nextLevel();
 }
 
 void SuccessLayer::shareCallBack(){

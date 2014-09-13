@@ -19,8 +19,12 @@ public:
     ~GameScene02();
     
     static Scene* createScene();
+    
+    //下一关
+    virtual void nextLevel();
     virtual bool init();
     
     CREATE_FUNC(GameScene02);
+    
 };
 #endif /* defined(__Sister__GameScene02__) */
