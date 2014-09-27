@@ -58,6 +58,8 @@ bool GameScene01::init(){
     m_ludeng->setPosition(Point(640,81));
     this->addChild(m_ludeng,2);
     
+    
+
 
     auto listener1 = EventListenerTouchOneByOne::create();
     listener1->setSwallowTouches(true);

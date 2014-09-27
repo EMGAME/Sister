@@ -1,14 +1,34 @@
-//
-//  GameScene22.h
-//  Sister
-//
-//  Created by 风飞逸 on 14-8-13.
-//
-//
+#ifndef _SCENE3_H__
+#define _SCENE3_H__
 
-#ifndef __Sister__GameScene22__
-#define __Sister__GameScene22__
+#include "cocos2d.h"
+#include "game.h"
+#include "VisibleRect.h"
+#define ballTag 100
+#define SPEED 30.0
+USING_NS_CC;
+class GameScene22 : public BaseLayer
+{
+public:
+    // there's no 'id' in cpp, so we recommend returning the class instance pointer
+    static cocos2d::Scene* createScene();
 
-#include <iostream>
+    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
+    virtual bool init();  
+    
+	virtual void onEnter();
+	virtual void onExit();
+	virtual void onAcceleration(Acceleration *acc, Event *unused_event);
+    virtual void success();
+	virtual void lose();
+	Sprite* boss;
+	Sprite* hole;
+    Sprite* ball;
+    
+    UISimple* m_ui;
+    
+    // implement the "static create()" method manually
+    CREATE_FUNC(GameScene22);
+};
 
-#endif /* defined(__Sister__GameScene22__) */
+#endif // __SCENE4_H__

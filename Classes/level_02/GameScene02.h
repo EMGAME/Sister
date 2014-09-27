@@ -26,5 +26,14 @@ public:
     
     CREATE_FUNC(GameScene02);
     
+    virtual void update(float time);
+
+    virtual void restart();
+    LabelBMFont* m_time;
+    float time_nm;
+    
+    Sprite* boss;
+    
+    //bool onContactBegin(EventCustom *event, const PhysicsContact& contact);
 };
 #endif /* defined(__Sister__GameScene02__) */

@@ -22,6 +22,9 @@ public:
     virtual bool init();
     
     CREATE_FUNC(ScorllMainlayer06);
+    
+    virtual bool onTouchBegan(Touch* pTouch,Event* pEvent);
+    virtual void onTouchEnded(Touch* pTouch,Event* pEvent);
 };
 
 #endif /* defined(__Sister__ScorllMainlayer06__) */

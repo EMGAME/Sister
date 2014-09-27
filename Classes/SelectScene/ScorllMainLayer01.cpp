@@ -60,12 +60,9 @@ bool ScorllMainLayer01::init()
                                                   CC_CALLBACK_1(ScorllMainLayer01::menuCloseCallback06, this));
         closeItem06->setPosition(Point(size.width*0.5+120,size.height*0.5-200));
 
-        
         auto menu = Menu::create(closeItem01,closeItem02,closeItem03,closeItem04,closeItem05,closeItem06,NULL);
         menu->setPosition(Point::ZERO);
         this->addChild(menu, 1);
-        
-        
         bRet = true;
     } while (0);
     

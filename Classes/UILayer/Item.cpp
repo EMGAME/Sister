@@ -24,6 +24,13 @@ Item* Item::create(ItemType pItemType){
         return NULL;
     }
 }
+bool Item::bindSprite(Sprite* pSprite){
+    if (mSprite!=NULL) {
+        mSprite = pSprite;
+    }
+    return true;
+}
+
 Sprite* Item::getSprite(){
     return mSprite;
 }

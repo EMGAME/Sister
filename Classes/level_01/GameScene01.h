@@ -45,6 +45,11 @@ public:
     
     Layer* TipLayer;
     CREATE_FUNC(GameScene01);
+    
+    
+    //以下是测试内容
+    Sprite* m_shoubi;
+    
 };
 
 #endif /* defined(__Sister__GameScene01__) */

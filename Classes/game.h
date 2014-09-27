@@ -44,5 +44,9 @@
 //包含该有的Manager
 #include "UILayer/GoldManager.h"
 
+#include "level_02/SuccessScene.h"
+#include "level_02/LoseScene.h"
+
+#include "BaseLayer.h"
 
 #endif

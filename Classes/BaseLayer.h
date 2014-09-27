@@ -15,6 +15,8 @@ public:
     
     virtual void restart(){};
     virtual void nextLevel(){};
+    virtual void lose(){};
+    virtual void success(){};
 };
 
 

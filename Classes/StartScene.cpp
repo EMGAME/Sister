@@ -10,6 +10,7 @@
 #include "SelectScene/ScrollViewScene.h"
 #include "UILayer/SuccessLayer.h"
 #include "UILayer/ItemLayer.h"
+#include "UILayer/PowerManager.h"
 
 USING_NS_CC;
 
@@ -44,6 +45,7 @@ bool StartScene::init(){
     ItemLayer* itemLayer = new ItemLayer();
     itemLayer->initItemXML();
     
+    PowerManager::getInstance()->initWithNumber(4);
     return true;
 }
 

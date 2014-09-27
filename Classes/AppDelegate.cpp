@@ -1,5 +1,10 @@
 #include "AppDelegate.h"
 #include "StartScene.h"
+#include "game.h"
+#include "SuccessScene.h"
+#include "LoseScene.h"
+#include "PowerManager.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -24,14 +29,12 @@ AppDelegate::~AppDelegate()
     auto designSize = Size(768,1136);
     auto resourceSize = Size(768,1136);
 
-  
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
 
 	glview->setFrameZoomFactor(0.6f);
 
 #endif
-
 
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
     
@@ -42,10 +45,11 @@ AppDelegate::~AppDelegate()
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-	auto scene =StartScene::createScene();
+     auto scene =GameScene21::createScene();
 
     // run
     director->runWithScene(scene);
+    //PowerManager::getInstance()->initWithNumber(4);
 
     return true;
 }
@@ -53,9 +57,6 @@ AppDelegate::~AppDelegate()
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
-
-    // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
