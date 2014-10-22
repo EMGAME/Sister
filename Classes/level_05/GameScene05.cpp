@@ -513,11 +513,11 @@ void GameScene05::popOk(float tmd){
 }
 
 void GameScene05::sayThanksCallBack(){
-	m_ui->Lose("foolish man!");
+	m_ui->Lose();
 }
 
 void GameScene05::sayNoCallBack(){
-	m_ui->Success("You success!", 3);
+	m_ui->Success(3);
 }
 
 void GameScene05::restart(){

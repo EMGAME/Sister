@@ -8,7 +8,6 @@
 #include "GameScene25.h"
 #include "../level_02/LoseScene.h"
 #include "../level_02/SuccessScene.h"
-#include "../UILayer/UISimple.h"
 
 Scene* GameScene25::createScene(){
     
@@ -30,6 +29,10 @@ bool GameScene25::init(){
 	a = 0;
     
     Size winSize = Director::getInstance()->getWinSize();
+    
+    m_ui = UISimple::create();
+    this->addChild(m_ui,30);
+    
     
     //加载初始文字
     boss = Sprite::create("new/text_zha.png");
@@ -297,13 +300,11 @@ void GameScene25::lose(){
         Director::getInstance()->replaceScene(LoseScene::createScene(level26));
 
     }),NULL));
-    log("lose");
 }
 
 void GameScene25::success(){
         Director::getInstance()->replaceScene(SuccessScene::createScene(level26));
             _eventDispatcher->removeAllEventListeners();
-    log("success");
 }
 
 void GameScene25::hurt(){

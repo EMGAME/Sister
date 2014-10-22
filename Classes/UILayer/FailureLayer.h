@@ -10,8 +10,11 @@
 #define __Sister__FailureLayer__
 
 #include "cocos2d.h"
-USING_NS_CC;
+#include "../SelectScene/ScrollViewScene.h"
+#include "../ui/CocosGUI.h"
 
+USING_NS_CC;
+using namespace ui;
 //玩家获得的星星数
 
 class FailureLayer:public Layer{
@@ -19,15 +22,15 @@ public:
     FailureLayer();
     ~FailureLayer();
     
-    virtual bool init(Ref* pSender,std::string loseTip);
-    static FailureLayer* create(Ref* pSender,std::string loseTip);
+    virtual bool init(Ref* pSender);
+    static FailureLayer* create(Ref* pSender);
     
     Node* controllNode;
     
-    void shareCallBack();
-    void restartCallBack();
-    void homeCallback();
-    void pushLayer(Ref* pSender,std::string loseTip);
+    void shareCallBack(Ref* pSender,TouchEventType type);
+    void restartCallBack(Ref* pSender,TouchEventType type);
+    void homeCallback(Ref* pSender,TouchEventType type);
+    void pushLayer(Ref* pSender);
 
     //uilayer的引用
     Layer* uiLayer;

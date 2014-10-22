@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "game.h"
 #include "VisibleRect.h"
+#include "../UILayer/UISimple.h"
 #define ballTag 100
 #define SPEED 30.0
 USING_NS_CC;

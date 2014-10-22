@@ -2,7 +2,9 @@
 #include "cocos2d.h"
 #include "../BaseLayer.h"
 #include "SimpleAudioEngine.h"
+#include "ui/CocosGUI.h"
 USING_NS_CC;
+using namespace ui;
 using namespace CocosDenshion;
 class PauseLayer : public Layer
 {
@@ -15,19 +17,15 @@ public:
 	//返回游戏
 	void returnToGame(Ref* pSender);
 	//重置关卡
-	void resetGame(Ref* pSender);
+	void resetGame(Ref* pSender, TouchEventType type);
 	//返回主页面
-	void returnToHome(Ref* pSender);
-	//设置静音
-	void muteSound(Ref* pSender);
+	void returnToHome(Ref* pSender, TouchEventType type);
     void returnToGameCallFunc();
 
 	PauseLayer(void);
 	~PauseLayer(void);
 private:
 	Layer* uiLayer;
-	bool soundFlag;	//false开音乐，true关音乐
-	MenuItemImage* btnMuteSounds;
     
 };
 

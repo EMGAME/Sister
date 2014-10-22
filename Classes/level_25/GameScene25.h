@@ -9,10 +9,11 @@
 #ifndef __Sister__GameScene25__
 #define __Sister__GameScene25__
 
-#include <iostream>
 #include "cocos2d.h"
 #include "BaseLayer.h"
 #include "SimpleAudioEngine.h"
+#include "../UILayer/UISimple.h"
+
 
 USING_NS_CC;
 
@@ -44,6 +45,7 @@ public:
     Sprite* c5;
 
     Sprite* boss;
+    UISimple* m_ui;
     
     virtual void lose();
     virtual void success();

@@ -473,11 +473,11 @@ void GameScene10::stopTimer()
 }
 
 void GameScene10::success(){
-	uiLayer->Success("guo guan",3);
+	uiLayer->Success(3);
 }
 
 void GameScene10::lose(){
-	uiLayer->Lose("guo guan");
+	uiLayer->Lose();
 }
 
 void GameScene10::restart(){

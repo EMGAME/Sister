@@ -12,20 +12,15 @@ bool UISimple::init()
     Point Origin = Director::getInstance()->getVisibleOrigin();
     
 	//加载plist资源
-	auto cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("ui_common.plist", "ui_common.png");
+	//auto cache = SpriteFrameCache::getInstance();
+	//cache->addSpriteFramesWithFile("ui_common.plist", "ui_common.png");
 	//暂停按钮
-	auto btnPause = MenuItemImage::create();
-	btnPause->setNormalSpriteFrame(cache->getSpriteFrameByName("common_btn_pause.png"));
-	//btnPause->setSelectedSpriteFrame(cache->getSpriteFrameByName("common_btn_pause.png"));
-	btnPause->setCallback(CC_CALLBACK_1(UISimple::btnPauseCallBack, this));
+	auto btnPause = Button::create();
+	btnPause->loadTextureNormal("UI/ui_btn_pause.png", UI_TEX_TYPE_LOCAL);
+	btnPause->addTouchEventListener(this, toucheventselector(UISimple::btnPauseCallBack));
     btnPause->setAnchorPoint(Point(0,1));
 	btnPause->setPosition(Origin+Point(20, visibleSize.height-20));
-    
-	//加入菜单
-	auto menu = Menu::create(btnPause, NULL);
-	menu->setPosition(Point::ZERO);
-	this->addChild(menu, 10, MENUTAG);
+    this->addChild(btnPause);
     
     
     //计时特效
@@ -36,13 +31,19 @@ bool UISimple::init()
     
     this->scheduleUpdate();
     
-    
 	return true;
 }
 
-void UISimple::btnPauseCallBack(Ref* pSender)
+void UISimple::btnPauseCallBack(Ref* pSender, TouchEventType type)
 {
-    PauseLayer::pauseGame(this);
+    switch (type)
+    {
+        case TOUCH_EVENT_ENDED:
+            PauseLayer::pauseGame(this);
+            break;
+        default:
+            break;
+    }
 }
 
 

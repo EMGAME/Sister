@@ -6,7 +6,6 @@
 //
 //
 #include "../StartScene.h"
-#include "LevelManager.h"
 #include "SuccessScene.h"
 #include "PowerManager.h"
 #include "cocostudio/CocoStudio.h"
@@ -230,7 +229,7 @@ void SuccessScene::initText(LEVEL_TYPE pLevelType){
                                                                    readyEase = EaseBackInOut::create(readyAct);
                                                                    ready->runAction(readyEase);
                                                                }),
-                                              DelayTime::create(1.0f),
+                                              DelayTime::   create(1.0f),
                                               CallFunc::create(
                                                                [&](){
                                                                    startAct = MoveTo::create(tileShowTime, Point(Director::getInstance()->getVisibleSize().width/2, 170));

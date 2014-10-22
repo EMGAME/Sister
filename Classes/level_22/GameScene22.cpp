@@ -71,11 +71,11 @@ bool GameScene22::init()
 	this->addChild(bg,1);
 
     ball = Sprite:: create("level_22/ball.png");
-	ball->setPosition(size.width*0.15,size.height*0.1);
+	ball->setPosition(Point(189, 988));
 	addChild(ball,10,ballTag);
 
 	hole=Sprite::create("level_22/hole.png");
-	hole->setPosition(size.width*0.8,size.height*0.9);
+	hole->setPosition(Point(599,192));
 	addChild(hole,2);
     return true;
 }
@@ -127,7 +127,8 @@ void GameScene22::success(){
                                      CallFunc::create([&](){
         Director::getInstance()->replaceScene(SuccessScene::createScene(level23));
         
-    }),NULL));}
+    }),NULL));
+}
 
 void GameScene22::lose(){
     this->runAction(Sequence::create(

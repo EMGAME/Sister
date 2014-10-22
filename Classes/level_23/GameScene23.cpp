@@ -1,5 +1,5 @@
 #include "GameScene23.h"
-
+#include "game.h"
 USING_NS_CC;  
 
 
@@ -23,15 +23,15 @@ bool GameScene23::init()
 	{
 		return false;
 	}
-    
-    m_ui = UISimple::create();
-    this->addChild(m_ui,30);
-    
     Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 	auto size = Director::getInstance()->getWinSize();  
 
-	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("level_23/scene2.mp3", true);
+    
+    m_ui = UISimple::create();
+    this->addChild(m_ui,30);
+    
+	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("level_21/scene2.mp3", true);
 	//¼ÓÔØ³õÊ¼ÎÄ×Ö
     boss = Sprite::create("level_23/test_ting.png");
     boss->setAnchorPoint(Point::ANCHOR_MIDDLE_BOTTOM);
@@ -55,16 +55,26 @@ bool GameScene23::init()
 	bg->setPosition(Point(size.width/2,size.height/2));
 	this->addChild(bg,1);
 	
-	auto boyWithCup=Sprite::create("level_23/h2.png");
-	boyWithCup->setPosition(Point(size.width*0.83,size.height*0.51));
-	boyWithCup->setVisible(false);
-	this->addChild(boyWithCup,5,3);
-
-    boy=Sprite::create("level_23/boy.png");
+	  boy=Sprite::create("level_23/boy.png");
 	boy->setAnchorPoint(Point(1,0));
-	boy->setPosition(Point(size.width,size.height*0.27));
+	boy->setPosition(Point(size.width,size.height*0.40));
 	this->addChild(boy,2);
-	
+
+   	smile=Sprite::create("level_23/smile.png");
+    smile->setPosition(Point(size.width*0.81,size.height*0.54));
+	smile->setVisible(false);
+	this->addChild(smile,2);
+
+	cry=Sprite::create("level_23/cry.png");
+    cry->setPosition(Point(size.width*0.81,size.height*0.54));
+	this->addChild(cry,2);
+
+
+	auto light=Sprite::create("level_23/light.png");
+	light->setAnchorPoint(Point(0,1));
+	light->setPosition(Point(0,size.height));
+	this->addChild(light,2);
+
 	auto table=Sprite::create("level_23/table.png");
 	table->setAnchorPoint(Point(0,0));
 	table->setPosition(Point(0,0));
@@ -73,38 +83,21 @@ bool GameScene23::init()
     cup=Sprite::create("level_23/cup.png");
     cup->setAnchorPoint(Point(0, 0));
 	cup->setPosition(Point(0, size.height*0.4));
-	cup->runAction(MoveTo::create(1.8f,Point(size.width,size.height*0.4)));
+	cup->runAction(MoveTo::create(3.0f,Point(size.width,size.height*0.4)));
 	this->addChild(cup,3);
 
-	point1=Sprite::create("level_23/h1.png");
-	point1->setPosition(Point(size.width*0.83,size.height*0.515));
-	this->addChild(point1,5) ;
-
-	point2=Sprite::create("level_23/b1.png");
-	point2->setPosition(Point(size.width*0.65,size.height*0.6));
-	this->addChild(point2,2);
+	auto cup2=Sprite::create("level_23/cup.png");
+    cup2->setAnchorPoint(Point(0, 0));
+	cup2->setPosition(Point(size.width*0.94,size.height*0.4));
+	cup2->setVisible(false);
+	this->addChild(cup2,3,11);
 
 	hand=Sprite::create("level_23/hand.png");
 	hand->setPosition(Point(size.width*0.94,size.height*0.42));
 	hand->setVisible(false);
 	this->addChild(hand,3);
 
-	animation1 = Animation::create();
-	for (int i=1;i<4;i++)
-	{
-		char szName[100] = {0};
-		sprintf(szName,"level_23/b%d.png",i);
-		animation1->addSpriteFrameWithFileName(szName);
-	 }
-
-	animation1->setDelayPerUnit(0.4f);
-	animation1->setRestoreOriginalFrame(true);
-	action1 = CCAnimate::create(animation1);
-	point2->runAction(action1) ;
-
-	
-	
-	this->schedule(schedule_selector(GameScene23::hideHand),1.0f);
+	this->schedule(schedule_selector(GameScene23::hideHand),1.5f);
 
 	auto listener1 = EventListenerTouchOneByOne::create();
 	listener1->onTouchBegan = CC_CALLBACK_2(GameScene23::onTouchBegan, this);
@@ -125,32 +118,24 @@ bool GameScene23::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
 	hand->setVisible(true);
 	if(hand->getBoundingBox().intersectsRect(cup->getBoundingBox())){
 		cup->setVisible(false);
-		this->removeChild(boy);
-animation = Animation::create();
-	for (int i=1;i<4;i++)
-	{
-		char szName[100] = {0};
-		sprintf(szName,"level_23/h%d.png",i);
-		animation->addSpriteFrameWithFileName(szName);
-	}
-
-	animation->setDelayPerUnit(0.3f);
-	animation->setRestoreOriginalFrame(true);
-	action = CCAnimate::create(animation);
-	point1->runAction(action);
-	this->getChildByTag(3)->setVisible(true);
-		this->success();
-    }else{
-        this->lose();
-    }
+		this->getChildByTag(11)->setVisible(true);
+        cry->setVisible(false);
+		smile->setVisible(true);
+	    this->success();
+	 }
 	return true;
 }
 
 void GameScene23::success(){
-    Director::getInstance()->replaceScene(SuccessScene::createScene(level24));
+    this->runAction(Sequence::create(
+                                     DelayTime::create(1.0f),
+                                     CallFunc::create([&](){
+        Director::getInstance()->replaceScene(SuccessScene::createScene(level24));
+        
+    }),NULL));
 }
-
 void GameScene23::lose(){
+
     this->runAction(Sequence::create(
                                      DelayTime::create(1.0f),
                                      CallFunc::create([&](){
@@ -159,3 +144,4 @@ void GameScene23::lose(){
     }),NULL));
 
 }
+

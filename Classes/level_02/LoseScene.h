@@ -12,7 +12,7 @@
 
 #include "cocos2d.h"
 #include "SuccessScene.h"
-#include "LevelManager.h"
+#include "../LevelManager.h"
 #include "cocostudio/CocoStudio.h"
 
 using namespace cocostudio;

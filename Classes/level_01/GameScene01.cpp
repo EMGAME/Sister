@@ -8,7 +8,6 @@
 
 #include "GameScene01.h"
 #include "GameScene02.h"
-#include "GameScene04.h"
 #include "../UILayer/UILayer.h"
 USING_NS_CC;
 
@@ -102,7 +101,7 @@ void GameScene01::restart(){
 
 //加入nextLevel（）；
 void GameScene01::nextLevel(){
-    Director::getInstance()->replaceScene(GameScene04::createScene());
+  //  Director::getInstance()->replaceScene(GameScene04::createScene());
 }
 
 void GameScene01::update(float delta){
@@ -160,9 +159,9 @@ void GameScene01::initTipLayer(){
 }
 
 void GameScene01::sayThanksCallBack(){
-    m_ui->Lose("er");
+    m_ui->Lose();
 }
 
 void GameScene01::sayNoCallBack(){
-    m_ui->Success("haha", 3);
+    m_ui->Success(3);
 }

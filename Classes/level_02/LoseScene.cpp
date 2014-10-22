@@ -7,7 +7,6 @@
 //
 
 #include "../StartScene.h"
-#include "LevelManager.h"
 #include "LoseScene.h"
 #include "PowerManager.h"
 
@@ -138,13 +137,6 @@ bool LoseScene::init(LevelNum pNum){
 
     
     switch (PowerManager::getInstance()->readPower()) {
-//        case 4:
-//            meigui01->setVisible(true);
-//            meigui02->setVisible(true);
-//            meigui03->setVisible(true);
-//            meigui04->setVisible(true);
-//            
-//            break;
         case 3:
             meigui01->setVisible(true);
             

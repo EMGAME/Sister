@@ -76,15 +76,15 @@ void ScorllMainLayer01::menuCloseCallback02(cocos2d::Ref* pSender){
     Director::getInstance()->replaceScene(GameScene02::createScene());
 }
 void ScorllMainLayer01::menuCloseCallback03(cocos2d::Ref* pSender){
-    Director::getInstance()->replaceScene(GameScene04::createScene());
+    //Director::getInstance()->replaceScene(GameScene04::createScene());
 }
 void ScorllMainLayer01::menuCloseCallback04(cocos2d::Ref* pSender){
-    Director::getInstance()->replaceScene(GameScene05::createScene());
+    //Director::getInstance()->replaceScene(GameScene05::createScene());
 }
 
 void ScorllMainLayer01::menuCloseCallback05(cocos2d::Ref* pSender){
-    Director::getInstance()->replaceScene(GameScene06::createScene());
+    //Director::getInstance()->replaceScene(GameScene06::createScene());
 }
 void ScorllMainLayer01::menuCloseCallback06(cocos2d::Ref* pSender){
-    Director::getInstance()->replaceScene(Level09::createScene());
+    //Director::getInstance()->replaceScene(Level09::createScene());
 }

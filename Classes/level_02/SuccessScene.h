@@ -10,7 +10,7 @@
 #define __Sister__SuccessScene__
 
 #include "cocos2d.h"
-#include "LevelManager.h"
+#include "../LevelManager.h"
 
 
 USING_NS_CC;

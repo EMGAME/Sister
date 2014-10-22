@@ -1,11 +1,13 @@
 #include "AppDelegate.h"
 #include "StartScene.h"
 #include "game.h"
-#include "SuccessScene.h"
-#include "LoseScene.h"
+//#include "SuccessScene.h"
+//#include "LoseScene.h"
 #include "PowerManager.h"
+#include "C2DXShareSDK.h"
 
 USING_NS_CC;
+using namespace cn::sharesdk;
 
 AppDelegate::AppDelegate() {
 
@@ -28,6 +30,15 @@ AppDelegate::~AppDelegate()
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(768,1136);
     auto resourceSize = Size(768,1136);
+     
+     //shareSdk配置
+     C2DXShareSDK::open(CCString::create("3e985bbdcc89"), false);
+     
+     Dictionary *wcConfigDict = Dictionary::create();
+     wcConfigDict -> setObject(CCString::create("wxc147c3906667a3d1"), "app_id");
+     C2DXShareSDK::setPlatformConfig(C2DXPlatTypeWeixiSession, wcConfigDict);
+     C2DXShareSDK::setPlatformConfig(C2DXPlatTypeWeixiTimeline, wcConfigDict);
+     C2DXShareSDK::setPlatformConfig(C2DXPlatTypeWeixiFav, wcConfigDict);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	glview->setFrameSize(designSize.width, designSize.height);
@@ -45,7 +56,7 @@ AppDelegate::~AppDelegate()
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-     auto scene =GameScene21::createScene();
+     auto scene =StartScene::createScene();
 
     // run
     director->runWithScene(scene);

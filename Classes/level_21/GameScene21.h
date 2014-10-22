@@ -1,8 +1,9 @@
 #ifndef __SCENE2_H__  
 #define __SCENE2_H__  
-#include "cocos2d.h"  
-#include "../UILayer/UISimple.h"
+#include "cocos2d.h" 
 #include "game.h"
+#include "../UILayer/UISimple.h"
+
 USING_NS_CC;  
 
 class GameScene21 :  public BaseLayer
@@ -22,12 +23,10 @@ public:
 	Sprite* dart;
 	Sprite* center;	
 	Point* location1;
-    
+	CREATE_FUNC(GameScene21);
     
     UISimple* m_ui;
-    
-	CREATE_FUNC(GameScene21);  
-
+	
  };  
 
 #endif  __SCENE2_H__  

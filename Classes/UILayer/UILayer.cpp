@@ -17,13 +17,17 @@
 // =====`-.____`.___ \_____/___.-`___.-'=====
 //                   `=---='
 //
-//
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
 //           佛祖保佑   永无BUG   永不修改
 
 #include "UILayer.h"
+#include "ui/CocosGUI.h"
+
 #define MENUTAG 30
+
+
+using namespace ui;
 
 bool UILayer::init()
 {
@@ -106,14 +110,14 @@ void UILayer::btnHelpCallBack(Ref* pSender)
 	//shareLayer->shareGame(this);
 }
 
-void UILayer::Lose(std::string loseTip){
-    m_failureLayer->pushLayer(this, loseTip);
+void UILayer::Lose(){
+    m_failureLayer->pushLayer(this);
 
 }
 
-void UILayer::Success(std::string passTip,int starNum){
+void UILayer::Success(int starNum){
     
-    m_successLayer->pushLayer(this,starNum,passTip);
+    m_successLayer->pushLayer(this,starNum);
 
     
 }

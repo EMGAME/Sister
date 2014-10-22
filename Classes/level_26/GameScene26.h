@@ -30,6 +30,7 @@ public:
 
 	int isTouch,degree;
 	double time;
+	Sprite* plate;
 	Sprite* boss;
 	RepeatForever* repeatForever;
 	void update(float tmd);
@@ -37,11 +38,8 @@ public:
 
 	UISimple* m_ui;
 	virtual void success();
-    virtual void lose();
+	virtual void lose();
 	virtual void restart();
-    
-    Sprite* plate;
 };
-#include <iostream>
 
 #endif /* defined(__Sister__GameScene26__) */

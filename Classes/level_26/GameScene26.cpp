@@ -8,9 +8,6 @@
 
 #include "GameScene26.h"
 #include "game.h"
-#include "../level_02/LoseScene.h"
-#include "../level_02/SuccessScene.h"
-
 //#include "SimpleAudioEngine.h"
 //#include "extensions/cocos-ext.h"
 //using namespace  CocosDenshion;
@@ -62,64 +59,58 @@ bool GameScene26::init()
 					boss->runAction(MoveTo::create(0.5f,
 						Point(Director::getInstance()->getVisibleSize().width/2, Director::getInstance()->getVisibleSize().height+200)));
 			}),NULL);
-			this->runAction(pSequence2);
-			// 切换关卡  以后删去
-			auto closeItem = MenuItemImage::create(
-				"CloseNormal.png",
-				"CloseSelected.png",
-				CC_CALLBACK_1(GameScene26::menuCloseCallback, this));
-			closeItem->setPosition(Point(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-				origin.y + closeItem->getContentSize().height/2));
-			auto menu = Menu::create(closeItem, NULL);
-			menu->setPosition(Point::ZERO);
-			this->addChild(menu, 5);
+	this->runAction(pSequence2);
+	// 切换关卡  以后删去
+	auto closeItem = MenuItemImage::create(
+		"CloseNormal.png",
+		"CloseSelected.png",
+		CC_CALLBACK_1(GameScene26::menuCloseCallback, this));
+	closeItem->setPosition(Point(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+		origin.y + closeItem->getContentSize().height/2));
+	auto menu = Menu::create(closeItem, NULL);
+	menu->setPosition(Point::ZERO);
+	this->addChild(menu, 5);
 
 
-			auto bg = Sprite::create("new/bg26.png");
-			bg->setPosition(768/2,1136/2);
-			this->addChild(bg,1);
+	auto bg = Sprite::create("new/bg26.png");
+	bg->setPosition(768/2,1136/2);
+	this->addChild(bg,1);
 
-			plate = Sprite::create("new/turnPlate.png");
-			plate->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			plate->setPosition(384,614);
-			this->addChild(plate,1);
+	plate = Sprite::create("new/turnPlate.png");
+	plate->setAnchorPoint(Point::ANCHOR_MIDDLE);
+	plate->setPosition(380,712);
+	this->addChild(plate,1);
 
-			scheduleUpdate();
-			schedule(schedule_selector(GameScene26::update),1.0f);
+	auto xingbiao = Sprite::create("new/xingbiao.png");
+	xingbiao->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+	xingbiao->setPosition(Point(330,666));
+	this->addChild(xingbiao,2);
 
-			auto listener = EventListenerTouchOneByOne::create();//创建一个触摸监听(单点触摸）  
-			listener->onTouchBegan = CC_CALLBACK_2(GameScene26::onTouchBegan, this);//指定触摸的回调函数  
-			_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);//将listener放入事件委托中  
+	scheduleUpdate();
+	schedule(schedule_selector(GameScene26::update),1.0f);
 
-			auto rotate = RotateBy::create(1,360);
-			repeatForever = RepeatForever::create(rotate);
-			//plate->runAction(repeatForever);
+	auto listener = EventListenerTouchOneByOne::create();//创建一个触摸监听(单点触摸）  
+	listener->onTouchBegan = CC_CALLBACK_2(GameScene26::onTouchBegan, this);//指定触摸的回调函数  
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);//将listener放入事件委托中  
 
-			//加载音效
-			SimpleAudioEngine::sharedEngine()->preloadEffect("new/KeypressStandard.mp3");
-			SimpleAudioEngine::sharedEngine()->playBackgroundMusic("new/scene.mp3",true);
-			return true;
+	//加载音效
+	SimpleAudioEngine::sharedEngine()->preloadEffect("new/KeypressStandard.mp3");
+	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("new/scene.mp3",true);
+	return true;
 }
 
 bool GameScene26::onTouchBegan(Touch *touch, Event *unused_event){
-	stopAction(repeatForever);
 	isTouch=0;
 	degree %= 360;
 	if (315<degree&&degree<360)
 	{
-		log("touchDegree = %d",degree);
+		log("%d",degree);
 		SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 		SimpleAudioEngine::sharedEngine()->playEffect("new/end.mp3");
-		//log("success");
-        this->unscheduleUpdate();
+		log("success");
 		success();
 	}else{
-        //log("touchDegree = %d",degree);
-
-		//log("failure");
-        
-        this->unscheduleUpdate();
-
+		log("failure");
 		lose();
 	}
 
@@ -128,9 +119,11 @@ bool GameScene26::onTouchBegan(Touch *touch, Event *unused_event){
 
 void GameScene26::update(float tmd){
 	if(isTouch){
+		plate->setRotation(degree);
 		degree += 6;
-        plate->setRotation(degree);
 	}
+
+	log("%d",degree);
 	time-=0.013;
 	if (time<=0)
 	{
@@ -153,14 +146,19 @@ void GameScene26::restart(){
 }
 
 void GameScene26::lose(){
+    
     this->runAction(Sequence::create(
                                      DelayTime::create(1.0f),
                                      CallFunc::create([&](){
         Director::getInstance()->replaceScene(LoseScene::createScene(level27));
         
-    }),NULL));
-}
+    }),NULL));}
 
 void GameScene26::success(){
-    Director::getInstance()->replaceScene(SuccessScene::createScene(level27));
-}
+    
+    this->runAction(Sequence::create(
+                                     DelayTime::create(1.0f),
+                                     CallFunc::create([&](){
+        Director::getInstance()->replaceScene(SuccessScene::createScene(level27));
+        
+    }),NULL));}

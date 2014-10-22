@@ -1,10 +1,10 @@
 #include "GameScene21.h"
 #include "SimpleAudioEngine.h"
-#include "../UILayer/PowerManager.h"
 USING_NS_CC;  
 using namespace CocosDenshion;
 
 GameScene21::GameScene21(){
+
 }
 GameScene21::~GameScene21(){}
 
@@ -70,7 +70,7 @@ bool GameScene21::init()
 
 	dart=Sprite::create("level_21/dart.png");
 	dart->setAnchorPoint(Point(0,0));
-	dart->setPosition(Point(size.width*0.1,size.height*0.1));
+	dart->setPosition(Point(size.width*0.7,size.height*0.1));
 	this->addChild(dart,2);
 	
 	heart=Sprite::create("level_21/heart.png") ;
@@ -111,7 +111,8 @@ bool GameScene21::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
    // auto size = Director::getInstance()->getWinSize();  
 	this->getChildByTag(3)->stopAllActions();
 	heart->setVisible(false);
-	dart->runAction(Sequence::create(ScaleTo::create(0.25, 2.0),
+	dart->runAction(Sequence::create(
+                                     ScaleTo::create(0.25, 2.0),
                                      MoveTo::create(0.3,Point(heart->getPositionX(),heart->getPositionY()+10)),
                                      ScaleTo::create(0.25, 0.5),
                                      Sequence::create(MoveBy::create(0.1,Point(20,0)),
@@ -124,10 +125,10 @@ bool GameScene21::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent){
 	SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 	SimpleAudioEngine::sharedEngine()->playEffect("level_21/dart.mp3",false);
 	int finish=1;
-    log("dart.x = %f,dart.y = %f",heart->getPositionX(),heart->getPositionY());
+   
 	if(finish==1){
-	if((heart->getPositionY()>545)&&(heart->getPositionY()<618)){
-        this->success();
+		if(center->getBoundingBox().containsPoint(heart->getPosition())){
+		this->success();
 	}else
 	{
 	this->lose();

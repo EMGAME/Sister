@@ -17,7 +17,12 @@ public:
     virtual bool init();
     CREATE_FUNC(StartScene);
     
-    void startGame();
+    void classBtnCallBack();
+    void zanBtnCallBack();
+    void crazyBtnCallBack();
+    
+    void share();
+    void shareInit();
 };
 
 #endif /* defined(__Sister__StartScene__) */

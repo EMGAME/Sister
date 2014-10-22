@@ -7,6 +7,7 @@
 #include "SuccessLayer.h"
 
 #include "ItemLayer.h"
+
 USING_NS_CC;
 class UILayer : public Layer
 {
@@ -19,8 +20,8 @@ public:
 	void btnCallBack(Ref* pSender);
 	void btnHelpCallBack(Ref* pSender);
     void popSuccessLayer();
-    void Lose(std::string loseTip);
-    void Success(std::string passTip,int starNum);
+    void Lose();
+    void Success(int starNum);
     
 	//暂停游戏界面
 	PauseLayer* pauseLayer;

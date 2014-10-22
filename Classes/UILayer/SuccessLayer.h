@@ -10,7 +10,11 @@
 #define __Sister__SuccessLayer__
 
 #include "cocos2d.h"
+#include "../SelectScene/ScrollViewScene.h"
+#include "../ui/CocosGUI.h"
+
 USING_NS_CC;
+using namespace ui;
 
 //玩家获得的星星数
 
@@ -19,15 +23,16 @@ public:
     SuccessLayer();
     ~SuccessLayer();
     
-    virtual bool init(Ref* pSender,std::string passTip);
-    static SuccessLayer* create(Ref* pSender,std::string passTip);
+    virtual bool init(Ref* pSender);
+    static SuccessLayer* create(Ref* pSender);
     
     Node* controllNode;
     
-    void shareCallBack();
-    void restartCallBack();
-    void nextCallback();
-    void pushLayer(Ref* pSender,int starNum,std::string passTip);
+    void shareCallBack(Ref* pSender,TouchEventType type);
+    void homeCallBack(Ref* pSender,TouchEventType type);
+    void nextCallback(Ref* pSender,TouchEventType type);
+    void pushLayer(Ref* pSender,int starNum);
+    
     void showStar(int starNum);
     
     //3颗星星

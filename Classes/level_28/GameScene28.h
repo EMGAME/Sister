@@ -53,6 +53,5 @@ public:
 	virtual void lose();
 	virtual void restart();
 };
-#include <iostream>
 
 #endif /* defined(__Sister__GameScene28__) */

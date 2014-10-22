@@ -7,7 +7,6 @@
 //
 
 #include "GameScene02.h"
-#include "GameScene04.h"
 #include"../UILayer/UILayer.h"
 #include "SuccessScene.h"
 #include "LoseScene.h"
@@ -73,7 +72,7 @@ bool GameScene02::init(){
 }
 
 void GameScene02::nextLevel(){
-    Director::getInstance()->replaceScene(GameScene04::createScene());
+   // Director::getInstance()->replaceScene(GameScene04::createScene());
 }
 
 void GameScene02::update(float time){

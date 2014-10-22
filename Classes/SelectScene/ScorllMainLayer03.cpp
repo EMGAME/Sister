@@ -73,7 +73,7 @@ bool ScorllMainlayer03::init()
 
 
 void ScorllMainlayer03::menuCloseCallback01(cocos2d::Ref* pSender){
-    Director::getInstance()->replaceScene(GameScene13::createScene());
+    //Director::getInstance()->replaceScene(GameScene13::createScene());
 }
 void ScorllMainlayer03::menuCloseCallback02(cocos2d::Ref* pSender){
     

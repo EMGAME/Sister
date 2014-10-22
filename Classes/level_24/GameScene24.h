@@ -12,6 +12,8 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "../game.h"
+#include "../UILayer/UISimple.h"
+
 
 USING_NS_CC;
 

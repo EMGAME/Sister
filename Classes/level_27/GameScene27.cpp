@@ -68,19 +68,9 @@ bool GameScene27::init(){
 	bg->setPosition(768/2,1136/2);
 	this->addChild(bg,1);
 
-	compare = Sprite::create("new/compare.png");
+	compare = Sprite::create("new/compare1.png");
 	compare->setPosition(768/2,1136/3);
 	this->addChild(compare,1);
-
-	auto _moveL = MoveBy::create(0.1f,Point(-5,0));
-	auto _moveF = MoveBy::create(0.1f,Point(0,5));
-	auto action1 = Spawn::create(_moveF,_moveL,NULL);
-	auto _moveR = MoveBy::create(0.1f,Point(5,0));
-	auto _moveB = MoveBy::create(0.1f,Point(0,-5));
-	auto action2 = Spawn::create(_moveR,_moveB,NULL);
-	auto action = Sequence::create(action1,action2,NULL);
-	auto repeatMove = RepeatForever::create(action);
-	compare->runAction(repeatMove);
 
 	createHPSlider();
 
@@ -89,12 +79,14 @@ bool GameScene27::init(){
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);//将listener放入事件委托中  
 
 	scheduleUpdate();
-	schedule(schedule_selector(GameScene28::update),1.0f);
+	schedule(schedule_selector(GameScene27::update),1.0f);
 
 	return true;
 }
 
 void GameScene27::update(float tmd){
+	schedule(schedule_selector(GameScene27::tremble),1.0f);
+	
 	time-=0.013;
 	if (time<=0)
 	{
@@ -114,13 +106,7 @@ bool GameScene27::onTouchBegan(Touch *touch, Event *unused_event){
 		victory->setPosition(pos);
 		this->addChild(victory,2);
 		log("success");
-        this->runAction(Sequence::create(DelayTime::create(1.0f),
-                                         CallFunc::create(
-                                                          [&](){
-                                                          success();
-                                                          }),
-                                         NULL));
-		
+		success();
 	}
 
 	return true;
@@ -129,27 +115,20 @@ bool GameScene27::onTouchBegan(Touch *touch, Event *unused_event){
 
 
 void GameScene27::createHPSlider() {
-	auto visibleSize = CCDirector::getInstance()->getVisibleSize();
-    auto origin = Director::getInstance()->getVisibleOrigin();
+	CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+
 	m_hpSlider = ControlSlider::create(
 		CCSprite::create("new/powerBg.png"),
 		CCSprite::create("new/power.png"),
 		CCSprite::create("new/sliderThumb.png"));
 	m_hpSlider->setAnchorPoint(Point(0,0));
-	m_hpSlider->setPosition(Point::ZERO);
+	m_hpSlider->setPosition(Point(100,914));
 
 	m_hpSlider->setTouchEnabled(false);	// 让滑动条不可以滑动修改数值
 	m_hpSlider->setMaximumValue(30);	// 最大值
 	m_hpSlider->setMinimumValue(0);		// 最小值
 	m_hpSlider->setValue(0);			// 当前值
-    
-    auto hp_node = Node::create();
-    hp_node->addChild(m_hpSlider);
-    hp_node->setAnchorPoint(Point::ZERO);
-    hp_node->setPosition(origin+Point(150,visibleSize.height/2-100));
-    hp_node->setRotation(-90);
-    
-	this->addChild(hp_node, 10);
+	this->addChild(m_hpSlider, 3);
 }
 
 void GameScene27::menuCloseCallback(Ref* pSender)
@@ -167,15 +146,32 @@ void GameScene27::restart(){
 }
 
 void GameScene27::lose(){
-    _eventDispatcher->removeAllEventListeners();
+    
     this->runAction(Sequence::create(
                                      DelayTime::create(1.0f),
                                      CallFunc::create([&](){
         Director::getInstance()->replaceScene(LoseScene::createScene(level28));
         
-    }),NULL));
-}
+    }),NULL));}
 void GameScene27::success(){
-    _eventDispatcher->removeAllEventListeners();
+    
+    this->runAction(Sequence::create(
+                                     DelayTime::create(1.0f),
+                                     CallFunc::create([&](){
         Director::getInstance()->replaceScene(SuccessScene::createScene(level28));
+        
+    }),NULL));}
+
+void GameScene27::tremble(float tmd){
+	auto animation1 = Animation::create();
+	for (int n=1;n<=2;n++)
+	{
+		char szName[100] = {0};
+		sprintf(szName,"new/compare%d.png",n);
+		animation1->addSpriteFrameWithFileName(szName);
+	}
+	animation1->setDelayPerUnit(0.4f);
+	animation1->setRestoreOriginalFrame(true);
+	auto action1 = Animate::create(animation1);
+	compare->runAction(action1) ;
 }

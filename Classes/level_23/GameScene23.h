@@ -2,7 +2,9 @@
 #define __SCENE1_H__  
 #include "cocos2d.h"  
 #include "SimpleAudioEngine.h"
-#include "../game.h"
+#include "../UILayer/UISimple.h"
+#include "BaseLayer.h"
+
 using namespace CocosDenshion;
 USING_NS_CC;  
 
@@ -21,23 +23,17 @@ public:
     void moveCup();
 	bool onTouchBegan(Touch* pTouch,Event* pEvent);
 	virtual void success();
-    virtual void lose();
+	virtual void lose();
 	
 	Sprite* boy;
-	Sprite* point2;
-	Sprite* point1;
-	Sprite* cup;
+    Sprite* cup;
 	Sprite* hand;
 	Sprite* boss;
-
-	Animation* animation1 ;
-	Animate*   action1 ;
-	Animation* animation ;
-	Animate*   action ;
-	CREATE_FUNC(GameScene23);  
-	
+	Sprite* cry;
+	Sprite* smile;
     UISimple* m_ui;
-    
+    CREATE_FUNC(GameScene23);  
+	
  };  
 
-#endif  __SCENE1_H__  
+#endif  __SCENE1_H__

@@ -154,9 +154,9 @@ void GameScene28::restart(){
 }
 
 void GameScene28::lose(){
-    Director::getInstance()->replaceScene(LoseScene::createScene(finalLevel));
+    Director::getInstance()->replaceScene(LoseScene::createScene(level30));
 
 }
 void GameScene28::success(){
-    Director::getInstance()->replaceScene(SuccessScene::createScene(finalLevel));
+    Director::getInstance()->replaceScene(SuccessScene::createScene(level30));
 }

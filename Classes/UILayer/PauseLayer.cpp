@@ -1,9 +1,10 @@
 
 #include "PauseLayer.h"
-#include "../SelectScene/ScrollViewScene.h"
-#define BGTAG 10
-#define NODETAG 20
-#define MENUTAG 30
+#include "StartScene.h"
+#define NODETAG 10
+//#define RESETTAG 20
+//#define HOMETAG 30
+//#define GAMETAG 40
 
 bool PauseLayer::init(Ref* pSender)
 {
@@ -12,53 +13,34 @@ bool PauseLayer::init(Ref* pSender)
     
 	Size visibleSize = Director::getInstance()->getWinSize();
 	//加载plist
-	auto cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("ui_pause.plist", "ui_pause.png");
-	cache->addSpriteFramesWithFile("ui_common.plist", "ui_common.png");
-	//暂停界面
-	auto pauseBg = Sprite::createWithSpriteFrameName("pause_bg.png");
-	pauseBg->setPosition(Point::ZERO);
-	//关闭按钮
-	auto btnReturnToGame = MenuItemImage::create(); 
-	btnReturnToGame->setNormalSpriteFrame(cache->getSpriteFrameByName("common_btn_close.png"));
-	//btnPause->setSelectedSpriteFrame(cache->getSpriteFrameByName("common_btn_pause.png"));
-	btnReturnToGame->setCallback(CC_CALLBACK_1(PauseLayer::returnToGame, this));
-	btnReturnToGame->setPosition(Point(180, 160));
-	//重置按钮
-	auto btnResetGame = MenuItemImage::create();
-	btnResetGame->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_replay.png"));
-	btnResetGame->setCallback(CC_CALLBACK_1(PauseLayer::resetGame, this));
-	btnResetGame->setPosition(Point(0, 100));
-	//主界面按钮
-	auto btnReturnToHome = MenuItemImage::create();
-	btnReturnToHome->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_return.png"));
-	btnReturnToHome->setCallback(CC_CALLBACK_1(PauseLayer::returnToHome, this));
-	btnReturnToHome->setPosition(Point::ZERO);
-	//静音按钮
-	btnMuteSounds = MenuItemImage::create();
-	if (soundFlag)
-	{
-		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_off.png"));
-	} 
-	else
-	{
-		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_on.png"));
-	}
-	btnMuteSounds->setCallback(CC_CALLBACK_1(PauseLayer::muteSound, this));
-	btnMuteSounds->setPosition(Point(0, -100));
-
-	auto menu = Menu::create(btnReturnToGame, btnResetGame, btnReturnToHome, btnMuteSounds, NULL);
-	menu->setPosition(Point::ZERO);
-
-	auto node = Node::create();
-	node->addChild(pauseBg);
-	node->addChild(menu);
-	node->setPosition(Point(visibleSize.width / 2, visibleSize.height + 400));
-
-	this->addChild(node, 100, NODETAG);
+	//auto cache = SpriteFrameCache::getInstance();
+	//cache->addSpriteFramesWithFile("ui_pause.plist", "ui_pause.png");
+	//cache->addSpriteFramesWithFile("ui_common.plist", "ui_common.png");
     
-    //获得窗体大小
-	Size winSize = Director::getInstance()->getWinSize();
+	//重置按钮
+	auto btnResetGame = Button::create();
+	btnResetGame->loadTextureNormal("UI/ui_btn_replay.png", UI_TEX_TYPE_LOCAL);
+	btnResetGame->addTouchEventListener(this, toucheventselector(PauseLayer::resetGame));
+	btnResetGame->setPosition(Point(-230, 180));
+    //this->addChild(btnResetGame, 100, RESETTAG);
+	//主界面按钮
+	auto btnReturnToHome = Button::create();
+	btnReturnToHome->loadTextureNormal("UI/ui_btn_home.png", UI_TEX_TYPE_LOCAL);
+	btnReturnToHome->addTouchEventListener(this, toucheventselector(PauseLayer::returnToHome));
+	btnReturnToHome->setPosition(Point(0, 180));
+    //this->addChild(btnReturnToHome, 100, HOMETAG);
+	//继续按钮
+	auto btnContinue = Button::create();
+	btnContinue->loadTextureNormal("UI/ui_btn_resume.png", UI_TEX_TYPE_LOCAL);
+	btnContinue->addTouchEventListener(this, toucheventselector(PauseLayer::returnToGame));
+	btnContinue->setPosition(Point(230, 180));
+    //this->addChild(btnContinue, 100, GAMETAG);
+    
+    auto bg = Sprite::create("UI/ui_pasue_bg.jpg");
+    bg->setAnchorPoint(Point(0.5, 0));
+    bg->setPosition(Point(0, 0));
+    
+    /*
 	//截图
 	RenderTexture* renderTexture = RenderTexture::create(visibleSize.width, visibleSize.height);
 	renderTexture->retain();
@@ -73,15 +55,26 @@ bool PauseLayer::init(Ref* pSender)
 
 	Sprite *_spr = Sprite::createWithTexture(renderTexture->getSprite()->getTexture());
 	_spr->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
-	_spr->setFlippedY(true);  //翻转
+    _spr->setFlippedY(true);  //翻转
 	_spr->setColor(Color3B::GRAY);  //颜色（变灰暗）
 	this->addChild(_spr, 90, BGTAG);
+    */
     
-    auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height / 2));
+    auto moveTo = MoveTo::create(0.3f, Point(visibleSize.width / 2, 0));
     auto easeBackInOut = EaseBackInOut::create(moveTo);
     
-	this->getChildByTag(NODETAG)->runAction(easeBackInOut);
+	//btnResetGame->runAction(easeBackInOut);
+    //btnReturnToHome->runAction(Sequence::create(DelayTime::create(0.1f), easeBackInOut->clone(), NULL));
+    //btnContinue->runAction(Sequence::create(DelayTime::create(0.2f), easeBackInOut->clone(), NULL));
     
+    auto node = Node::create();
+    node->addChild(bg);
+    node->addChild(btnContinue);
+    node->addChild(btnResetGame);
+    node->addChild(btnReturnToHome);
+    node->setPosition(Point(visibleSize.width / 2, visibleSize.height + 200));
+    node->runAction(easeBackInOut);
+    this->addChild(node, 100, NODETAG);
 	
 	return true;
 }
@@ -94,6 +87,7 @@ void PauseLayer::pauseGame(Ref* pSender)
     
     auto director = Director::getInstance();
     director->pushScene(scene);
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 void PauseLayer::returnToGame(Ref* pSender)
@@ -101,47 +95,43 @@ void PauseLayer::returnToGame(Ref* pSender)
 	//获得窗体大小
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height + 400));
+	auto moveTo = MoveTo::create(0.5f, Point(visibleSize.width / 2, visibleSize.height + 200));
 	auto easeBackInOut = EaseBackInOut::create(moveTo);
-    auto returnToGameAction = Sequence::create(easeBackInOut,CallFunc::create(CC_CALLBACK_0(PauseLayer::returnToGameCallFunc, this)), NULL);
+    auto returnToGameAction = Sequence::create(easeBackInOut, CallFunc::create(CC_CALLBACK_0(PauseLayer::returnToGameCallFunc, this)), NULL);
 	this->getChildByTag(NODETAG)->runAction(returnToGameAction);
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
 
-void PauseLayer::resetGame(Ref* pSender)
+void PauseLayer::resetGame(Ref* pSender, TouchEventType type)
 {
-    auto gameLayerNode = uiLayer->getParent();
-    log("uilayer's tag:%d", uiLayer->getTag());
-	BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
-    baseLayer->restart();
+    switch (type)
+    {
+        case TOUCH_EVENT_ENDED:
+        {
+            auto gameLayerNode = uiLayer->getParent();
+            BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
+            baseLayer->restart();
+            break;
+        }
+        default:
+            break;
+    }
 }
 
-void PauseLayer::returnToHome(Ref* pSender)
+void PauseLayer::returnToHome(Ref* pSender, TouchEventType type)
 {
-   // CC_SAFE_RELEASE(Director::getInstance()->getRunningScene());
-    Director::getInstance()->resume();
-    CCDirector::getInstance()->replaceScene(ScrollViewScene::createScene());
+    switch (type)
+    {
+        case TOUCH_EVENT_ENDED:
+        {
+            Director::getInstance()->resume();
+            CCDirector::getInstance()->replaceScene(StartScene::createScene());
+            break;
+        }
+        default:
+            break;
 
-}
-
-void PauseLayer::muteSound(Ref* pSender)
-{
-	auto audioEngine = SimpleAudioEngine::getInstance();
-	auto cache = SpriteFrameCache::getInstance();
-	auto userDefault = UserDefault::getInstance();
-	if (soundFlag)	//true表示音乐已经关闭
-	{
-		audioEngine->playBackgroundMusic("game_playing.mp3");
-		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_on.png"));
-		soundFlag = false;
-		userDefault->setBoolForKey("soundFlag", false);
-	}
-	else
-	{
-		audioEngine->stopBackgroundMusic();
-		btnMuteSounds->setNormalSpriteFrame(cache->getSpriteFrameByName("pause_music_off.png"));
-		soundFlag = true;
-		userDefault->setBoolForKey("soundFlag", true);
-	}
+    }
 }
 
 void PauseLayer::returnToGameCallFunc(){
@@ -167,7 +157,6 @@ PauseLayer* PauseLayer::create(Ref* pSender)
 PauseLayer::PauseLayer(void)
 {
 	uiLayer = NULL;
-	soundFlag = UserDefault::getInstance()->getBoolForKey("soundFlag");
 }
 
 

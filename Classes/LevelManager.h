@@ -42,7 +42,16 @@ enum LevelNum{
     level25 = 25,
     level26 = 26,
     level27 = 27,
-    level28 = 28,    
+    level28 = 28,
+    level29 = 29,
+    level30 = 30,
+    level31 = 31,
+    level32 = 32,
+    level33 = 33,
+    level34 = 34,
+    level35 = 35,
+    level36 = 36,
+    level39 = 39,
     finalLevel,
 };
 

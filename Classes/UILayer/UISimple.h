@@ -5,16 +5,17 @@
 #include "ShopLayer.h"
 #include "FailureLayer.h"
 #include "SuccessLayer.h"
-
+#include "ui/CocosGUI.h"
 #include "ItemLayer.h"
 USING_NS_CC;
+using namespace ui;
 class UISimple : public Layer
 {
 public:
 	virtual bool init();
 	CREATE_FUNC(UISimple);
     
-	void btnPauseCallBack(Ref* pSender);
+	void btnPauseCallBack(Ref* pSender, TouchEventType type);
     
 	//暂停游戏界面
 	PauseLayer* pauseLayer;

@@ -14,7 +14,7 @@
 SuccessLayer::SuccessLayer(){}
 SuccessLayer::~SuccessLayer(){}
 
-bool SuccessLayer::init(Ref* pSender,std::string passTip){
+bool SuccessLayer::init(Ref* pSender){
     if (!Layer::init()) {
         return false;
     }
@@ -29,67 +29,41 @@ bool SuccessLayer::init(Ref* pSender,std::string passTip){
     
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("ui_result.plist");
     
-    auto bg = Sprite::createWithSpriteFrameName("result_bg_pass.png");
-    bg->setPosition(winSize.width/2,winSize.height/2+230);
+    auto bg = Sprite::create("UI/ui_success_bg.png");
+    bg->setPosition(winSize.width/2,winSize.height/2);
     controllNode->addChild(bg,1);
     
-    auto fg_fail = Sprite::createWithSpriteFrameName("result_fg_pass.png");
-    fg_fail->setPosition(winSize.width/2,winSize.height/2+150);
-    controllNode->addChild(fg_fail,1);
-    
-    auto frame = Sprite::createWithSpriteFrameName("result_frame.png");
-    frame->setPosition(winSize.width/2,winSize.height/2+200);
-    controllNode->addChild(frame,5);
-    
-    auto bottomBg = Sprite::createWithSpriteFrameName("result_bottom_bg.png");
-    bottomBg->setPosition(Point(winSize.width/2, winSize.height/2-100));
-    controllNode->addChild(bottomBg,0);
-    
-    auto lose = Sprite::createWithSpriteFrameName("result_win.png");
-    lose->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-    lose->setPosition(winSize.width/2,winSize.height/2+450);
-    controllNode->addChild(lose,6);
-    
     //相关摁钮
-    auto nextBtn = MenuItemSprite::create(Sprite::createWithSpriteFrameName("result_btn_next.png"),
-                                          Sprite::createWithSpriteFrameName("result_btn_next.png"),
-                                          CC_CALLBACK_0(SuccessLayer::nextCallback, this));
-    nextBtn->setAnchorPoint(Point::ANCHOR_TOP_RIGHT);
-    nextBtn->setPosition(Point(winSize.width/2-90,winSize.height/2-40));
-   // controllNode->addChild(nextBtn,1);
-    
-    auto restartBtn = MenuItemSprite::create(Sprite::createWithSpriteFrameName("result_btn_replay.png"),
-                                             Sprite::createWithSpriteFrameName("result_btn_replay.png"),
-                                             CC_CALLBACK_0(SuccessLayer::restartCallBack, this));
-    restartBtn->setAnchorPoint(Point::ANCHOR_TOP_LEFT);
-    restartBtn->setPosition(Point(winSize.width/2+90,winSize.height/2-40));
-   // controllNode->addChild(restartBtn,1);
-    
-    auto shareBtn = MenuItemSprite::create(Sprite::createWithSpriteFrameName("result_btn_share.png"),
-                                           Sprite::createWithSpriteFrameName("result_btn_share.png"),
-                                           CC_CALLBACK_0(SuccessLayer::shareCallBack, this));
-    shareBtn->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-    shareBtn->setPosition(Point(winSize.width/2,winSize.height/2-40));
-   // controllNode->addChild(shareBtn,1);
-    
-    auto m_Menu = Menu::create(nextBtn,shareBtn,restartBtn, NULL);
-    m_Menu->setPosition(Point::ZERO);
-    controllNode->addChild(m_Menu,4);
-    
-    auto arrow = Sprite::createWithSpriteFrameName("result_arrow.png");
-    arrow->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-    arrow->setPosition(Point(winSize.width/2-75,winSize.height/2-150));
-    controllNode->addChild(arrow,4);
-    
-    //添加提示
-    auto m_string = LabelTTF::create(passTip, "", 25,Size(400,200));
-    m_string->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
-    m_string->setColor(Color3B(0, 0, 0));
-    m_string ->setPosition(Point(winSize.width/2, winSize.height/2-200));
-    controllNode->addChild(m_string,4);
-    
 
-//    auto starAction = RepeatForever::create(starSequence);
+    Button* nextBtn = Button::create();
+    nextBtn->loadTextureNormal("UI/ui_btn_next.png",UI_TEX_TYPE_LOCAL);
+    nextBtn->setTouchEnabled(true);
+    nextBtn->addTouchEventListener(this, toucheventselector(SuccessLayer::nextCallback));
+    //nextBtn->setAnchorPoint(Point::ZERO);
+    nextBtn->setPosition(Point(593,228));
+    controllNode->addChild(nextBtn,1);
+    
+    Button* returnBtn = Button::create();
+    returnBtn->loadTextureNormal("UI/ui_btn_home.png",UI_TEX_TYPE_LOCAL);
+    returnBtn->setTouchEnabled(true);
+    returnBtn->addTouchEventListener(this, toucheventselector(SuccessLayer::homeCallBack));
+    //returnBtn->setAnchorPoint(Point::ZERO);
+    returnBtn->setPosition(Point(174,228));
+    controllNode->addChild(returnBtn,1);
+    
+    Button* shareBtn = Button::create();
+    shareBtn->loadTextureNormal("UI/ui_btn_share.png",UI_TEX_TYPE_LOCAL);
+    shareBtn->setTouchEnabled(true);
+    shareBtn->addTouchEventListener(this, toucheventselector(SuccessLayer::shareCallBack));
+    //shareBtn->setAnchorPoint(Point::ZERO);
+    shareBtn->setPosition(Point(389,192));
+    controllNode->addChild(shareBtn,1);
+    
+//    auto arrow = Sprite::createWithSpriteFrameName("result_arrow.png");
+//    arrow->setAnchorPoint(Point::ANCHOR_MIDDLE_TOP);
+//    arrow->setPosition(Point(winSize.width/2-75,winSize.height/2-150));
+//    controllNode->addChild(arrow,4);
+    
     
     star1 = Sprite::createWithSpriteFrameName("result_star.png");
     star1->setPosition(winSize.width/2-120, winSize.height/2);
@@ -140,39 +114,67 @@ void SuccessLayer::setString(std::string m_string){
     setTip(m_string);
 }
 
-void SuccessLayer::nextCallback(){
-    auto gameLayerNode = uiLayer->getParent();
-	BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
-    baseLayer->nextLevel();
+void SuccessLayer::nextCallback(Ref* pSender,TouchEventType type){
+    switch (type) {
+            
+        case  cocos2d::ui::TOUCH_EVENT_ENDED:
+            
+        {    auto gameLayerNode = uiLayer->getParent();
+            BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
+            baseLayer->nextLevel();
+            
+            break;}
+            
+        default:
+            break;
+    }
 }
 
-void SuccessLayer::shareCallBack(){
-    
+void SuccessLayer::shareCallBack(Ref* pSender,TouchEventType type){
+    switch (type) {
+            
+        case  cocos2d::ui::TOUCH_EVENT_ENDED:
+            
+        {
+            
+            break;}
+            
+        default:
+            break;
+    }
 }
 
-void SuccessLayer::restartCallBack(){
-    auto gameLayerNode = uiLayer->getParent();
-	BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
-    baseLayer->restart();
+void SuccessLayer::homeCallBack(Ref* pSender,TouchEventType type){
+    switch (type) {
+            
+        case  cocos2d::ui::TOUCH_EVENT_ENDED:
+            
+        {    auto gameLayerNode = uiLayer->getParent();
+            BaseLayer* baseLayer = (BaseLayer*)gameLayerNode;
+            baseLayer->restart();
+            
+            break;}
+            
+        default:
+            break;
+    }
 }
 
-void SuccessLayer::pushLayer(Ref* pSender,int starNum,std::string passTip){
+void SuccessLayer::pushLayer(Ref* pSender,int starNum){
     
 
     auto scene = Scene::create();
-    auto tipLayer = SuccessLayer::create(pSender,passTip);
+    auto tipLayer = SuccessLayer::create(pSender);
     tipLayer->showStar(starNum);
     scene->addChild(tipLayer);
     Director::getInstance()->pushScene(scene);
     
-    log("SuccessLayer::pushLayer");
-
 }
 
-SuccessLayer* SuccessLayer::create(Ref* pSender,std::string passTip)
+SuccessLayer* SuccessLayer::create(Ref* pSender)
 {
     SuccessLayer *pRet = new SuccessLayer();
-    if (pRet && pRet->init(pSender,passTip))
+    if (pRet && pRet->init(pSender))
     {
         pRet->autorelease();
         return pRet;

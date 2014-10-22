@@ -7,8 +7,8 @@
 //
 
 #include "LevelManager.h"
-#include "../game.h"
-#include "../StartScene.h"
+#include "game.h"
+#include "StartScene.h"
 
 bool LevelManager::init(){
     return true;
@@ -58,11 +58,40 @@ void LevelManager::replaceScene(LevelNum pLevelNum){
         case level26:
             Director::getInstance()->replaceScene(GameScene26::createScene());
             break;
-            case level27:
+        case level27:
             Director::getInstance()->replaceScene(GameScene27::createScene());
             break;
-            case level28:
+        case level28:
             Director::getInstance()->replaceScene(GameScene28::createScene());
+            break;
+            
+            case level29:
+            break;
+            
+            case level30:
+            Director::getInstance()->replaceScene(GameScene30::createScene());
+            break;
+            
+        case level31:
+            Director::getInstance()->replaceScene(GameScene31::createScene());
+            break;
+        case level32:
+            Director::getInstance()->replaceScene(GameScene32::createScene());
+            break;
+        case level33:
+            Director::getInstance()->replaceScene(GameScene33::createScene());
+            break;
+        case level34:
+            Director::getInstance()->replaceScene(GameScene33::createScene());
+            break;
+        case level35:
+            Director::getInstance()->replaceScene(GameScene33::createScene());
+            break;
+        case level36:
+            Director::getInstance()->replaceScene(GameScene36::createScene());
+            break;
+        case level39:
+            Director::getInstance()->replaceScene(GameScene39::createScene());
             break;
         case finalLevel:
             Director::getInstance()->replaceScene(StartScene::createScene());
